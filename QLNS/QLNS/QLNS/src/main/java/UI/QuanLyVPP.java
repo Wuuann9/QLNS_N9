@@ -45,56 +45,55 @@ public class QuanLyVPP extends javax.swing.JFrame {
     /**
      * Creates new form QuanLySach
      */
-        private String MaHD=null;
-        private String MaNV= null;
-        private DefaultTableModel dtmVPP ;
-	private ArrayList<NhaCungCap_VPP> dsncc = null;
-        private ArrayList<VPP> dsChung = null;
-        private ArrayList<VPP> dsNCC = null;
-	private ArrayList<VPP> dsVPP = null;
-	private ArrayList<VPP> dssDanhMuc = null;
-	private ArrayList<VPP> dss_tenVPP = null;
-	
+    private String MaHD = null;
+    private String MaNV = null;
+    private DefaultTableModel dtmVPP;
+    private ArrayList<NhaCungCap_VPP> dsncc = null;
+    private ArrayList<VPP> dsChung = null;
+    private ArrayList<VPP> dsNCC = null;
+    private ArrayList<VPP> dsVPP = null;
+    private ArrayList<VPP> dssDanhMuc = null;
+    private ArrayList<VPP> dss_tenVPP = null;
+
     public QuanLyVPP(String title, String maNV) {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
         this.setTitle(title);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
-        MaNV=maNV;
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        MaNV = maNV;
         hienThiToanBoVPP();
         hienThiToanBoNhaCungCap();
     }
-    
-   private void hienThiToanBoVPP() {
+
+    private void hienThiToanBoVPP() {
         VanPhongPham_Connect vppConn = new VanPhongPham_Connect();
         dsVPP = vppConn.layToanBoVPP();
         dtmVPP = new DefaultTableModel();
-        dtmVPP.addColumn("Mã VPP");     
+        dtmVPP.addColumn("Mã VPP");
         dtmVPP.addColumn("Tên VPP");
         dtmVPP.addColumn("Tên NCCVPP");
-        dtmVPP.addColumn("Danh Mục");      
+        dtmVPP.addColumn("Danh Mục");
         dtmVPP.addColumn("Số lượng");
         dtmVPP.addColumn("Giá Bán (VNĐ)");
         dtmVPP.addColumn("Giảm Giá (%)");
         dtmVPP.setRowCount(0);
-        for (VPP vpp : dsVPP){
+        for (VPP vpp : dsVPP) {
             Vector<Object> vec = new Vector<Object>();
-            vec.add(vpp.getMaVPP());          
+            vec.add(vpp.getMaVPP());
             vec.add(vpp.getTenVPP());
             vec.add(vpp.getMaNCC());
             vec.add(vpp.getDanhMuc());
             vec.add(vpp.getSoLuong());
             vec.add(vpp.getGiaBan());
-            
+
             vec.add(vpp.getDiscount());
-            dtmVPP.addRow(vec);	
+            dtmVPP.addRow(vec);
         }
         jTable_VPP.setModel(dtmVPP);
         jButton_ThemTuExcel.setEnabled(false);
     }
- 
-      
+
     private void hienThiToanBoNhaCungCap() {
         NhaCungCapVPP_Connect nccconn = new NhaCungCapVPP_Connect();
 
@@ -106,18 +105,17 @@ public class QuanLyVPP extends javax.swing.JFrame {
         ncc_vpp.setTenNCCVPP("Tất cả");
 
         NCCInput.addItem(ncc_vpp);
-        for(NhaCungCap_VPP s : dsncc) {
+        for (NhaCungCap_VPP s : dsncc) {
             NCCInput.addItem(s);
             NCCInput_TangGia.addItem(s);
-        }      
+        }
     }
-      
+
     public static boolean isNumeric(String string) {
         int intValue;
 
         //System.out.println(String.format("Parsing string: \"%s\"", string));
-
-        if(string == null || string.equals("")) {
+        if (string == null || string.equals("")) {
             //System.out.println("String cannot be parsed, it is null or empty.");
             return false;
         }
@@ -130,25 +128,24 @@ public class QuanLyVPP extends javax.swing.JFrame {
         }
         return false;
     }
-         
+
     public static boolean isNumeric_Double(String string) {
-    double intValue;
-	
-    //System.out.println(String.format("Parsing string: \"%s\"", string));
-		
-    if(string == null || string.equals("")) {
-        //System.out.println("String cannot be parsed, it is null or empty.");
+        double intValue;
+
+        //System.out.println(String.format("Parsing string: \"%s\"", string));
+        if (string == null || string.equals("")) {
+            //System.out.println("String cannot be parsed, it is null or empty.");
+            return false;
+        }
+
+        try {
+            intValue = Double.parseDouble(string);
+            return true;
+        } catch (NumberFormatException e) {
+            //System.out.println("Input String cannot be parsed to Integer.");
+        }
         return false;
     }
-    
-    try {
-        intValue = Double.parseDouble(string);
-        return true;
-    } catch (NumberFormatException e) {
-        //System.out.println("Input String cannot be parsed to Integer.");
-    }
-    return false;
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,12 +177,6 @@ public class QuanLyVPP extends javax.swing.JFrame {
         TKInput_GiaBan = new javax.swing.JTextField();
         jLabel_Discount = new javax.swing.JLabel();
         TKInput_Discount = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel_Discount1 = new javax.swing.JLabel();
-        TKInput_UpdateAllPrice = new javax.swing.JTextField();
-        jButton_Accpet_Search = new javax.swing.JButton();
-        jButton_Cancel = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel_Discount2 = new javax.swing.JLabel();
         TKInput_UpdateAllPriceNCC = new javax.swing.JTextField();
@@ -292,62 +283,6 @@ public class QuanLyVPP extends javax.swing.JFrame {
         jLabel_Discount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel_Discount.setText("Giảm Giá");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jLabel_Discount1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel_Discount1.setText("Tăng giá theo tìm kiếm");
-
-        jButton_Accpet_Search.setText("OK");
-        jButton_Accpet_Search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_Accpet_SearchActionPerformed(evt);
-            }
-        });
-
-        jButton_Cancel.setText("X");
-        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CancelActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Giá:");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TKInput_UpdateAllPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_Accpet_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel_Discount1)
-                .addGap(65, 65, 65))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel_Discount1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TKInput_UpdateAllPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Accpet_Search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel_Discount.setIcon(new ImageIcon("images/discount_28px.png"));
-
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel_Discount2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -397,7 +332,7 @@ public class QuanLyVPP extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(jLabel_Discount2)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -504,7 +439,6 @@ public class QuanLyVPP extends javax.swing.JFrame {
                             .addComponent(TKInput_MaVPP, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel_SoLuong, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel_TheLoai, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel_GiaBan, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -512,20 +446,22 @@ public class QuanLyVPP extends javax.swing.JFrame {
                 .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel_DataLayout.createSequentialGroup()
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(TKInput_SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TKInput_DoanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TKInput_GiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(61, 61, 61)
+                        .addGap(49, 49, 49)
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel_DataLayout.createSequentialGroup()
                                 .addComponent(jLabel_Discount)
-                                .addGap(42, 42, 42)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TKInput_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel_DataLayout.createSequentialGroup()
+                                .addComponent(jLabel_SoLuong)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TKInput_SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(90, 90, 90))
                     .addGroup(jPanel_DataLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)))
-                .addGap(45, 45, 45))
+                        .addGap(89, 89, 89))))
         );
         jPanel_DataLayout.setVerticalGroup(
             jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,37 +469,31 @@ public class QuanLyVPP extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_DataLayout.createSequentialGroup()
-                        .addComponent(jLabel_GiaBan)
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel_TheLoai)
-                            .addComponent(TKInput_DoanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel_TenSach, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(TKInput_TenVPP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(TKInput_SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel_SoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel_DataLayout.createSequentialGroup()
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel_MaSach)
                             .addComponent(TKInput_MaVPP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(TKInput_GiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel_Discount)
-                                .addComponent(TKInput_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(TKInput_SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel_SoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel_MaNXB)
+                            .addComponent(NCCInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel_DataLayout.createSequentialGroup()
+                        .addComponent(jLabel_GiaBan)
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel_TheLoai)
+                            .addComponent(TKInput_DoanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Discount)
+                            .addComponent(TKInput_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel_DataLayout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel_MaNXB)
-                                    .addComponent(NCCInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel_DataLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(18, 18, 18)
+                            .addComponent(jLabel_TenSach, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(TKInput_TenVPP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -796,15 +726,14 @@ public class QuanLyVPP extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     //Chỉnh sửa, cập nhật sách
     private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ChinhSuaActionPerformed
         // TODO add your handling code here:
-        if(TKInput_MaVPP.getText().length()==0 ||  
-            TKInput_TenVPP.getText().length()==0  || TKInput_GiaBan.getText().length()==0 ||
-            TKInput_DoanhMuc.getText().length()==0 || TKInput_SoLuong.getText().length()==0 || TKInput_Discount.getText().length()==0) {
-            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu !","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (TKInput_MaVPP.getText().length() == 0
+                || TKInput_TenVPP.getText().length() == 0 || TKInput_GiaBan.getText().length() == 0
+                || TKInput_DoanhMuc.getText().length() == 0 || TKInput_SoLuong.getText().length() == 0 || TKInput_Discount.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu !", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         NhaCungCap_VPP ncc = (NhaCungCap_VPP) NCCInput.getSelectedItem();
         VPP vp = new VPP();
@@ -812,74 +741,69 @@ public class QuanLyVPP extends javax.swing.JFrame {
         vp.setTenVPP(TKInput_TenVPP.getText());
         vp.setMaNCC(ncc.getMaNCCVPP());
         vp.setDanhMuc(TKInput_DoanhMuc.getText());
-        if (!isNumeric_Double(TKInput_GiaBan.getText()) || !isNumeric(TKInput_SoLuong.getText()) || !isNumeric(TKInput_Discount.getText()))
-        {
-            JOptionPane.showMessageDialog(this, "Giá bán, Số lượng hoặc Giảm giá đã nhập sai định dạng !\n Vui lòng thử lại !","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (!isNumeric_Double(TKInput_GiaBan.getText()) || !isNumeric(TKInput_SoLuong.getText()) || !isNumeric(TKInput_Discount.getText())) {
+            JOptionPane.showMessageDialog(this, "Giá bán, Số lượng hoặc Giảm giá đã nhập sai định dạng !\n Vui lòng thử lại !", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        vp.setGiaBan(Double.parseDouble(TKInput_GiaBan.getText()));				
+        vp.setGiaBan(Double.parseDouble(TKInput_GiaBan.getText()));
         vp.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText()));
         vp.setDiscount(Integer.parseInt(TKInput_Discount.getText()));
         VanPhongPham_Connect vpc = new VanPhongPham_Connect();
         int active = vpc.Update(vp);
-        if (active>0)
-        {
-                JOptionPane.showMessageDialog(null, "Chỉnh sửa thông tin thành công");
-        }
-        else 
-        {
-                JOptionPane.showMessageDialog(null, "Chỉnh sửa thất bại");
+        if (active > 0) {
+            JOptionPane.showMessageDialog(null, "Chỉnh sửa thông tin thành công");
+        } else {
+            JOptionPane.showMessageDialog(null, "Chỉnh sửa thất bại");
         }
         hienThiToanBoVPP();
     }//GEN-LAST:event_jButton_ChinhSuaActionPerformed
 
-    
     //Thêm
     private void jButton_ThemVPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemVPPActionPerformed
         // TODO add your handling code here: 
-        if(TKInput_MaVPP.getText().length()==0 ||  
-            TKInput_TenVPP.getText().length()==0  || TKInput_GiaBan.getText().length()==0 ||
-            TKInput_DoanhMuc.getText().length()==0 || TKInput_SoLuong.getText().length()==0 || TKInput_Discount.getText().length()==0) {
-            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu !","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (TKInput_MaVPP.getText().length() == 0
+                || TKInput_TenVPP.getText().length() == 0 || TKInput_GiaBan.getText().length() == 0
+                || TKInput_DoanhMuc.getText().length() == 0 || TKInput_SoLuong.getText().length() == 0 || TKInput_Discount.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu !", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
         NhaCungCap_VPP np = (NhaCungCap_VPP) NCCInput.getSelectedItem();
         VPP vp = new VPP();
-        for (VPP vpp_check : dsVPP){
-            if(vpp_check.getMaVPP().equals(TKInput_MaVPP.getText())){
-                JOptionPane.showMessageDialog(this, "Văn phòng phẩm đã tồn tại","Error", JOptionPane.WARNING_MESSAGE);
+        for (VPP vpp_check : dsVPP) {
+            if (vpp_check.getMaVPP().equals(TKInput_MaVPP.getText())) {
+                JOptionPane.showMessageDialog(this, "Văn phòng phẩm đã tồn tại", "Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-        } 
+        }
         vp.setMaVPP(TKInput_MaVPP.getText());
         vp.setTenVPP(TKInput_TenVPP.getText());
         vp.setMaNCC(np.getMaNCCVPP());
         vp.setDanhMuc(TKInput_DoanhMuc.getText());
-        if (!isNumeric_Double(TKInput_GiaBan.getText()) || !isNumeric(TKInput_SoLuong.getText()) || !isNumeric(TKInput_Discount.getText())){
-            JOptionPane.showMessageDialog(this, "Giá bán, Số lượng hoặc Giảm giá đã nhập sai định dạng !\n Vui lòng thử lại !","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (!isNumeric_Double(TKInput_GiaBan.getText()) || !isNumeric(TKInput_SoLuong.getText()) || !isNumeric(TKInput_Discount.getText())) {
+            JOptionPane.showMessageDialog(this, "Giá bán, Số lượng hoặc Giảm giá đã nhập sai định dạng !\n Vui lòng thử lại !", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         vp.setGiaBan(Double.parseDouble(TKInput_GiaBan.getText()));
 
         vp.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText()));
         vp.setDiscount(Integer.parseInt(TKInput_Discount.getText()));
 
-        int x =JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn thêm văn phòng phẩm này ?", "Xác nhận thêm",JOptionPane.OK_CANCEL_OPTION);
-        if(x==JOptionPane.OK_OPTION){
-            xuLyThemMoi(vp);	
-        }
-        else return;
+        int x = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn thêm văn phòng phẩm này ?", "Xác nhận thêm", JOptionPane.OK_CANCEL_OPTION);
+        if (x == JOptionPane.OK_OPTION) {
+            xuLyThemMoi(vp);
+        } else
+            return;
     }//GEN-LAST:event_jButton_ThemVPPActionPerformed
 
     protected void xuLyThemMoi(VPP vp) {
         VanPhongPham_Connect themvpp = new VanPhongPham_Connect();
         int active = themvpp.themMoi(vp);
-        if(active > 0 ){
+        if (active > 0) {
             JOptionPane.showMessageDialog(null, "Thêm mới thành công");
             TaoHDVaCTHD();
             TKInput_MaVPP.setText("");
-            TKInput_TenVPP.setText("");	
+            TKInput_TenVPP.setText("");
 
             TKInput_GiaBan.setText("");
             TKInput_DoanhMuc.setText("");
@@ -887,25 +811,28 @@ public class QuanLyVPP extends javax.swing.JFrame {
             TKInput_Discount.setText("");
             TKInput_MaVPP.requestFocus();
             hienThiToanBoVPP();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Thêm mới thất bại");
         }
-		
+
     }
-    
-    private void TaoHDVaCTHD(){
+
+    private void TaoHDVaCTHD() {
         String HD = "HD";
         //tạo hóa đơn với mã hóa đơn mới tính từ hóa đơn cuối cùng
         HoaDon_Connect tHD = new HoaDon_Connect();
         CTHD_Connect cthd = new CTHD_Connect();
         String lastmahd = tHD.LastMaHD();
-        if (lastmahd==null) MaHD= "HD01";
-        else {
-            int sohd = Integer.parseInt(lastmahd.substring(2))+1; //bỏ đi hai chữ "HD" và công thêm 1 vào hai số phía sau
-            if (sohd<10) MaHD = HD+"0"+String.valueOf(sohd);
-            else MaHD = HD+String.valueOf(sohd);
-        }    
+        if (lastmahd == null) {
+            MaHD = "HD01";
+        } else {
+            int sohd = Integer.parseInt(lastmahd.substring(2)) + 1; //bỏ đi hai chữ "HD" và công thêm 1 vào hai số phía sau
+            if (sohd < 10) {
+                MaHD = HD + "0" + String.valueOf(sohd);
+            } else {
+                MaHD = HD + String.valueOf(sohd);
+            }
+        }
         System.out.println(MaHD);
         System.out.println(MaNV);
         HoaDon hd = new HoaDon();
@@ -916,22 +843,21 @@ public class QuanLyVPP extends javax.swing.JFrame {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(date);
         hd.setNgaylap(currentTime);
-        hd.setTongTien(Double.parseDouble(TKInput_GiaBan.getText())*Double.parseDouble(TKInput_SoLuong.getText()) );
+        hd.setTongTien(Double.parseDouble(TKInput_GiaBan.getText()) * Double.parseDouble(TKInput_SoLuong.getText()));
         hd.setTrangThai(0);
         hd.setNhapSach(1);
-        tHD.TaoHD(hd); 
-    //        
+        tHD.TaoHD(hd);
+        //        
         CTHD ct = new CTHD();
         ct.setMaHD(MaHD);
         ct.setMaSP(TKInput_MaVPP.getText());
         ct.setDonGia(Double.parseDouble(TKInput_GiaBan.getText()));
         ct.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText()));
-        ct.setThanhTien(Double.parseDouble(TKInput_GiaBan.getText())*Double.parseDouble(TKInput_SoLuong.getText()) );
+        ct.setThanhTien(Double.parseDouble(TKInput_GiaBan.getText()) * Double.parseDouble(TKInput_SoLuong.getText()));
         CTHD_Connect ctCon = new CTHD_Connect();
         ctCon.ThemCT(ct);
-   }
-    
-    
+    }
+
     //Tìm kiếm VPP
     private void jButton_SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SearchMouseClicked
         // TODO add your handling code here:
@@ -942,14 +868,15 @@ public class QuanLyVPP extends javax.swing.JFrame {
         dssDanhMuc = vpc.laySachTheoDanhMuc(dm);
         dsChung = vpc.laySachTheoDanhMucVaTenVPP(dm, ten);
         //show all data
-        if (TK_TenVPPInput.getText().length()==0 && TK_DanhMucInput.getText().length()==0)
+        if (TK_TenVPPInput.getText().length() == 0 && TK_DanhMucInput.getText().length() == 0) {
             hienThiToanBoVPP();
+        }
         //tìm kiếm theo tên VPP
-        if (TK_TenVPPInput.getText().length()!= 0 && TK_DanhMucInput.getText().length()==0){
+        if (TK_TenVPPInput.getText().length() != 0 && TK_DanhMucInput.getText().length() == 0) {
             dtmVPP.setRowCount(0);
-            for(VPP vpp : dss_tenVPP){
+            for (VPP vpp : dss_tenVPP) {
                 Vector<Object> vec = new Vector<Object>();
-                vec.add(vpp.getMaVPP());          
+                vec.add(vpp.getMaVPP());
                 vec.add(vpp.getTenVPP());
                 vec.add(vpp.getMaNCC());
                 vec.add(vpp.getDanhMuc());
@@ -957,66 +884,60 @@ public class QuanLyVPP extends javax.swing.JFrame {
                 vec.add(vpp.getGiaBan());
 
                 vec.add(vpp.getDiscount());
-            dtmVPP.addRow(vec);	
+                dtmVPP.addRow(vec);
+            }
+        } //Tìm kiếm theo tên VPP và danh mục
+        else if (TK_TenVPPInput.getText().length() != 0 && TK_DanhMucInput.getText().length() != 0) {
+
+            dtmVPP.setRowCount(0);
+            for (VPP vpp : dsChung) {
+                Vector<Object> vec = new Vector<Object>();
+                vec.add(vpp.getMaVPP());
+                vec.add(vpp.getTenVPP());
+                vec.add(vpp.getMaNCC());
+                vec.add(vpp.getDanhMuc());
+                vec.add(vpp.getSoLuong());
+                vec.add(vpp.getGiaBan());
+
+                vec.add(vpp.getDiscount());
+                dtmVPP.addRow(vec);
+            }
+
+        } //tìm kiếm theo danh mục
+        else if (TK_TenVPPInput.getText().length() == 0 && TK_DanhMucInput.getText().length() != 0) {
+            dtmVPP.setRowCount(0);
+            for (VPP vpp : dssDanhMuc) {
+                Vector<Object> vec = new Vector<Object>();
+                vec.add(vpp.getMaVPP());
+                vec.add(vpp.getTenVPP());
+                vec.add(vpp.getMaNCC());
+                vec.add(vpp.getDanhMuc());
+                vec.add(vpp.getSoLuong());
+                vec.add(vpp.getGiaBan());
+
+                vec.add(vpp.getDiscount());
+                dtmVPP.addRow(vec);
             }
         }
-        //Tìm kiếm theo tên VPP và danh mục
-        else if (TK_TenVPPInput.getText().length()!= 0 && TK_DanhMucInput.getText().length()!=0){
-            
-            dtmVPP.setRowCount(0);
-            for(VPP vpp : dsChung){
-                Vector<Object> vec = new Vector<Object>();
-                vec.add(vpp.getMaVPP());          
-                vec.add(vpp.getTenVPP());
-                vec.add(vpp.getMaNCC());
-                vec.add(vpp.getDanhMuc());
-                vec.add(vpp.getSoLuong());
-                vec.add(vpp.getGiaBan());
-
-                vec.add(vpp.getDiscount());
-                dtmVPP.addRow(vec);	
-            }
-
-            
-        }
-        //tìm kiếm theo danh mục
-        else if (TK_TenVPPInput.getText().length()== 0 && TK_DanhMucInput.getText().length()!=0){
-            dtmVPP.setRowCount(0);
-            for(VPP vpp : dssDanhMuc){
-                Vector<Object> vec = new Vector<Object>();
-                vec.add(vpp.getMaVPP());          
-                vec.add(vpp.getTenVPP());
-                vec.add(vpp.getMaNCC());
-                vec.add(vpp.getDanhMuc());
-                vec.add(vpp.getSoLuong());
-                vec.add(vpp.getGiaBan());
-
-                vec.add(vpp.getDiscount());
-                dtmVPP.addRow(vec);	
-            }
-	}
     }//GEN-LAST:event_jButton_SearchMouseClicked
 
-    
     //Xoá
     private void jButton_XoaVPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaVPPActionPerformed
-         //TODO add your handling code here:
+        //TODO add your handling code here:
         int select = jTable_VPP.getSelectedRow();
-        if(select==-1)  {
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn văn phòng phẩm muốn xoá","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (select == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn văn phòng phẩm muốn xoá", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         String maVPP = (String) jTable_VPP.getValueAt(select, 0);
         //JOptionPane.showMessageDialog(null,jTable_Books.getValueAt(select, 0) );
         int active = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa ?", "Xác Nhận Xóa", JOptionPane.OK_CANCEL_OPTION);
-        if(active==JOptionPane.OK_OPTION)
-        {
-                xuLyXoa(maVPP);
-                //JOptionPane.showMessageDialog(null,maSach );
+        if (active == JOptionPane.OK_OPTION) {
+            xuLyXoa(maVPP);
+            //JOptionPane.showMessageDialog(null,maSach );
         }
     }//GEN-LAST:event_jButton_XoaVPPActionPerformed
 
-    
     //Nhập lại
     private void jButton_NhapLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapLaiActionPerformed
         // TODO add your handling code here:
@@ -1030,142 +951,47 @@ public class QuanLyVPP extends javax.swing.JFrame {
         TKInput_Discount.setText("");
         TKInput_MaVPP.requestFocus();
     }//GEN-LAST:event_jButton_NhapLaiActionPerformed
-    
+
     //Get selected row
     private void jTable_VPPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_VPPMouseClicked
         // TODO add your handling code here:
 
         int select = jTable_VPP.getSelectedRow();
         NhaCungCapVPP_Connect ncc_con = new NhaCungCapVPP_Connect();
-        if(select==-1) return ;
+        if (select == -1) {
+            return;
+        }
 
         //lấy thông tin trong table
         VPP vp = new VPP();
-        vp.setMaVPP((String) jTable_VPP.getValueAt(select, 0)+"");
+        vp.setMaVPP((String) jTable_VPP.getValueAt(select, 0) + "");
         //s.setMaNXB((String) jTable_Books.getValueAt(select, 1));
         //nxb.setMaNXB((String) jTable_Books.getValueAt(select, 1));
 
-        vp.setTenVPP((String) jTable_VPP.getValueAt(select, 1)+"");
-        vp.setDanhMuc((String) jTable_VPP.getValueAt(select, 3)+"");
+        vp.setTenVPP((String) jTable_VPP.getValueAt(select, 1) + "");
+        vp.setDanhMuc((String) jTable_VPP.getValueAt(select, 3) + "");
 
-        vp.setSoLuong( Integer.parseInt(jTable_VPP.getValueAt(select, 4)+""));
-        vp.setGiaBan( Double.parseDouble(jTable_VPP.getValueAt(select, 5)+""));
-        vp.setDiscount(Integer.parseInt(jTable_VPP.getValueAt(select, 6)+""));
-            //System.out.println(vp.getGiaBan());
+        vp.setSoLuong(Integer.parseInt(jTable_VPP.getValueAt(select, 4) + ""));
+        vp.setGiaBan(Double.parseDouble(jTable_VPP.getValueAt(select, 5) + ""));
+        vp.setDiscount(Integer.parseInt(jTable_VPP.getValueAt(select, 6) + ""));
+        //System.out.println(vp.getGiaBan());
 
         //đưa thông tin lên panelTop
         TKInput_MaVPP.setText(vp.getMaVPP());
 
-
         TKInput_TenVPP.setText(vp.getTenVPP());
 
-        TKInput_GiaBan.setText(vp.getGiaBan()+"");
+        TKInput_GiaBan.setText(vp.getGiaBan() + "");
         TKInput_DoanhMuc.setText(vp.getDanhMuc());
-        TKInput_SoLuong.setText(vp.getSoLuong()+"");
-        TKInput_Discount.setText(vp.getDiscount()+"");
-       NCCInput.setSelectedIndex(Integer.parseInt(ncc_con.TimTenNCC(jTable_VPP.getValueAt(select, 2).toString()).getMaNCCVPP().substring(3)) );
+        TKInput_SoLuong.setText(vp.getSoLuong() + "");
+        TKInput_Discount.setText(vp.getDiscount() + "");
+        NCCInput.setSelectedIndex(Integer.parseInt(ncc_con.TimTenNCC(jTable_VPP.getValueAt(select, 2).toString()).getMaNCCVPP().substring(3)));
     }//GEN-LAST:event_jTable_VPPMouseClicked
 
     private void TKInput_MaVPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKInput_MaVPPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TKInput_MaVPPActionPerformed
 
-    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
-        // TODO add your handling code here:
-        TKInput_UpdateAllPrice.setText("");
-    }//GEN-LAST:event_jButton_CancelActionPerformed
-
-    //tăng giá all VPP
-    private void jButton_Accpet_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Accpet_SearchActionPerformed
-        // TODO add your handling code here:
-        int active = JOptionPane.showConfirmDialog(null, "Bạn có muốn tăng giá theo tìm kiếm ?", "Xác Nhận Tăng", JOptionPane.OK_CANCEL_OPTION);
-				if(active==JOptionPane.OK_OPTION)
-				{
-        String ten = TK_TenVPPInput.getText();
-        String dm = TK_DanhMucInput.getText();
-        VanPhongPham_Connect vpc = new VanPhongPham_Connect();
-        dss_tenVPP = vpc.laySachTheoTenVPP(ten);
-        dssDanhMuc = vpc.laySachTheoDanhMuc(dm);
-        dsChung = vpc.laySachTheoDanhMucVaTenVPP(dm, ten);
-        //show all data
-        if (TK_TenVPPInput.getText().length()==0 && TK_DanhMucInput.getText().length()==0)
-            hienThiToanBoVPP();
-        thucHienTangGiaVoiVPPDuocTimKiem(dsVPP);
-        //tìm kiếm theo tên VPP
-        if (TK_TenVPPInput.getText().length()!= 0 && TK_DanhMucInput.getText().length()==0){
-            dtmVPP.setRowCount(0);
-            for(VPP vpp : dss_tenVPP){
-                Vector<Object> vec = new Vector<Object>();
-                vec.add(vpp.getMaVPP());          
-                vec.add(vpp.getTenVPP());
-                vec.add(vpp.getMaNCC());
-                vec.add(vpp.getDanhMuc());
-                vec.add(vpp.getSoLuong());
-                vec.add(vpp.getGiaBan());
-
-                vec.add(vpp.getDiscount());
-            dtmVPP.addRow(vec);	
-            }
-            thucHienTangGiaVoiVPPDuocTimKiem(dss_tenVPP);
-        }
-        //Tìm kiếm theo tên VPP và danh mục
-        else if (TK_TenVPPInput.getText().length()!= 0 && TK_DanhMucInput.getText().length()!=0){
-            
-            dtmVPP.setRowCount(0);
-            for(VPP vpp : dsChung){
-                Vector<Object> vec = new Vector<Object>();
-                vec.add(vpp.getMaVPP());          
-                vec.add(vpp.getTenVPP());
-                vec.add(vpp.getMaNCC());
-                vec.add(vpp.getDanhMuc());
-                vec.add(vpp.getSoLuong());
-                vec.add(vpp.getGiaBan());
-
-                vec.add(vpp.getDiscount());
-                dtmVPP.addRow(vec);	
-            }
-            thucHienTangGiaVoiVPPDuocTimKiem(dsChung);
-
-            
-        }
-        //tìm kiếm theo danh mục
-        else if (TK_TenVPPInput.getText().length()== 0 && TK_DanhMucInput.getText().length()!=0){
-            dtmVPP.setRowCount(0);
-            for(VPP vpp : dssDanhMuc){
-                Vector<Object> vec = new Vector<Object>();
-                vec.add(vpp.getMaVPP());          
-                vec.add(vpp.getTenVPP());
-                vec.add(vpp.getMaNCC());
-                vec.add(vpp.getDanhMuc());
-                vec.add(vpp.getSoLuong());
-                vec.add(vpp.getGiaBan());
-
-                vec.add(vpp.getDiscount());
-                dtmVPP.addRow(vec);	
-            }
-            thucHienTangGiaVoiVPPDuocTimKiem(dssDanhMuc);
-	}
-                                }
-    }//GEN-LAST:event_jButton_Accpet_SearchActionPerformed
-
-    
-    protected void thucHienTangGiaVoiVPPDuocTimKiem(ArrayList<VPP> dsVPP_Search){
-     if (TKInput_UpdateAllPrice.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá cần tăng","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
-        }
-        if (!isNumeric(TKInput_UpdateAllPrice.getText().trim())){
-            JOptionPane.showMessageDialog(this, "Nhập sai định dạng giá","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
-        }
-        double extraMoney = (Double.parseDouble(TKInput_UpdateAllPrice.getText().trim()));
-        //System.out.println(extraMoney);
-        VanPhongPham_Connect vpc = new VanPhongPham_Connect();
-        for (VPP vp: dsVPP_Search){
-            vpc.updatePrice(vp.getMaVPP(), (vp.getGiaBan()+extraMoney));
-        }
-       hienThiToanBoVPP();
- }
     private void jButton_importExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_importExcelActionPerformed
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -1190,7 +1016,7 @@ public class QuanLyVPP extends javax.swing.JFrame {
 
                 // Lấy ra sheet đầu tiên từ workbook
                 Sheet sheet = workbook.getSheetAt(0);
-                
+
                 //Xóa tất cả các dòng trong bảng nhân viên
                 dtmVPP.setRowCount(0);
 
@@ -1199,15 +1025,15 @@ public class QuanLyVPP extends javax.swing.JFrame {
                     if (rowIndex == 0) {
                         continue; // Bỏ qua dòng đầu tiên
                     }
-                    
+
                     Row row = sheet.getRow(rowIndex);
-                    
+
                     String[] rowData = new String[dtmVPP.getColumnCount()];
 
                     // Duyệt qua các ô trong dòng
                     for (int columnIndex = 0; columnIndex < dtmVPP.getColumnCount(); columnIndex++) {
                         Cell cell = row.getCell(columnIndex);
-                        
+
                         // Chuyển đổi giá trị của ô thành kiểu String và lưu vào mảng rowData
                         String cellValue = "";
                         if (cell != null) {
@@ -1220,7 +1046,7 @@ public class QuanLyVPP extends javax.swing.JFrame {
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                     cellValue = dateFormat.format(dateValue);
                                 } else {
-                                    cellValue = String.format("%.0f",cell.getNumericCellValue()); 
+                                    cellValue = String.format("%.0f", cell.getNumericCellValue());
                                 }
                             } else if (cell.getCellType() == CellType.BLANK) {
                                 cellValue = "";
@@ -1244,30 +1070,30 @@ public class QuanLyVPP extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         }
-        
+
         jButton_ThemTuExcel.setEnabled(true);
     }//GEN-LAST:event_jButton_importExcelActionPerformed
 
     private void jButton_Accpet_TangGiaByNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Accpet_TangGiaByNCCActionPerformed
         // TODO add your handling code here:
-        if (TKInput_UpdateAllPriceNCC.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá cần tăng","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (TKInput_UpdateAllPriceNCC.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá cần tăng", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        if (!isNumeric(TKInput_UpdateAllPriceNCC.getText().trim())){
-            JOptionPane.showMessageDialog(this, "Nhập sai định dạng giá","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (!isNumeric(TKInput_UpdateAllPriceNCC.getText().trim())) {
+            JOptionPane.showMessageDialog(this, "Nhập sai định dạng giá", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-         double extraMoney = (Double.parseDouble(TKInput_UpdateAllPriceNCC.getText().trim()));
+        double extraMoney = (Double.parseDouble(TKInput_UpdateAllPriceNCC.getText().trim()));
         //System.out.println(extraMoney);
-         NhaCungCap_VPP ncc = (NhaCungCap_VPP) NCCInput_TangGia.getSelectedItem();
-         VanPhongPham_Connect vc = new VanPhongPham_Connect();
-         dsNCC = vc.layVPPTheoNCC(ncc.getMaNCCVPP());
-        
-        for (VPP vp: dsNCC){
-             vc.updatePrice(vp.getMaVPP(), (vp.getGiaBan()+extraMoney));
+        NhaCungCap_VPP ncc = (NhaCungCap_VPP) NCCInput_TangGia.getSelectedItem();
+        VanPhongPham_Connect vc = new VanPhongPham_Connect();
+        dsNCC = vc.layVPPTheoNCC(ncc.getMaNCCVPP());
+
+        for (VPP vp : dsNCC) {
+            vc.updatePrice(vp.getMaVPP(), (vp.getGiaBan() + extraMoney));
         }
-       hienThiToanBoVPP();
+        hienThiToanBoVPP();
     }//GEN-LAST:event_jButton_Accpet_TangGiaByNCCActionPerformed
 
     private void jButton_CancelNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelNCCActionPerformed
@@ -1277,27 +1103,27 @@ public class QuanLyVPP extends javax.swing.JFrame {
 
     private void jButton_Accpet_TangGiaDoanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Accpet_TangGiaDoanhMucActionPerformed
         // TODO add your handling code here:
-        if (TKInput_UpdateAllPriceDoanhMuc.getText().equals("") || TK_DanhMucInput_TangGia.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu cho việc tăng giá","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (TKInput_UpdateAllPriceDoanhMuc.getText().equals("") || TK_DanhMucInput_TangGia.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu cho việc tăng giá", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        if (!isNumeric(TKInput_UpdateAllPriceDoanhMuc.getText().trim())){
-            JOptionPane.showMessageDialog(this, "Nhập sai định dạng giá","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (!isNumeric(TKInput_UpdateAllPriceDoanhMuc.getText().trim())) {
+            JOptionPane.showMessageDialog(this, "Nhập sai định dạng giá", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         double extraMoney = (Double.parseDouble(TKInput_UpdateAllPriceDoanhMuc.getText().trim()));
         String dm = TK_DanhMucInput_TangGia.getText();
         VanPhongPham_Connect vpc = new VanPhongPham_Connect();
         dssDanhMuc = vpc.laySachTheoDanhMuc(dm);
-        int ret =JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn tăng doanh mục này (Vui lòng nhập đúng doanh mục!) ?", "Xác Nhận Tăng Giá", JOptionPane.OK_CANCEL_OPTION);
-        if(ret==JOptionPane.OK_OPTION) {
-           for (VPP vp: dssDanhMuc){
-              
-            vpc.updatePrice(vp.getMaVPP(), (vp.getGiaBan()+extraMoney));
-        } 
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn tăng doanh mục này (Vui lòng nhập đúng doanh mục!) ?", "Xác Nhận Tăng Giá", JOptionPane.OK_CANCEL_OPTION);
+        if (ret == JOptionPane.OK_OPTION) {
+            for (VPP vp : dssDanhMuc) {
+
+                vpc.updatePrice(vp.getMaVPP(), (vp.getGiaBan() + extraMoney));
+            }
         }
-        
-       hienThiToanBoVPP();
+
+        hienThiToanBoVPP();
     }//GEN-LAST:event_jButton_Accpet_TangGiaDoanhMucActionPerformed
 
     private void jButton_CancelDoanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelDoanhMucActionPerformed
@@ -1308,35 +1134,40 @@ public class QuanLyVPP extends javax.swing.JFrame {
 
     private void jButton_ThemTuExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemTuExcelActionPerformed
         // TODO add your handling code here:
-        int ret=JOptionPane.showConfirmDialog(null, "Bạn muốn thêm tất cả văn phòng phẩm có trong bảng?", "xác nhận xác nhận để thêm", JOptionPane.OK_CANCEL_OPTION);
-        if(ret==JOptionPane.OK_OPTION){
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn muốn thêm tất cả văn phòng phẩm có trong bảng?", "xác nhận xác nhận để thêm", JOptionPane.OK_CANCEL_OPTION);
+        if (ret == JOptionPane.OK_OPTION) {
             int dem = 0;
-           
+
             VanPhongPham_Connect vc = new VanPhongPham_Connect();
             NhaCungCapVPP_Connect nc = new NhaCungCapVPP_Connect();
             //lặp qua tất cả các dòng của bảng
-            for (int i=0; i< jTable_VPP.getRowCount(); i++){
-                
-                VPP vp = new VPP ();
-                
+            for (int i = 0; i < jTable_VPP.getRowCount(); i++) {
+
+                VPP vp = new VPP();
+
                 vp.setMaVPP(jTable_VPP.getValueAt(i, 0).toString());
                 vp.setTenVPP(jTable_VPP.getValueAt(i, 1).toString());
-             
-                
+
                 NhaCungCap_VPP cv = nc.TimTenNCC(jTable_VPP.getValueAt(i, 2).toString());
                 vp.setMaNCC(cv.getMaNCCVPP());
                 vp.setDanhMuc((String) jTable_VPP.getValueAt(i, 3));
-                vp.setSoLuong( Integer.parseInt(jTable_VPP.getValueAt(i, 4)+""));
-                vp.setGiaBan( Double.parseDouble(jTable_VPP.getValueAt(i, 5)+"") );
-		vp.setDiscount(Integer.parseInt(jTable_VPP.getValueAt(i, 6)+""));
-                if(vc.kiemTraTonTai(vp.getMaVPP())==true) JOptionPane.showMessageDialog(null, "Mã văn phòng phẩm "+vp.getMaVPP()+" đã tồn tại!");
-                else{
+                vp.setSoLuong(Integer.parseInt(jTable_VPP.getValueAt(i, 4) + ""));
+                vp.setGiaBan(Double.parseDouble(jTable_VPP.getValueAt(i, 5) + ""));
+                vp.setDiscount(Integer.parseInt(jTable_VPP.getValueAt(i, 6) + ""));
+                if (vc.kiemTraTonTai(vp.getMaVPP()) == true) {
+                    JOptionPane.showMessageDialog(null, "Mã văn phòng phẩm " + vp.getMaVPP() + " đã tồn tại!");
+                } else {
                     int active = vc.themMoi(vp);
-                    if(active<=0) JOptionPane.showMessageDialog(null, "Thêm mới "+vp.getMaVPP()+" thất bại!");
-                    else dem++;
+                    if (active <= 0) {
+                        JOptionPane.showMessageDialog(null, "Thêm mới " + vp.getMaVPP() + " thất bại!");
+                    } else {
+                        dem++;
+                    }
                 }
             }
-            if(dem == jTable_VPP.getRowCount()) hienThiToanBoVPP();
+            if (dem == jTable_VPP.getRowCount()) {
+                hienThiToanBoVPP();
+            }
         }
     }//GEN-LAST:event_jButton_ThemTuExcelActionPerformed
 
@@ -1344,28 +1175,22 @@ public class QuanLyVPP extends javax.swing.JFrame {
         // TODO add your handling code here:
         hienThiToanBoVPP();
     }//GEN-LAST:event_jButton_RefreshSearchActionPerformed
-protected void xuLyXoa(String maVPP) {
-    VanPhongPham_Connect sachXoa = new VanPhongPham_Connect();
-    int active= sachXoa.Xoa(maVPP);
-    if(active > 0)
-    {
+    protected void xuLyXoa(String maVPP) {
+        VanPhongPham_Connect sachXoa = new VanPhongPham_Connect();
+        int active = sachXoa.Xoa(maVPP);
+        if (active > 0) {
             JOptionPane.showMessageDialog(null, "Xóa thành công!");
             hienThiToanBoVPP();
-    }
-    else
-    {
-            JOptionPane.showMessageDialog(null, "Xóa thất bại");	
-    }
+        } else {
+            JOptionPane.showMessageDialog(null, "Xóa thất bại");
+        }
 
-}
-
+    }
 
 //Chỉnh Sửa
-
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<NhaCungCap_VPP> NCCInput;
@@ -1377,16 +1202,13 @@ protected void xuLyXoa(String maVPP) {
     private javax.swing.JTextField TKInput_MaVPP;
     private javax.swing.JTextField TKInput_SoLuong;
     private javax.swing.JTextField TKInput_TenVPP;
-    private javax.swing.JTextField TKInput_UpdateAllPrice;
     private javax.swing.JTextField TKInput_UpdateAllPriceDoanhMuc;
     private javax.swing.JTextField TKInput_UpdateAllPriceNCC;
     private javax.swing.JTextField TK_DanhMucInput;
     private javax.swing.JTextField TK_DanhMucInput_TangGia;
     private javax.swing.JTextField TK_TenVPPInput;
-    private javax.swing.JButton jButton_Accpet_Search;
     private javax.swing.JButton jButton_Accpet_TangGiaByNCC;
     private javax.swing.JButton jButton_Accpet_TangGiaDoanhMuc;
-    private javax.swing.JButton jButton_Cancel;
     private javax.swing.JButton jButton_CancelDoanhMuc;
     private javax.swing.JButton jButton_CancelNCC;
     private javax.swing.JButton jButton_ChinhSua;
@@ -1401,9 +1223,7 @@ protected void xuLyXoa(String maVPP) {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel_Discount;
-    private javax.swing.JLabel jLabel_Discount1;
     private javax.swing.JLabel jLabel_Discount2;
     private javax.swing.JLabel jLabel_Discount3;
     private javax.swing.JLabel jLabel_GiaBan;
@@ -1415,7 +1235,6 @@ protected void xuLyXoa(String maVPP) {
     private javax.swing.JLabel jLabel_TenSach;
     private javax.swing.JLabel jLabel_TheLoai;
     private javax.swing.JLabel jLabel_Top;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel_Center;
@@ -1437,5 +1256,4 @@ protected void xuLyXoa(String maVPP) {
         });
     }
 
-    
 }
