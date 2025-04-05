@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package UI;
 
 import Connect.CTHD_Connect;
@@ -31,56 +27,56 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
-/**
- *
- * @author dat
- */
 public class BanHang extends javax.swing.JFrame {
-    private String MaHD=null;
-    private String MaNV= null;
+
+    private String MaHD = null;
+    private String MaNV = null;
     private TaiKhoan tk = new TaiKhoan();
     private ArrayList<NXB> dsnxb = null;
-    private ArrayList<CTHD> cthd = new ArrayList<CTHD>(); 
+    private ArrayList<CTHD> cthd = new ArrayList<CTHD>();
     private ArrayList<Sach> dssMaTen = null;
     private ArrayList<Sach> dss_nxb = null;
     private ArrayList<String> dsdm = null;
     private ArrayList<Sach> dss_tensach = null;
     private ArrayList<Sach> dss = null;
-    private ArrayList<VPP> dsvpp=null;
-    private DefaultTableModel dtmSach , dtmHoaDon, dtmVPP;
-    private ArrayList<VPP> dssp_ten=null;
-    private ArrayList<VPP> dssp_dm=null;
-    private ArrayList<VPP> dssp_ten_dm=null;
+    private ArrayList<VPP> dsvpp = null;
+    private DefaultTableModel dtmSach, dtmHoaDon, dtmVPP;
+    private ArrayList<VPP> dssp_ten = null;
+    private ArrayList<VPP> dssp_dm = null;
+    private ArrayList<VPP> dssp_ten_dm = null;
     private String makh = "";
+
     /**
      * Creates new form BanHang
      */
-    public BanHang(String title,String maNV) {
+    public BanHang(String title, String maNV) {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
         this.setTitle(title);
         this.setLocationRelativeTo(null);
-        MaNV=maNV;
+        MaNV = maNV;
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
         tk = tk_conn.timTaiKhoanBangMaNV(MaNV);
         hienThiToanBoSach();
-        hienThiToanBoNhaXuatBan();
+//        hienThiToanBoNhaXuatBan();
         TaoBangCTHD();
         hienThiTatCaVPP();
         hienThiTatCaDanhMuc();
     }
-    
-    private void hienThiToanBoNhaXuatBan() {
-        NXB_Connect nxbconn = new NXB_Connect();
-        dsnxb=nxbconn.layToanBoNhaXuatBan();
-        NXBInput.removeAllItems();
-        NXB nxb = new NXB();
-        nxb.setMaNXB("0");
-        nxb.setTenNXB("Tất cả");
-        NXBInput.addItem(nxb);
-        for(NXB s : dsnxb) NXBInput.addItem(s); 	
-    }
-    
+
+//    private void hienThiToanBoNhaXuatBan() {
+//        NXB_Connect nxbconn = new NXB_Connect();
+//        dsnxb = nxbconn.layToanBoNhaXuatBan();
+//        NXBInput.removeAllItems();
+//        NXB nxb = new NXB();
+//        nxb.setMaNXB("0");
+//        nxb.setTenNXB("Tất cả");
+//        NXBInput.addItem(nxb);
+//        for (NXB s : dsnxb) {
+//            NXBInput.addItem(s);
+//        }
+//    }
+
     private void hienThiToanBoSach() {
         Sach_Connect sachConn = new Sach_Connect();
         dss = sachConn.layToanBoSach();
@@ -92,9 +88,9 @@ public class BanHang extends javax.swing.JFrame {
         dtmSach.addColumn("Số lượng");
         dtmSach.addColumn("Giá Bán");
         dtmSach.addColumn("Giảm giá");
-	dtmSach.addColumn("Thành tiền");
+        dtmSach.addColumn("Thành tiền");
         dtmSach.setRowCount(0);
-        for (Sach s : dss){
+        for (Sach s : dss) {
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
             vec.add(s.getTenSach());
@@ -103,13 +99,13 @@ public class BanHang extends javax.swing.JFrame {
             vec.add(s.getSoLuong());
             vec.add(s.getGiaBan());
             vec.add(s.getDiscount());
-            vec.add(s.getGiaBan()*(100-s.getDiscount())/100);
-            dtmSach.addRow(vec);	
+            vec.add(s.getGiaBan() * (100 - s.getDiscount()) / 100);
+            dtmSach.addRow(vec);
         }
         TableSach.setModel(dtmSach);
     }
-    
-    private void hienThiTatCaVPP(){
+
+    private void hienThiTatCaVPP() {
         VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect();
         dsvpp = vpp_conn.layToanBoVPP();
         dtmVPP = new DefaultTableModel();
@@ -119,9 +115,9 @@ public class BanHang extends javax.swing.JFrame {
         dtmVPP.addColumn("Số lượng");
         dtmVPP.addColumn("Giá Bán");
         dtmVPP.addColumn("Giảm giá");
-	dtmVPP.addColumn("Thành tiền");
+        dtmVPP.addColumn("Thành tiền");
         dtmVPP.setRowCount(0);
-        for(VPP vpp: dsvpp){
+        for (VPP vpp : dsvpp) {
             Vector<Object> vec = new Vector<Object>();
             vec.add(vpp.getMaVPP());
             vec.add(vpp.getTenVPP());
@@ -129,38 +125,44 @@ public class BanHang extends javax.swing.JFrame {
             vec.add(vpp.getSoLuong());
             vec.add(vpp.getGiaBan());
             vec.add(vpp.getDiscount());
-	    vec.add(vpp.getGiaBan()*(100-vpp.getDiscount())/100);
+            vec.add(vpp.getGiaBan() * (100 - vpp.getDiscount()) / 100);
             dtmVPP.addRow(vec);
         }
         SPTable.setModel(dtmVPP);
     }
-    
+
     private void hienThiTatCaDanhMuc() {
         VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect();
         dsdm = vpp_conn.layTatCaDanhMuc();
         DanhMucInput.addItem("Tất cả");
-        for(String dm: dsdm) DanhMucInput.addItem(dm);
+        for (String dm : dsdm) {
+            DanhMucInput.addItem(dm);
+        }
     }
-    
-    private void TaoBangCTHD (){
+
+    private void TaoBangCTHD() {
         dtmHoaDon = new DefaultTableModel();
         dtmHoaDon.addColumn("Tên sách");
         dtmHoaDon.addColumn("Số lượng");
         dtmHoaDon.addColumn("Thành tiền");
         TableCTHD.setModel(dtmHoaDon);
     }
-    
-    private void TaoHD(){
+
+    private void TaoHD() {
         String HD = "HD";
         //tạo hóa đơn với mã hóa đơn mới tính từ hóa đơn cuối cùng
         HoaDon_Connect tHD = new HoaDon_Connect();
         String lastmahd = tHD.LastMaHD();
-        if (lastmahd==null) MaHD= "HD01";
-        else {
-            int sohd = Integer.parseInt(lastmahd.substring(2))+1; //bỏ đi hai chữ "HD" và công thêm 1 vào hai số phía sau
-            if (sohd<10) MaHD = HD+"0"+String.valueOf(sohd);
-            else MaHD = HD+String.valueOf(sohd);
-        }                                               
+        if (lastmahd == null) {
+            MaHD = "HD01";
+        } else {
+            int sohd = Integer.parseInt(lastmahd.substring(2)) + 1; //bỏ đi hai chữ "HD" và công thêm 1 vào hai số phía sau
+            if (sohd < 10) {
+                MaHD = HD + "0" + String.valueOf(sohd);
+            } else {
+                MaHD = HD + String.valueOf(sohd);
+            }
+        }
         HoaDon hd = new HoaDon();
         hd.setMaHD(MaHD);
         hd.setMaNV(MaNV);
@@ -171,92 +173,93 @@ public class BanHang extends javax.swing.JFrame {
         hd.setNgaylap(currentTime);
         hd.setTrangThai(0);
         hd.setNhapSach(0);
-        tHD.TaoHD(hd); 
+        tHD.TaoHD(hd);
     }
-    
+
     private void ThemCTHD(boolean sach) {
         Vector<Object> vec = new Vector<Object>();
         CTHD vec1 = new CTHD();
         vec1.setMaHD(MaHD);
-        if(sach){ //nếu trả về true thì đang thêm sách còn là false thì là thêm sản phẩm mới
+        if (sach) { //nếu trả về true thì đang thêm sách còn là false thì là thêm sản phẩm mới
             vec1.setMaSP(TableSach.getValueAt(TableSach.getSelectedRow(), 0).toString());
             vec1.setDonGia(Double.parseDouble(TableSach.getValueAt(TableSach.getSelectedRow(), 5).toString()));
-            int vitriSach=-1;
-    //        tính giá tiền
+            int vitriSach = -1;
+            //        tính giá tiền
             long soluong = Long.parseLong(SLInput.getValue().toString());
             double giaban = Double.parseDouble(TableSach.getValueAt(TableSach.getSelectedRow(), 5).toString());
-            double phantramkm = Double.parseDouble(TableSach.getValueAt(TableSach.getSelectedRow(), 6).toString())/100;
-            double tien = soluong*giaban*(1-phantramkm); 
-    //        kiểm tra xem sách đang được chọn có nằm trong hóa đơn chưa
-            for (int i=0;i<dtmHoaDon.getRowCount();i++) {
-                if (dtmHoaDon.getValueAt(i, 0).equals(TableSach.getValueAt(TableSach.getSelectedRow(), 1))) vitriSach=i;
+            double phantramkm = Double.parseDouble(TableSach.getValueAt(TableSach.getSelectedRow(), 6).toString()) / 100;
+            double tien = soluong * giaban * (1 - phantramkm);
+            //        kiểm tra xem sách đang được chọn có nằm trong hóa đơn chưa
+            for (int i = 0; i < dtmHoaDon.getRowCount(); i++) {
+                if (dtmHoaDon.getValueAt(i, 0).equals(TableSach.getValueAt(TableSach.getSelectedRow(), 1))) {
+                    vitriSach = i;
+                }
             }
-    //        nếu đã có trong hóa đơn thì cập nhật lại
-            if (vitriSach!=-1){
-                vec1.setSoLuong(Integer.parseInt(SLInput.getValue().toString())+Integer.parseInt(dtmHoaDon.getValueAt(vitriSach, 1).toString()));
-                vec1.setThanhTien(tien+Double.parseDouble(dtmHoaDon.getValueAt(vitriSach, 2).toString()));
-                dtmHoaDon.setValueAt((tien+Double.parseDouble(dtmHoaDon.getValueAt(vitriSach, 2).toString())), vitriSach, 2);
-                dtmHoaDon.setValueAt(Integer.parseInt(SLInput.getValue().toString())+Integer.parseInt(dtmHoaDon.getValueAt(vitriSach, 1).toString()), vitriSach, 1);                               
+            //        nếu đã có trong hóa đơn thì cập nhật lại
+            if (vitriSach != -1) {
+                vec1.setSoLuong(Integer.parseInt(SLInput.getValue().toString()) + Integer.parseInt(dtmHoaDon.getValueAt(vitriSach, 1).toString()));
+                vec1.setThanhTien(tien + Double.parseDouble(dtmHoaDon.getValueAt(vitriSach, 2).toString()));
+                dtmHoaDon.setValueAt((tien + Double.parseDouble(dtmHoaDon.getValueAt(vitriSach, 2).toString())), vitriSach, 2);
+                dtmHoaDon.setValueAt(Integer.parseInt(SLInput.getValue().toString()) + Integer.parseInt(dtmHoaDon.getValueAt(vitriSach, 1).toString()), vitriSach, 1);
                 cthd.set(vitriSach, vec1);
-            }
-    //        nếu chưa có thì tạo dòng mới
-            else{                        
+            } //        nếu chưa có thì tạo dòng mới
+            else {
                 vec.add(TableSach.getValueAt(TableSach.getSelectedRow(), 1));
-                vec.add(SLInput.getValue());                                                                     
+                vec.add(SLInput.getValue());
                 vec.add(tien);
-                dtmHoaDon.addRow(vec);                       
-                vec1.setSoLuong(Integer.parseInt(SLInput.getValue().toString()));                        
-                vec1.setThanhTien(tien);                        
+                dtmHoaDon.addRow(vec);
+                vec1.setSoLuong(Integer.parseInt(SLInput.getValue().toString()));
+                vec1.setThanhTien(tien);
                 cthd.add(vec1);
             }
 
-            if (!TotalInput.getText().equals(""))
-                tien = Double.parseDouble(TotalInput.getText())+tien;
-            TotalInput.setText(String.valueOf(tien));                                              
+            if (!TotalInput.getText().equals("")) {
+                tien = Double.parseDouble(TotalInput.getText()) + tien;
+            }
+            TotalInput.setText(String.valueOf(tien));
             SLInput.setValue(1);
-        }
-        else{
+        } else {
             vec1.setMaSP(SPTable.getValueAt(SPTable.getSelectedRow(), 0).toString());
             vec1.setDonGia(Double.parseDouble(SPTable.getValueAt(SPTable.getSelectedRow(), 4).toString()));
-            int vitriSP=-1;
-    //        tính giá tiền
+            int vitriSP = -1;
+            //        tính giá tiền
             long soluong = Long.parseLong(SLSPInput.getValue().toString());
             double giaban = Double.parseDouble(SPTable.getValueAt(SPTable.getSelectedRow(), 4).toString());
-            double phantramkm = Double.parseDouble(SPTable.getValueAt(SPTable.getSelectedRow(), 5).toString())/100;
-            double tien = soluong*giaban*(1-phantramkm); 
-    //        kiểm tra xem sản phẩm đang được chọn có nằm trong hóa đơn chưa
-            for (int i=0;i<dtmHoaDon.getRowCount();i++) {
-                if (dtmHoaDon.getValueAt(i, 0).equals(SPTable.getValueAt(SPTable.getSelectedRow(), 1))){
-                    vitriSP=i;
+            double phantramkm = Double.parseDouble(SPTable.getValueAt(SPTable.getSelectedRow(), 5).toString()) / 100;
+            double tien = soluong * giaban * (1 - phantramkm);
+            //        kiểm tra xem sản phẩm đang được chọn có nằm trong hóa đơn chưa
+            for (int i = 0; i < dtmHoaDon.getRowCount(); i++) {
+                if (dtmHoaDon.getValueAt(i, 0).equals(SPTable.getValueAt(SPTable.getSelectedRow(), 1))) {
+                    vitriSP = i;
                     break;
                 }
             }
-    //        nếu đã có trong hóa đơn thì cập nhật lại
-            if (vitriSP!=-1){
-                vec1.setSoLuong(Integer.parseInt(SLSPInput.getValue().toString())+Integer.parseInt(dtmHoaDon.getValueAt(vitriSP, 1).toString()));
-                vec1.setThanhTien(tien+Double.parseDouble(dtmHoaDon.getValueAt(vitriSP, 2).toString()));
-                dtmHoaDon.setValueAt((tien+Double.parseDouble(dtmHoaDon.getValueAt(vitriSP, 2).toString())), vitriSP, 2);
-                dtmHoaDon.setValueAt(Integer.parseInt(SLSPInput.getValue().toString())+Integer.parseInt(dtmHoaDon.getValueAt(vitriSP, 1).toString()), vitriSP, 1);                               
+            //        nếu đã có trong hóa đơn thì cập nhật lại
+            if (vitriSP != -1) {
+                vec1.setSoLuong(Integer.parseInt(SLSPInput.getValue().toString()) + Integer.parseInt(dtmHoaDon.getValueAt(vitriSP, 1).toString()));
+                vec1.setThanhTien(tien + Double.parseDouble(dtmHoaDon.getValueAt(vitriSP, 2).toString()));
+                dtmHoaDon.setValueAt((tien + Double.parseDouble(dtmHoaDon.getValueAt(vitriSP, 2).toString())), vitriSP, 2);
+                dtmHoaDon.setValueAt(Integer.parseInt(SLSPInput.getValue().toString()) + Integer.parseInt(dtmHoaDon.getValueAt(vitriSP, 1).toString()), vitriSP, 1);
                 cthd.set(vitriSP, vec1);
-            }
-    //        nếu chưa có thì tạo dòng mới
-            else{                        
+            } //        nếu chưa có thì tạo dòng mới
+            else {
                 vec.add(SPTable.getValueAt(SPTable.getSelectedRow(), 1));
-                vec.add(SLSPInput.getValue());                                                                     
+                vec.add(SLSPInput.getValue());
                 vec.add(tien);
-                dtmHoaDon.addRow(vec);                       
-                vec1.setSoLuong(Integer.parseInt(SLSPInput.getValue().toString()));                        
-                vec1.setThanhTien(tien);                        
+                dtmHoaDon.addRow(vec);
+                vec1.setSoLuong(Integer.parseInt(SLSPInput.getValue().toString()));
+                vec1.setThanhTien(tien);
                 cthd.add(vec1);
             }
 
-            if (!TotalInput.getText().equals(""))
-            tien = Double.parseDouble(TotalInput.getText())+tien;
-            TotalInput.setText(String.valueOf(tien));                                              
+            if (!TotalInput.getText().equals("")) {
+                tien = Double.parseDouble(TotalInput.getText()) + tien;
+            }
+            TotalInput.setText(String.valueOf(tien));
             SLSPInput.setValue(1);
         }
     }
-    
+
     //hàm định dạng tiền tệ
     public String formatCurrency(double amount) {
         // Định dạng số có dấu phân cách và đơn vị tiền tệ
@@ -265,7 +268,7 @@ public class BanHang extends javax.swing.JFrame {
 
         return formattedAmount;
     }
-    
+
     //hàm loại bỏ dấu phẩy và chữ đ trong tiền tệ
     public String removeCurrencyFormatting(String formattedAmount) {
         // Loại bỏ các ký tự không phải số và dấu phân cách
@@ -273,19 +276,13 @@ public class BanHang extends javax.swing.JFrame {
 
         return amountWithoutFormatting;
     }
-    
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         SeparatorLine = new javax.swing.JSeparator();
         TKInput = new javax.swing.JTextField();
-        NXBInput = new javax.swing.JComboBox<NXB>();
         TKBtn = new javax.swing.JButton();
         ScrollPaneTable = new javax.swing.JScrollPane();
         TableSach = new javax.swing.JTable();
@@ -306,7 +303,6 @@ public class BanHang extends javax.swing.JFrame {
         SLInput = new javax.swing.JSpinner();
         addHDBtn = new javax.swing.JButton();
         BookNameLabel = new javax.swing.JLabel();
-        NXBNameLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         SPTable = new javax.swing.JTable();
@@ -352,12 +348,6 @@ public class BanHang extends javax.swing.JFrame {
         TKInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TKInputKeyPressed(evt);
-            }
-        });
-
-        NXBInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NXBInputActionPerformed(evt);
             }
         });
 
@@ -478,10 +468,6 @@ public class BanHang extends javax.swing.JFrame {
         BookNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         BookNameLabel.setForeground(new java.awt.Color(0, 0, 255));
         BookNameLabel.setText("Tên sách:");
-
-        NXBNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        NXBNameLabel.setForeground(new java.awt.Color(0, 0, 255));
-        NXBNameLabel.setText("NXB:");
 
         jScrollPane2.setViewportView(SPTable);
 
@@ -670,7 +656,7 @@ public class BanHang extends javax.swing.JFrame {
 
         SDTLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         SDTLabel.setForeground(new java.awt.Color(0, 0, 255));
-        SDTLabel.setText("số điện thoại:");
+        SDTLabel.setText("Số điện thoại:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -807,13 +793,8 @@ public class BanHang extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TKInput, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BookNameLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(NXBInput, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TKBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(NXBNameLabel))
+                        .addGap(249, 249, 249)
+                        .addComponent(TKBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -863,16 +844,13 @@ public class BanHang extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BookNameLabel)
-                            .addComponent(NXBNameLabel))
+                        .addComponent(BookNameLabel)
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TKInput, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
-                                .addComponent(TKBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(NXBInput))
+                                .addComponent(TKBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(ScrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -915,66 +893,69 @@ public class BanHang extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void QLNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLNXBActionPerformed
-        if(tk.getNXB()==1){
+        if (tk.getNXB() == 1) {
             QuanLyNXB nxbUi = new QuanLyNXB("Quản lý nhà xuất bản");
             nxbUi.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");   
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLNXBActionPerformed
 
     private void QLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLNVActionPerformed
-        if(tk.getNhanVien()==1){
+        if (tk.getNhanVien() == 1) {
             QuanLyNhanVien nhanVienui = new QuanLyNhanVien("Quản lý nhân viên");
             nhanVienui.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLNVActionPerformed
 
     private void ThoatBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThoatBtnMouseClicked
-        int ret =JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muôn thoát chương trình?", "Xác Nhận Thoát", JOptionPane.OK_CANCEL_OPTION);
-        if(ret==JOptionPane.OK_OPTION) System.exit(0);
+        int ret = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muôn thoát chương trình?", "Xác Nhận Thoát", JOptionPane.OK_CANCEL_OPTION);
+        if (ret == JOptionPane.OK_OPTION)
+            System.exit(0);
     }//GEN-LAST:event_ThoatBtnMouseClicked
 
     private void TKMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKMenuMouseClicked
-        if(tk.getBaoCao()==1) {
+        if (tk.getBaoCao() == 1) {
             ThongKe thongkeui = new ThongKe("Thống kê");
             thongkeui.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_TKMenuMouseClicked
 
     private void QLSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLSachActionPerformed
-        if(tk.getSach()==1){
+        if (tk.getSach() == 1) {
             QuanLySach sachui = new QuanLySach("Quản lý sách", MaNV);
             sachui.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLSachActionPerformed
 
     private void addHDBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHDBtnActionPerformed
-        if ((TableSach.getSelectedRow()<0)){
+        if ((TableSach.getSelectedRow() < 0)) {
             JOptionPane.showMessageDialog(null, "Bạn chưa chọn loại sách muốn thêm vào hóa đơn");
             return;
-        }
-//        nếu sách cần lấy có giá trị là 0 thì không cho lấy
-        else if("0".equals(TableSach.getValueAt(TableSach.getSelectedRow(), TableSach.getSelectedColumn()).toString()) ){
+        } //        nếu sách cần lấy có giá trị là 0 thì không cho lấy
+        else if ("0".equals(TableSach.getValueAt(TableSach.getSelectedRow(), TableSach.getSelectedColumn()).toString())) {
             JOptionPane.showMessageDialog(null, "Sách bạn muốn chọn đã hết");
             return;
-        }
-        else if(makh == "") {
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn chưa chọn khách hàng! Muốn tiếp tục tạo hóa đơn!","Warning",JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.YES_OPTION){
-                if (MaHD==null) TaoHD();
+        } else if (makh == "") {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn chưa chọn khách hàng! Muốn tiếp tục tạo hóa đơn!", "Warning", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                if (MaHD == null) {
+                    TaoHD();
+                }
                 ThemCTHD(true);
                 ReceiveInputKeyReleased(null);
                 DeleteBtn.setEnabled(true);
                 PaymentBtn.setEnabled(true);
                 CancleBtn.setEnabled(true);
+            } else {
+                return;
             }
-            else return;
-        }
-        else {
-            if (MaHD==null) TaoHD();
+        } else {
+            if (MaHD == null) {
+                TaoHD();
+            }
             ThemCTHD(true);
             ReceiveInputKeyReleased(null);
             DeleteBtn.setEnabled(true);
@@ -984,22 +965,24 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_addHDBtnActionPerformed
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
-        if (TableCTHD.getSelectedRow()<0) 
-        JOptionPane.showMessageDialog(null, "Bạn chưa chọn sách muốn xóa!");
-        else{
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có chắc chắn muốn xóa?","Warning",JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.YES_OPTION){
+        if (TableCTHD.getSelectedRow() < 0)
+            JOptionPane.showMessageDialog(null, "Bạn chưa chọn sách muốn xóa!");
+        else {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
                 cthd.remove(TableCTHD.getSelectedRow());
                 double tien = Double.parseDouble(TableCTHD.getValueAt(TableCTHD.getSelectedRow(), 2).toString());
-                dtmHoaDon.removeRow(TableCTHD.getSelectedRow());                                                                      
-                tien = Double.parseDouble(TotalInput.getText())-tien;
-                if (tien==0) TotalInput.setText("0");
-                else
-                    TotalInput.setText(String.valueOf(tien)); 
+                dtmHoaDon.removeRow(TableCTHD.getSelectedRow());
+                tien = Double.parseDouble(TotalInput.getText()) - tien;
+                if (tien == 0) {
+                    TotalInput.setText("0");
+                } else {
+                    TotalInput.setText(String.valueOf(tien));
+                }
             }
             //nếu không còn sản phẩm nào trong bảng thì hủy hóa đơn này
             ReceiveInputKeyReleased(null);
-            if(TableCTHD.getRowCount()==0){
+            if (TableCTHD.getRowCount() == 0) {
                 DeleteBtn.setEnabled(false);
                 PaymentBtn.setEnabled(false);
                 CancleBtn.setEnabled(false);
@@ -1011,18 +994,17 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
     private void TKBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKBtnMouseClicked
-        NXB nxb = (NXB)NXBInput.getSelectedItem(); //lấy nhà xuất bản
-        String ten = TKInput.getText(); //lấy tên sách
-
+        String ten = TKInput.getText(); // lấy tên sách
         Sach_Connect sachnxb1 = new Sach_Connect();
-        //khi tên sách và nxb rỗng
-        if (ten.equals("") && "0".equals(nxb.getMaNXB()))
-            hienThiToanBoSach();
-        // khi chỉ có tên sách
-        else if (!ten.equals("") && "0".equals(nxb.getMaNXB())){
-            dss_tensach = sachnxb1.laySachTheoMaTen(ten);
-            dtmSach.setRowCount(0);
-            for(Sach s : dss_tensach){
+
+        // khi tên sách rỗng
+        if (ten.equals("")) {
+            hienThiToanBoSach(); // Hiển thị tất cả sách nếu không có tên sách
+        } // khi chỉ có tên sách
+        else {
+            dss_tensach = sachnxb1.laySachTheoMaTen(ten); // Lấy danh sách sách theo tên
+            dtmSach.setRowCount(0); // Xóa dữ liệu trong bảng
+            for (Sach s : dss_tensach) {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(s.getMaSach());
                 vec.add(s.getTenSach());
@@ -1031,91 +1013,68 @@ public class BanHang extends javax.swing.JFrame {
                 vec.add(s.getSoLuong());
                 vec.add(s.getGiaBan());
                 vec.add(s.getDiscount());
-                dtmSach.addRow(vec);
+                vec.add(s.getGiaBan() * (100 - s.getDiscount()) / 100);
+                dtmSach.addRow(vec); // Thêm dữ liệu vào bảng
             }
         }
-        //khi có cả hai
-        else if (!ten.equals("") && !"0".equals(nxb.getMaNXB())){
-            dss_nxb = sachnxb1.laySachTheoNXBTen(nxb.getMaNXB(), ten);
-            dtmSach.setRowCount(0);
-            for(Sach s : dss_nxb){
-                Vector<Object> vec = new Vector<Object>();
-                vec.add(s.getMaSach());
-                vec.add(s.getTenSach());
-                vec.add(s.getTheLoai());
-                vec.add(s.getTacGia());
-                vec.add(s.getSoLuong());
-                vec.add(s.getGiaBan());				
-                dtmSach.addRow(vec);
-            }
-        }
-        //khi chỉ có nxb
-        else {
-            dssMaTen = sachnxb1.laySachTheoNXB(nxb.getMaNXB());
-            dtmSach.setRowCount(0);
-            for(Sach s : dssMaTen){
-            Vector<Object> vec = new Vector<Object>();			
-            vec.add(s.getMaSach());
-            vec.add(s.getTenSach());
-            vec.add(s.getTheLoai());
-            vec.add(s.getTacGia());
-            vec.add(s.getSoLuong());
-            vec.add(s.getGiaBan());	
-            dtmSach.addRow(vec);
-            }
-	}
+
     }//GEN-LAST:event_TKBtnMouseClicked
 
     private void PaymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentBtnActionPerformed
-        if(Double.parseDouble(ChangeInput.getText())<0) {
+        if (Double.parseDouble(ChangeInput.getText()) < 0) {
             JOptionPane.showMessageDialog(null, "Không đủ tiền để thanh toán");
             return;
         }
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có chắc muốn thanh toán?","Warning",JOptionPane.YES_NO_OPTION);
-        if(dialogResult == JOptionPane.YES_OPTION){
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thanh toán?", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             //duyệt qua tất cả các dòng của bảng hóa đơn
             Sach_Connect sach = new Sach_Connect();
             VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect();
-            for (CTHD ct : cthd ){
+            for (CTHD ct : cthd) {
                 CTHD_Connect taoCT = new CTHD_Connect();
                 taoCT.ThemCT(ct);
                 //kiểm tra xem mã sản phẩm phải sách hay không
                 int thanhcong = -1;
-                if(ct.getMaSP().substring(0, 1).equals("s")){ //nếu chữ đầu của masp la "s" thì là sách
+                if (ct.getMaSP().substring(0, 1).equals("s")) { //nếu chữ đầu của masp la "s" thì là sách
                     //giảm số lượng sách sau khi bán cho khách
-                    for (Sach s : dss){
-                        if (s.getMaSach()==ct.getMaSP()){
-                            thanhcong = sach.updateSL(s.getMaSach(), s.getSoLuong()-ct.getSoLuong());
+                    for (Sach s : dss) {
+                        if (s.getMaSach() == ct.getMaSP()) {
+                            thanhcong = sach.updateSL(s.getMaSach(), s.getSoLuong() - ct.getSoLuong());
                         }
                     }
-                }
-                else{
+                } else {
                     //giảm số lượng sản phẩm sau khi bán cho khách
-                    for (VPP vpp : dsvpp){
-                        if (vpp.getMaVPP()==ct.getMaSP()){
-                            thanhcong = vpp_conn.updateSL(vpp.getMaVPP(), vpp.getSoLuong()-ct.getSoLuong());
+                    for (VPP vpp : dsvpp) {
+                        if (vpp.getMaVPP() == ct.getMaSP()) {
+                            thanhcong = vpp_conn.updateSL(vpp.getMaVPP(), vpp.getSoLuong() - ct.getSoLuong());
                         }
                     }
                 }
             }
             cthd.clear();
-            while(dtmHoaDon.getRowCount() > 0) dtmHoaDon.removeRow(0);
+            while (dtmHoaDon.getRowCount() > 0) {
+                dtmHoaDon.removeRow(0);
+            }
             HoaDon_Connect HD = new HoaDon_Connect();
             int state = HD.ThanhToan(MaHD, TotalInput.getText());
-            if(state != -1)
+            if (state != -1) {
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công!");
-            else JOptionPane.showMessageDialog(null, "Thanh toán thất bại!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Thanh toán thất bại!");
+            }
             //khi có mã khách hàng thì mới cập nhật
-            if(!"".equals(makh)){
+            if (!"".equals(makh)) {
                 //điểm của khách sẽ bằng điểm hiện tại cộng thêm tổng hóa đơn  x 0.02
                 HD.capNhatMaKH(makh, MaHD); //cập nhật lại mã khách hàng nếu đã chọn khách hàng
                 KhachHang kh = new KhachHang();
                 KhachHang_Connect kh_conn = new KhachHang_Connect();
-                kh= kh_conn.layKhachHangBangSDT(SDTInput.getText());
-                if(DiemCheckBox.isSelected()) // khi khach dung diem
-                    kh.setDiem(0+Double.parseDouble(TotalInput.getText())*0.02);
-                else 
-                    kh.setDiem(kh.getDiem()+Double.parseDouble(TotalInput.getText())*0.02);
+                kh = kh_conn.layKhachHangBangSDT(SDTInput.getText());
+                if (DiemCheckBox.isSelected()) // khi khach dung diem
+                {
+                    kh.setDiem(0 + Double.parseDouble(TotalInput.getText()) * 0.02);
+                } else {
+                    kh.setDiem(kh.getDiem() + Double.parseDouble(TotalInput.getText()) * 0.02);
+                }
                 kh_conn.updateKhachHang(kh);
                 DiemOutput.setText(Double.toString(kh.getDiem()));
             }
@@ -1123,7 +1082,7 @@ public class BanHang extends javax.swing.JFrame {
             ReceiveInput.setText("0");
             ChangeInput.setText("0");
             MaHD = null;
-            makh= "";
+            makh = "";
             SDTInput.setText("");
             KHOutput.setText("");
             DiemOutput.setText("0");
@@ -1139,17 +1098,19 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_PaymentBtnActionPerformed
 
     private void CancleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancleBtnActionPerformed
-        int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có chắc chắn muốn hủy hóa đơn này?","Warning",JOptionPane.YES_NO_OPTION);
-        if(dialogResult == JOptionPane.YES_OPTION){
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn hủy hóa đơn này?", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
             cthd.clear();
-            while(dtmHoaDon.getRowCount() > 0) dtmHoaDon.removeRow(0);   
+            while (dtmHoaDon.getRowCount() > 0) {
+                dtmHoaDon.removeRow(0);
+            }
             TotalInput.setText("0");
             ReceiveInput.setText("0");
             ChangeInput.setText("0");
             HoaDon_Connect HD = new HoaDon_Connect();
             HD.HuyHoaDon(MaHD);
             MaHD = null;
-            makh="";
+            makh = "";
             JOptionPane.showMessageDialog(null, "Hủy hóa đơn thành công!");
             SDTInput.setText("");
             KHOutput.setText("");
@@ -1164,89 +1125,90 @@ public class BanHang extends javax.swing.JFrame {
     private void ReceiveInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReceiveInputKeyReleased
         String text = ReceiveInput.getText();
         String diem = removeCurrencyFormatting(DiemOutput.getText());
-        if(ReceiveInput.getText().equals(""))
+        if (ReceiveInput.getText().equals("")) {
             text = "0";
+        }
         String total = TotalInput.getText();
-        //tính tiền thối lại cho khách
-        if(DiemCheckBox.isSelected()){
+        //tính tiền trả lại cho khách
+        if (DiemCheckBox.isSelected()) {
             double tienthua = Double.parseDouble(diem) + Double.parseDouble(text) - Double.parseDouble(total);
             ChangeInput.setText(Double.toString(tienthua));
-        }
-        else{ //ko được chọn
+        } else { //ko được chọn
             double tienthua = Double.parseDouble(text) - Double.parseDouble(total);
             ChangeInput.setText(Double.toString(tienthua));
-        }  
-        
-        //tính tiền thối lại cho khách
-        if (text.isEmpty() && total.isEmpty()){
+        }
+
+        //tính tiền trả lại cho khách
+        if (text.isEmpty() && total.isEmpty()) {
             ChangeInput.setText("0");
         }
     }//GEN-LAST:event_ReceiveInputKeyReleased
 
     private void QLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLHDActionPerformed
-        if(tk.getHoaDon()==1){
+        if (tk.getHoaDon() == 1) {
             QuanLyHoaDon hdUI = new QuanLyHoaDon("Quản Lý Hóa Đơn");
             hdUI.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLHDActionPerformed
 
     private void TaiKhoanMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TaiKhoanMenuMouseClicked
-        if(tk.getTaiKhoan()==1 || tk.getUserName().equals("admin")){
+        if (tk.getTaiKhoan() == 1 || tk.getUserName().equals("admin")) {
             QuanLyTaiKhoan tkUI = new QuanLyTaiKhoan("Tài khoản");
             tkUI.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_TaiKhoanMenuMouseClicked
 
     private void BarcodeMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarcodeMenuMouseClicked
-        if(tk.getMaVach()==1){
+        if (tk.getMaVach() == 1) {
             InMaVach mvUI = new InMaVach("In mã vạch");
             mvUI.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_BarcodeMenuMouseClicked
 
     private void QL_NCCVPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QL_NCCVPPActionPerformed
-        if(tk.getNCCVPP()==1){
+        if (tk.getNCCVPP() == 1) {
             QuanLyNCCVPP np = new QuanLyNCCVPP("Quản lý nhà cung cấp văn phòng mẫu");
             np.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QL_NCCVPPActionPerformed
 
     private void QL_VPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QL_VPPActionPerformed
-        if(tk.getVPP()==1){
+        if (tk.getVPP() == 1) {
             QuanLyVPP vpp = new QuanLyVPP("Quản lý văn phòng phẩm", MaNV);
             vpp.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QL_VPPActionPerformed
 
     private void ReceiveInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReceiveInputKeyTyped
         //kiểm tra xem người dùng có nhập số vào không, nếu không phải số thì không nhận
         char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9') ||
-            (c == KeyEvent.VK_BACK_SPACE) ||
-            (c == KeyEvent.VK_DELETE))) {
-        getToolkit().beep();
-        evt.consume();
-      }
+        if (!((c >= '0') && (c <= '9')
+                || (c == KeyEvent.VK_BACK_SPACE)
+                || (c == KeyEvent.VK_DELETE))) {
+            getToolkit().beep();
+            evt.consume();
+        }
     }//GEN-LAST:event_ReceiveInputKeyTyped
 
     private void QLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLKHActionPerformed
-        if(tk.getKhachHang()==1){
+        if (tk.getKhachHang() == 1) {
             QuanLyKhachHang qlkh = new QuanLyKhachHang();
             qlkh.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLKHActionPerformed
 
     private void TKSPBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKSPBtnMouseClicked
         //lấy danh mục
-        String dm ="";
-        if(!DanhMucInput.getSelectedItem().toString().equals("Tất cả"))
+        String dm = "";
+        if (!DanhMucInput.getSelectedItem().toString().equals("Tất cả")) {
             dm = DanhMucInput.getSelectedItem().toString();
+        }
         //lấy tên sản phẩm
         String ten = TKSPInput.getText();
 
@@ -1255,10 +1217,10 @@ public class BanHang extends javax.swing.JFrame {
         if (ten.equals("") && dm.equals(""))
             hienThiTatCaVPP();
         //lấy sản phẩm theo tên
-        else if (!ten.equals("") && dm.equals("")){
+        else if (!ten.equals("") && dm.equals("")) {
             dssp_ten = vpp_conn.laySachTheoTenVPP(ten);
             dtmVPP.setRowCount(0);
-            for(VPP vpp : dssp_ten){
+            for (VPP vpp : dssp_ten) {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(vpp.getMaVPP());
                 vec.add(vpp.getTenVPP());
@@ -1268,61 +1230,61 @@ public class BanHang extends javax.swing.JFrame {
                 vec.add(vpp.getDiscount());
                 dtmVPP.addRow(vec);
             }
-        }
-        //lấy sản phẩm theo tên và danh mục
-        else if (!ten.equals("") && !dm.equals("")){
+        } //lấy sản phẩm theo tên và danh mục
+        else if (!ten.equals("") && !dm.equals("")) {
             dssp_ten_dm = vpp_conn.laySachTheoDanhMucVaTenVPP(dm, ten);
             dtmVPP.setRowCount(0);
-            for(VPP vpp : dssp_ten_dm){
+            for (VPP vpp : dssp_ten_dm) {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(vpp.getMaVPP());
                 vec.add(vpp.getTenVPP());
                 vec.add(vpp.getDanhMuc());
                 vec.add(vpp.getSoLuong());
-                vec.add(vpp.getGiaBan());			
+                vec.add(vpp.getGiaBan());
                 dtmVPP.addRow(vec);
             }
-        }
-        //lấy sản phẩm theo danh mục
+        } //lấy sản phẩm theo danh mục
         else {
             dssp_dm = vpp_conn.laySachTheoDanhMuc(dm);
             dtmVPP.setRowCount(0);
-            for(VPP vpp : dssp_dm){
+            for (VPP vpp : dssp_dm) {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(vpp.getMaVPP());
                 vec.add(vpp.getTenVPP());
                 vec.add(vpp.getDanhMuc());
                 vec.add(vpp.getSoLuong());
-                vec.add(vpp.getGiaBan());			
+                vec.add(vpp.getGiaBan());
                 dtmVPP.addRow(vec);
             }
-	}
+        }
     }//GEN-LAST:event_TKSPBtnMouseClicked
 
     private void addSPHDBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSPHDBtnActionPerformed
-        if ((SPTable.getSelectedRow()<0)){
+        if ((SPTable.getSelectedRow() < 0)) {
             JOptionPane.showMessageDialog(null, "Bạn chưa chọn loại sản phẩm muốn thêm vào hóa đơn");
             return;
-        }
-//        nếu sách cần lấy có giá trị là 0 thì không cho lấy
-        else if("0".equals(SPTable.getValueAt(SPTable.getSelectedRow(), SPTable.getSelectedColumn()).toString()) ){
+        } //        nếu sách cần lấy có giá trị là 0 thì không cho lấy
+        else if ("0".equals(SPTable.getValueAt(SPTable.getSelectedRow(), SPTable.getSelectedColumn()).toString())) {
             JOptionPane.showMessageDialog(null, "Sản phẩm bạn muốn chọn đã hết");
             return;
-        }
-        else if(makh == "") {
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn chưa chọn khách hàng! Muốn tiếp tục tạo hóa đơn!","Warning",JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.YES_OPTION){
-                if (MaHD==null) TaoHD();
+        } else if (makh == "") {
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn chưa chọn khách hàng! Muốn tiếp tục tạo hóa đơn!", "Warning", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                if (MaHD == null) {
+                    TaoHD();
+                }
                 ThemCTHD(false);
                 ReceiveInputKeyReleased(null);
                 DeleteBtn.setEnabled(true);
                 PaymentBtn.setEnabled(true);
                 CancleBtn.setEnabled(true);
+            } else {
+                return;
             }
-            else return;
-        }
-        else {
-            if (MaHD==null) TaoHD();
+        } else {
+            if (MaHD == null) {
+                TaoHD();
+            }
             ThemCTHD(false);
             ReceiveInputKeyReleased(null);
             DeleteBtn.setEnabled(true);
@@ -1354,20 +1316,19 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_DiemCheckBoxActionPerformed
 
     private void SDTInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SDTInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) TimSDTButtonActionPerformed(null);
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+            TimSDTButtonActionPerformed(null);
     }//GEN-LAST:event_SDTInputKeyPressed
 
     private void TKInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) TKBtnMouseClicked(null);
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+            TKBtnMouseClicked(null);
     }//GEN-LAST:event_TKInputKeyPressed
 
     private void TKSPInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKSPInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) TKSPBtnMouseClicked(null);
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+            TKSPBtnMouseClicked(null);
     }//GEN-LAST:event_TKSPInputKeyPressed
-
-    private void NXBInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NXBInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NXBInputActionPerformed
 
     private void TKBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKBtnActionPerformed
         // TODO add your handling code here:
@@ -1403,7 +1364,7 @@ public class BanHang extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BanHang("Bán hàng - Tạo hóa đơn",MaNV).setVisible(true);
+                new BanHang("Bán hàng - Tạo hóa đơn", MaNV).setVisible(true);
             }
         });
     }
@@ -1422,8 +1383,6 @@ public class BanHang extends javax.swing.JFrame {
     private javax.swing.JTextField DiemOutput;
     private javax.swing.JLabel KHLabel;
     private javax.swing.JTextField KHOutput;
-    private javax.swing.JComboBox<NXB> NXBInput;
-    private javax.swing.JLabel NXBNameLabel;
     private javax.swing.JMenuBar NavBar;
     private javax.swing.JButton PaymentBtn;
     private javax.swing.JMenuItem QLHD;
