@@ -139,15 +139,8 @@
                           <Component id="TKInput" alignment="0" min="-2" pref="315" max="-2" attributes="0"/>
                           <Component id="BookNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="NXBInput" min="-2" pref="237" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="TKBtn" min="-2" pref="163" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="NXBNameLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
+                      <Component id="TKBtn" min="-2" pref="163" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
@@ -213,10 +206,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="BookNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="NXBNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="BookNameLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="TKInput" pref="35" max="32767" attributes="0"/>
@@ -224,7 +214,6 @@
                               <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                               <Component id="TKBtn" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="NXBInput" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="ScrollPaneTable" min="-2" pref="173" max="-2" attributes="0"/>
@@ -295,15 +284,6 @@
       <Events>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TKInputKeyPressed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="NXBInput">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NXBInputActionPerformed"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;NXB&gt;()"/>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;NXB&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="TKBtn">
       <Properties>
@@ -535,17 +515,6 @@
           <Color blue="ff" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="T&#xea;n s&#xe1;ch:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="NXBNameLabel">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="1"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="NXB:"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -899,7 +868,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="s&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i:"/>
+            <Property name="text" type="java.lang.String" value="S&#x1ed1; &#x111;i&#x1ec7;n tho&#x1ea1;i:"/>
           </Properties>
         </Component>
       </SubComponents>
