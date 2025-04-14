@@ -433,6 +433,11 @@ public class BanHang extends javax.swing.JFrame {
         SLInput.setRequestFocusEnabled(false);
         JFormattedTextField txtField = ((JSpinner.DefaultEditor) SLInput.getEditor()).getTextField();
         ((NumberFormatter) txtField.getFormatter()).setAllowsInvalid(false); // Chỉ cho phép giá trị hợp lệ là số
+        SLInput.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SLInputMouseClicked(evt);
+            }
+        });
 
         addHDBtn.setText("Thêm vào hóa đơn");
         addHDBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -1333,6 +1338,10 @@ public class BanHang extends javax.swing.JFrame {
     private void TKBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TKBtnActionPerformed
+
+    private void SLInputMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SLInputMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SLInputMouseClicked
 
     /**
      * @param args the command line arguments

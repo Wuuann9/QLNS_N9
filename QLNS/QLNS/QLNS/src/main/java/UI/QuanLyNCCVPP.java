@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package UI;
-
-
 
 import Connect.NhaCungCapVPP_Connect;
 
 import Model.NhaCungCap_VPP;
 import java.awt.Toolkit;
-
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -18,18 +11,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-/**
- *
- * @author Admin
- */
+
 public class QuanLyNCCVPP extends javax.swing.JFrame {
-    private DefaultTableModel dtmNCC ;
+
+    private DefaultTableModel dtmNCC;
     private ArrayList<NhaCungCap_VPP> dsNCC = null;
     private ArrayList<NhaCungCap_VPP> dssTenNCC = null;
+
     /**
      * Creates new form QuanLyNXB
      */
-    public QuanLyNCCVPP( String title) {
+    public QuanLyNCCVPP(String title) {
         initComponents();
         this.setTitle(title);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
@@ -37,7 +29,7 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         hienThiToanBoThongTin();
     }
-    
+
     private void hienThiToanBoThongTin() {
         NhaCungCapVPP_Connect nccConn = new NhaCungCapVPP_Connect();
         dsNCC = nccConn.layToanBoNhaCungCap_VPP();
@@ -47,17 +39,17 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
         dtmNCC.addColumn("Số điện thoại");
         dtmNCC.addColumn("Địa chỉ");
         dtmNCC.addColumn("Email");
-  
+
         dtmNCC.setRowCount(0);
-        for (NhaCungCap_VPP s : dsNCC){
+        for (NhaCungCap_VPP s : dsNCC) {
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaNCCVPP());
             vec.add(s.getTenNCCVPP());
             vec.add(s.getSDT());
             vec.add(s.getDiaChi());
             vec.add(s.getEmail());
-          
-            dtmNCC.addRow(vec);	
+
+            dtmNCC.addRow(vec);
         }
         NCCTable.setModel(dtmNCC);
     }
@@ -69,6 +61,7 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -400,8 +393,10 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
 
     private void NCCTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NCCTableMouseClicked
         int select = NCCTable.getSelectedRow();
-            
-        if(select==-1) return ;
+
+        if (select == -1) {
+            return;
+        }
 
         //lấy thông tin trong table
         NhaCungCap_VPP ncc = new NhaCungCap_VPP();
@@ -412,38 +407,37 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
         ncc.setDiaChi((String) NCCTable.getValueAt(select, 3));
         ncc.setEmail((String) NCCTable.getValueAt(select, 4));
 
-
         //đưa thông tin lên panelTop
-        MaNCCInput.setText(ncc.getMaNCCVPP());                    
+        MaNCCInput.setText(ncc.getMaNCCVPP());
         TenNCCInput.setText(ncc.getTenNCCVPP());
         SDTInput.setText(ncc.getSDT());
         DCInput.setText(ncc.getDiaChi());
         EmailInput.setText(ncc.getEmail());
-                          
+
     }//GEN-LAST:event_NCCTableMouseClicked
 
     private void TKNCCBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKNCCBtnActionPerformed
-    String ten = TimKiemInput.getText();
-        
+        String ten = TimKiemInput.getText();
+
         NhaCungCapVPP_Connect nccConn = new NhaCungCapVPP_Connect();
-        
+
         dssTenNCC = nccConn.laySachTheoTenNhaCungCap(ten);
-        
+
         //show all data
-        if (TimKiemInput.getText().length()==0)
+        if (TimKiemInput.getText().length() == 0) {
             hienThiToanBoThongTin();
-        //tìm kiếm theo tên sách
-        else{
+        } //tìm kiếm theo tên sách
+        else {
             dtmNCC.setRowCount(0);
-            for (NhaCungCap_VPP s : dssTenNCC){
-            Vector<Object> vec = new Vector<Object>();
-            vec.add(s.getMaNCCVPP());
-            vec.add(s.getTenNCCVPP());
-            vec.add(s.getSDT());
-            vec.add(s.getDiaChi());
-            vec.add(s.getEmail());
-          
-            dtmNCC.addRow(vec);
+            for (NhaCungCap_VPP s : dssTenNCC) {
+                Vector<Object> vec = new Vector<Object>();
+                vec.add(s.getMaNCCVPP());
+                vec.add(s.getTenNCCVPP());
+                vec.add(s.getSDT());
+                vec.add(s.getDiaChi());
+                vec.add(s.getEmail());
+
+                dtmNCC.addRow(vec);
             }
         }
 
@@ -451,26 +445,26 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
         int select = NCCTable.getSelectedRow();
-        if(select==-1)  return ;
+        if (select == -1) {
+            return;
+        }
         String maNCC = (String) NCCTable.getValueAt(select, 0);
         //JOptionPane.showMessageDialog(null,jTable_Books.getValueAt(select, 0) );
         int active = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa", "Xác Nhận Xóa", JOptionPane.OK_CANCEL_OPTION);
-        if(active==JOptionPane.OK_OPTION)
-        {
-                xuLyXoa(maNCC);
-                //JOptionPane.showMessageDialog(null,maSach );
+        if (active == JOptionPane.OK_OPTION) {
+            xuLyXoa(maNCC);
+            //JOptionPane.showMessageDialog(null,maSach );
         }
     }//GEN-LAST:event_DeleteBtnActionPerformed
     protected void xuLyXoa(String maNCC) {
         NhaCungCapVPP_Connect nccConn = new NhaCungCapVPP_Connect();
-       int active= nccConn.Xoa(maNCC);
-       if(active > 0){
+        int active = nccConn.Xoa(maNCC);
+        if (active > 0) {
             JOptionPane.showMessageDialog(null, "Xóa thành công!");
             hienThiToanBoThongTin();
-       }
-       else{
-           JOptionPane.showMessageDialog(null, "Xóa thất bại");	
-       }
+        } else {
+            JOptionPane.showMessageDialog(null, "Xóa thất bại");
+        }
     }
     private void ResetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetBtnActionPerformed
         MaNCCInput.setText("");
@@ -481,7 +475,7 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
     }//GEN-LAST:event_ResetBtnActionPerformed
 
     private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
-        if(!isValidEmail(EmailInput.getText())){
+        if (!isValidEmail(EmailInput.getText())) {
             JOptionPane.showMessageDialog(null, "Email không đúng định dạng!");
             return;
         }
@@ -494,26 +488,25 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
         ncc.setEmail(EmailInput.getText());
         NhaCungCapVPP_Connect nccConn = new NhaCungCapVPP_Connect();
         int active = nccConn.update(ncc);
-        if (active>0){
+        if (active > 0) {
             JOptionPane.showMessageDialog(null, "Chỉnh sửa thông tin thành công");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Chỉnh sửa thất bại");
         }
         hienThiToanBoThongTin();
     }//GEN-LAST:event_UpdateBtnActionPerformed
 
     private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
-        if(MaNCCInput.getText().length()==0 ||  
-            TenNCCInput.getText().length()==0 || DCInput.getText().length()==0 || EmailInput.getText().length()==0 ||
-            SDTInput.getText().length()==0) {
-                JOptionPane.showMessageDialog(null, "Thiếu thông tin!");
-                return ;
+        if (MaNCCInput.getText().length() == 0
+                || TenNCCInput.getText().length() == 0 || DCInput.getText().length() == 0 || EmailInput.getText().length() == 0
+                || SDTInput.getText().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Thiếu thông tin!");
+            return;
         }
-	if(!isValidEmail(EmailInput.getText())){
+        if (!isValidEmail(EmailInput.getText())) {
             JOptionPane.showMessageDialog(null, "Email không đúng định dạng!");
             return;
-        }	
+        }
         //NXB nxb = (NXB) NXBInput.getSelectedItem();
         NhaCungCap_VPP ncc = new NhaCungCap_VPP();
         ncc.setMaNCCVPP(MaNCCInput.getText());
@@ -523,17 +516,16 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
         ncc.setDiaChi(DCInput.getText());
         ncc.setEmail(EmailInput.getText());
 
-        int x =JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muôn thêm nhà cung cấp", "Xác nhận thêm",JOptionPane.OK_CANCEL_OPTION);
-        if(x==JOptionPane.OK_OPTION)
-        {
-            xuLyThemMoi(ncc);	
-        }
-        else return;
+        int x = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muôn thêm nhà cung cấp", "Xác nhận thêm", JOptionPane.OK_CANCEL_OPTION);
+        if (x == JOptionPane.OK_OPTION) {
+            xuLyThemMoi(ncc);
+        } else
+            return;
     }//GEN-LAST:event_AddBtnActionPerformed
     protected void xuLyThemMoi(NhaCungCap_VPP ncc) {
         NhaCungCapVPP_Connect nccConnAdd = new NhaCungCapVPP_Connect();
         int active = nccConnAdd.themMoi(ncc);
-        if(active > 0 ){
+        if (active > 0) {
             JOptionPane.showMessageDialog(null, "Thêm mới thành công");
             MaNCCInput.setText("");
             TenNCCInput.setText("");
@@ -541,8 +533,7 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
             EmailInput.setText("");
             SDTInput.setText("");
             hienThiToanBoThongTin();
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Thêm mới thất bại");
         }
     }
@@ -551,7 +542,8 @@ public class QuanLyNCCVPP extends javax.swing.JFrame {
     }//GEN-LAST:event_DCInputActionPerformed
 
     private void TimKiemInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TimKiemInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) TKNCCBtnActionPerformed(null);
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
+            TKNCCBtnActionPerformed(null);
     }//GEN-LAST:event_TimKiemInputKeyPressed
 
     private void TKNCCBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKNCCBtn1ActionPerformed

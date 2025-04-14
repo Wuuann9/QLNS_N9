@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package UI;
 
 import Connect.Sach_Connect;
@@ -31,10 +28,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
-/**
- *
- * @author dat
- */
+
 public class InMaVach extends javax.swing.JFrame {
 private DefaultTableModel dtmSach, dtmInSach, dtmSanPham, dtmInSanPham ;
 private ArrayList<Sach> dss = null;

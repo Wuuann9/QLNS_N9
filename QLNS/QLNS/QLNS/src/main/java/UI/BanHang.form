@@ -491,6 +491,9 @@
           <Properties>
             <Property name="requestFocusEnabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SLInputMouseClicked"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="JFormattedTextField txtField = ((JSpinner.DefaultEditor) SLInput.getEditor()).getTextField();&#xa;((NumberFormatter) txtField.getFormatter()).setAllowsInvalid(false); // Ch&#x1ec9; cho ph&#xe9;p gi&#xe1; tr&#x1ecb; h&#x1ee3;p l&#x1ec7; l&#xe0; s&#x1ed1;"/>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="SLInput.setModel(new SpinnerNumberModel(1, 1, 100, 1));"/>

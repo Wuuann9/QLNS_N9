@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Connect;
 import Model.NhanVien;
 import Model.TaiKhoan;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-/**
- *
- * @author dat
- */
+
 public class TaiKhoan_Connect extends Connect_sqlServer{
     public ArrayList<TaiKhoan> layToanBoTaiKhoan(){
         ArrayList<TaiKhoan> dstk = new ArrayList<TaiKhoan>();
