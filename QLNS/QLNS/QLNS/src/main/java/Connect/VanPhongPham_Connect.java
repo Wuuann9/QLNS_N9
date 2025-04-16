@@ -14,7 +14,7 @@ import java.util.Calendar;
 import org.jfree.data.general.DefaultPieDataset;
 
 public class VanPhongPham_Connect extends Connect_sqlServer {
-
+// hàm lấy toàn bộ văn phòng phẩm 
     public ArrayList<VPP> layToanBoVPP() {
         ArrayList<VPP> dsVPP = new ArrayList<VPP>();
         try {
