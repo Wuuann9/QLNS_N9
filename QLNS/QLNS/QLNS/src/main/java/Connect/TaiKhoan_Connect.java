@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo tai khoan roi luu vao lop array
     // tao ra tk 
     public ArrayList<TaiKhoan> layToanBoTaiKhoan(){  //kieu tra ve dstk
-        ArrayList<TaiKhoan> dstk = new ArrayList<TaiKhoan>();  //tao lop luu dstk jjd
+        ArrayList<TaiKhoan> dstk = new ArrayList<TaiKhoan>();  //tao lop luu dstk jjdsaa
         try{ // dung them kiem tra ngoai le  tryy(code co the gay ra loi) catch code xu ly khi xay ra loi
             String sql ="select * from TAIKHOAN" ; // lay toan bo dong cot tu bang taikhoan
             PreparedStatement pre = conn.prepareStatement(sql); //ket noi voi sql
