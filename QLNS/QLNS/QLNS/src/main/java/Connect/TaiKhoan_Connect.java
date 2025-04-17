@@ -141,7 +141,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
             pre.setString(1, matk);// truyen gia tri vao ? 
             pre.setString(2, username);
             pre.setString(3, manv);
-            ResultSet result = pre.executeQuery();// luu du lieu nhu bang du lieu tam thoi 
+            ResultSet result = pre.executeQuery();// luu  du lieu nhu bang du lieu tam thoi hh
             while (result.next()) return true ;// neu 1 trong 3 gia tri co thi tra ve true 
         } catch (Exception e) {
                 e.printStackTrace();
