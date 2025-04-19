@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
+// nv
 
 public class NhanVien_Connect extends Connect_sqlServer{
     private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
