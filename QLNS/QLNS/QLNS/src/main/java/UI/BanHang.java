@@ -336,7 +336,7 @@ public class BanHang extends javax.swing.JFrame {
         QLKH = new javax.swing.JMenuItem();
         TKMenu = new javax.swing.JMenu();
         TaiKhoanMenu = new javax.swing.JMenu();
-        BarcodeMenu = new javax.swing.JMenu();
+        DanhMucMenu = new javax.swing.JMenu();
         ThoatBtn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -765,13 +765,13 @@ public class BanHang extends javax.swing.JFrame {
         });
         NavBar.add(TaiKhoanMenu);
 
-        BarcodeMenu.setText("In mã vạch");
-        BarcodeMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+        DanhMucMenu.setText("Danh Mục");
+        DanhMucMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BarcodeMenuMouseClicked(evt);
+                DanhMucMenuMouseClicked(evt);
             }
         });
-        NavBar.add(BarcodeMenu);
+        NavBar.add(DanhMucMenu);
 
         ThoatBtn.setForeground(new java.awt.Color(255, 0, 51));
         ThoatBtn.setText("Thoát");
@@ -1165,13 +1165,13 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_TaiKhoanMenuMouseClicked
 
-    private void BarcodeMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarcodeMenuMouseClicked
-        if (tk.getMaVach() == 1) {
-            InMaVach mvUI = new InMaVach("In mã vạch");
-            mvUI.showWindow();
-        } else
-            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
-    }//GEN-LAST:event_BarcodeMenuMouseClicked
+    private void DanhMucMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DanhMucMenuMouseClicked
+        if(tk.getDanhMuc()==1){
+            QuanLyDanhMuc dmUI = new QuanLyDanhMuc("Danh Mục");
+            dmUI.showWindow();
+        }
+        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+    }//GEN-LAST:event_DanhMucMenuMouseClicked
 
     private void QL_NCCVPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QL_NCCVPPActionPerformed
         if (tk.getNCCVPP() == 1) {
@@ -1379,13 +1379,13 @@ public class BanHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu BarcodeMenu;
     private javax.swing.JLabel BookNameLabel;
     private javax.swing.JLabel BookNameLabel2;
     private javax.swing.JButton CancleBtn;
     private javax.swing.JTextField ChangeInput;
     private javax.swing.JLabel ChangeLabel;
     private javax.swing.JComboBox<String> DanhMucInput;
+    private javax.swing.JMenu DanhMucMenu;
     private javax.swing.JButton DeleteBtn;
     private javax.swing.JCheckBox DiemCheckBox;
     private javax.swing.JLabel DiemLabel;
