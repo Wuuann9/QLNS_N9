@@ -62,6 +62,7 @@ public class DanhMuc {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+}
 
 
    
