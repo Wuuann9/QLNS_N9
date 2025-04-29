@@ -363,7 +363,7 @@ public class BanHang extends javax.swing.JFrame {
         QLKH = new javax.swing.JMenuItem();
         TKMenu = new javax.swing.JMenu();
         TaiKhoanMenu = new javax.swing.JMenu();
-        BarcodeMenu = new javax.swing.JMenu();
+        DanhMucMenu = new javax.swing.JMenu();
         ThoatBtn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -797,13 +797,13 @@ public class BanHang extends javax.swing.JFrame {
         });
         NavBar.add(TaiKhoanMenu);
 
-        BarcodeMenu.setText("In mã vạch");
-        BarcodeMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+        DanhMucMenu.setText("Danh Mục");
+        DanhMucMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BarcodeMenuMouseClicked(evt);
+                DanhMucMenuMouseClicked(evt);
             }
         });
-        NavBar.add(BarcodeMenu);
+        NavBar.add(DanhMucMenu);
 
         ThoatBtn.setForeground(new java.awt.Color(255, 0, 51));
         ThoatBtn.setText("Thoát");
@@ -1278,18 +1278,15 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_TaiKhoanMenuMouseClicked
 
-// Xử lý khi chọn thanh In mã vạch trên giao diện
-//=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
-    private void BarcodeMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarcodeMenuMouseClicked
-        //TH1: tk có quyền tạo mã vạch 
-        if (tk.getMaVach() == 1) {
-            InMaVach mvUI = new InMaVach("In mã vạch");//Tạo một đối tượng InMaVach (có thể là giao diện in mã vạch) với tiêu đề "In mã vạch".
-            mvUI.showWindow();//hiển thị giao diện in mã vạch.
+
+    private void DanhMucMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DanhMucMenuMouseClicked
+        if(tk.getDanhMuc()==1){
+            QuanLyDanhMuc dmUI = new QuanLyDanhMuc("Danh Mục");
+            dmUI.showWindow();
         }
-        // TH2: tk k có quyền tạo mã vạch => hiển thị hộp thoại cảnh báo
-        else
-            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
-    }//GEN-LAST:event_BarcodeMenuMouseClicked
+        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+    }//GEN-LAST:event_DanhMucMenuMouseClicked
+
 
 // khi nhấn vào "quản lý nhà cung cấp VPP" trong quản lý trên codebar
 // admin(1) , thugngan(0)   
@@ -1523,13 +1520,13 @@ public class BanHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu BarcodeMenu;
     private javax.swing.JLabel BookNameLabel;
     private javax.swing.JLabel BookNameLabel2;
     private javax.swing.JButton CancleBtn;
     private javax.swing.JTextField ChangeInput;
     private javax.swing.JLabel ChangeLabel;
     private javax.swing.JComboBox<String> DanhMucInput;
+    private javax.swing.JMenu DanhMucMenu;
     private javax.swing.JButton DeleteBtn;
     private javax.swing.JCheckBox DiemCheckBox;
     private javax.swing.JLabel DiemLabel;

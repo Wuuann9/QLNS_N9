@@ -83,12 +83,12 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TaiKhoanMenuMouseClicked"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="BarcodeMenu">
+        <Menu class="javax.swing.JMenu" name="DanhMucMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="In m&#xe3; v&#x1ea1;ch"/>
+            <Property name="text" type="java.lang.String" value="Danh M&#x1ee5;c"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BarcodeMenuMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DanhMucMenuMouseClicked"/>
           </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="ThoatBtn">
