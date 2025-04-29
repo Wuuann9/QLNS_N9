@@ -104,7 +104,7 @@ private ArrayList<ChucVu> dscv = null;
             dtmNhanVien.addRow(vec);
         }
         NVTable.setModel(dtmNhanVien);
-        AddFromExcelBtn.setEnabled(false);
+       
         ResetForm();
     }
     
@@ -220,8 +220,6 @@ private ArrayList<ChucVu> dscv = null;
         UpdateBtn = new javax.swing.JButton();
         ResetBtn = new javax.swing.JButton();
         DeleteBtn = new javax.swing.JButton();
-        ImportExcelBtn = new javax.swing.JButton();
-        AddFromExcelBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         NVTable = new javax.swing.JTable();
 
@@ -475,21 +473,6 @@ private ArrayList<ChucVu> dscv = null;
             }
         });
 
-        ImportExcelBtn.setText("Nhập từ excel");
-        ImportExcelBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImportExcelBtnActionPerformed(evt);
-            }
-        });
-
-        AddFromExcelBtn.setText("Thêm tất cả");
-        AddFromExcelBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddFromExcelBtnActionPerformed(evt);
-            }
-        });
-        AddFromExcelBtn.setEnabled(false);
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -503,25 +486,17 @@ private ArrayList<ChucVu> dscv = null;
                 .addComponent(ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ImportExcelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(AddFromExcelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ImportExcelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(AddFromExcelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(DeleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -593,7 +568,7 @@ private ArrayList<ChucVu> dscv = null;
 
     private void AllNVBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllNVBtnActionPerformed
         hienThiToanBoNhanVien();
-        AddFromExcelBtn.setEnabled(false);
+        
     }//GEN-LAST:event_AllNVBtnActionPerformed
 
     private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
@@ -640,7 +615,7 @@ private ArrayList<ChucVu> dscv = null;
             dtmNhanVien.addRow(vec);
         }
 	NVTable.setModel(dtmNhanVien);
-        AddFromExcelBtn.setEnabled(false);
+       
     }//GEN-LAST:event_TKNVBtnActionPerformed
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
@@ -727,122 +702,6 @@ private ArrayList<ChucVu> dscv = null;
         LuongInput.setText(removeCurrencyFormatting(NVTable.getValueAt(select, 8)+""));
     }//GEN-LAST:event_NVTableMouseClicked
 
-    private void ImportExcelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportExcelBtnActionPerformed
-        // Tạo đối tượng JFileChooser
-        JFileChooser fileChooser = new JFileChooser();
-
-        // Chỉ định bộ lọc để chỉ cho phép chọn các tệp Excel
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xls");
-        fileChooser.setFileFilter(filter);
-
-        // Hiển thị cửa sổ Explorer và lấy tệp được chọn
-        int result = fileChooser.showOpenDialog(null);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String filePath = selectedFile.getAbsolutePath();
-            //đọc file excel đó
-            try {
-                // Tạo đối tượng File từ đường dẫn
-                File file = new File(filePath);
-
-                // Đọc tệp Excel
-                FileInputStream fis = new FileInputStream(file);
-                Workbook workbook = new HSSFWorkbook(fis);
-
-                // Lấy ra sheet đầu tiên từ workbook
-                Sheet sheet = workbook.getSheetAt(0);
-                
-                //Xóa tất cả các dòng trong bảng nhân viên
-                dtmNhanVien.setRowCount(0);
-
-                // Duyệt qua các dòng trong sheet
-                for (int rowIndex = 0; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-                    if (rowIndex == 0) {
-                        continue; // Bỏ qua dòng đầu tiên
-                    }
-                    
-                    Row row = sheet.getRow(rowIndex);
-                    
-                    String[] rowData = new String[dtmNhanVien.getColumnCount()];
-
-                    // Duyệt qua các ô trong dòng
-                    for (int columnIndex = 0; columnIndex < dtmNhanVien.getColumnCount(); columnIndex++) {
-                        Cell cell = row.getCell(columnIndex);
-                        
-                        // Chuyển đổi giá trị của ô thành kiểu String và lưu vào mảng rowData
-                        String cellValue = "";
-                        if (cell != null) {
-                            if (cell.getCellType() == CellType.STRING) {
-                                cellValue = cell.getStringCellValue();
-                            } else if (cell.getCellType() == CellType.NUMERIC) {
-                                if (DateUtil.isCellDateFormatted(cell)) {
-                                    // Kiểm tra nếu là giá trị ngày tháng
-                                    Date dateValue = cell.getDateCellValue();
-                                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                    cellValue = dateFormat.format(dateValue);
-                                } else {
-                                    cellValue = String.format("%.0f",cell.getNumericCellValue()); 
-                                }
-                            } else if (cell.getCellType() == CellType.BLANK) {
-                                cellValue = "";
-                            }
-                        }
-
-                        rowData[columnIndex] = cellValue;
-                    }
-
-                    // Thêm dòng dữ liệu vào mô hình dtmNhanVien
-                    dtmNhanVien.addRow(rowData);
-                }
-
-                // Đóng FileInputStream và workbook
-                fis.close();
-                workbook.close();
-
-                // Cập nhật bảng NVTable với mô hình dtmNhanVien
-                NVTable.setModel(dtmNhanVien);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        AddFromExcelBtn.setEnabled(true);
-    }//GEN-LAST:event_ImportExcelBtnActionPerformed
-
-    private void AddFromExcelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddFromExcelBtnActionPerformed
-        int ret=JOptionPane.showConfirmDialog(null, "Bạn muốn thêm tất cả nhân viên có trong bảng?", "xác nhận xác nhận để thêm", JOptionPane.OK_CANCEL_OPTION);
-        if(ret==JOptionPane.OK_OPTION){
-            int dem = 0;
-            NhanVien_Connect nv_conn = new NhanVien_Connect();
-            ChucVu_Connect cvconn = new ChucVu_Connect();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            //lặp qua tất cả các dòng của bảng
-            for (int i=0; i< NVTable.getRowCount(); i++){
-                NhanVien nv = new NhanVien();
-                nv.setMaNV(NVTable.getValueAt(i, 0).toString());
-                nv.setTenNV(NVTable.getValueAt(i, 1).toString());
-                try {
-                    nv.setNgaySinh(dateFormat.format(dateFormat.parse(NVTable.getValueAt(i, 2).toString())));
-                    nv.setNgayVaolam(dateFormat.format(dateFormat.parse(NVTable.getValueAt(i, 3).toString())));
-                } catch (ParseException ex) {
-                    Logger.getLogger(QuanLyNhanVien.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                nv.setSoChungMinh(NVTable.getValueAt(i, 4).toString());
-                ChucVu cv = cvconn.TimChucVu(NVTable.getValueAt(i, 5).toString());
-                nv.setMaCV(cv.getMaCV());
-                nv.setSDT(NVTable.getValueAt(i, 6).toString());
-                nv.setEmail(NVTable.getValueAt(i, 7).toString());
-                nv.setLuong(Double.parseDouble(NVTable.getValueAt(i, 8).toString()));
-                if(nv_conn.kiemTraTonTai(nv.getMaNV())==true) JOptionPane.showMessageDialog(null, "Mã nhân viên "+nv.getMaNV()+" đã tồn tại!");
-                else{
-                    int activeLuu = nv_conn.themNhanVien(nv);
-                    if(activeLuu<=0) JOptionPane.showMessageDialog(null, "Thêm mới "+nv.getMaNV()+" thất bại!");
-                    else dem++;
-                }
-            }
-            if(dem == NVTable.getRowCount()) hienThiToanBoNhanVien();
-        }
-    }//GEN-LAST:event_AddFromExcelBtnActionPerformed
-
     private void SDTInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SDTInputKeyTyped
         //kiểm tra xem người dùng có nhập số vào không, nếu không phải số thì không nhận
         char c = evt.getKeyChar();
@@ -919,7 +778,6 @@ private ArrayList<ChucVu> dscv = null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddBtn;
-    private javax.swing.JButton AddFromExcelBtn;
     private javax.swing.JButton AllNVBtn;
     private javax.swing.JTextField CCCDInput;
     private javax.swing.JLabel CCCDLabel;
@@ -928,7 +786,6 @@ private ArrayList<ChucVu> dscv = null;
     private javax.swing.JButton DeleteBtn;
     private javax.swing.JTextField EmailInput;
     private javax.swing.JLabel EmailLabel;
-    private javax.swing.JButton ImportExcelBtn;
     private javax.swing.JTextField LuongInput;
     private javax.swing.JLabel LuongLabel;
     private javax.swing.JTextField MaNVInput;
