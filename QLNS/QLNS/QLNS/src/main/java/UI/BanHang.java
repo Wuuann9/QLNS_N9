@@ -88,6 +88,7 @@ public class BanHang extends javax.swing.JFrame {
 //        }
 //    }
 
+// 
     private void hienThiToanBoSach() {
         Sach_Connect sachConn = new Sach_Connect();
         dss = sachConn.layToanBoSach();
@@ -623,6 +624,11 @@ public class BanHang extends javax.swing.JFrame {
         DiemOutput.setEditable(false);
         DiemOutput.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         DiemOutput.setText("0");
+        DiemOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DiemOutputActionPerformed(evt);
+            }
+        });
 
         DiemCheckBox.setText("Dùng điểm");
         DiemCheckBox.setEnabled(false);
@@ -1007,7 +1013,7 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_addHDBtnActionPerformed
 
     
-// Xóa 1 sách đã thêm vào " chi tiết hóa đơn "
+// Xóa 1 sách,vpp đã thêm vào " chi tiết hóa đơn "
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
          //  Kiểm tra xem người dùng đã chọn dòng nào trong bảng chưa
         // nếu chưa chọn dòng nào để xóa 
@@ -1020,7 +1026,7 @@ public class BanHang extends javax.swing.JFrame {
             // Nếu người dùng chọn "YES"    
             if (dialogResult == JOptionPane.YES_OPTION) {
                 // 1. Xóa sách khỏi "chi tiết hóa đơn" 
-                cthd.remove(TableCTHD.getSelectedRow()); // xóa khỏi danh sách chi tiết hóa đơn (cthd)
+                cthd.remove(TableCTHD.getSelectedRow()); // xóa sản phẩm khỏi danh sách chi tiết hóa đơn (cthd)
                 double tien = Double.parseDouble(TableCTHD.getValueAt(TableCTHD.getSelectedRow(), 2).toString());// để tính lại TotalInput(tổng tiền)
                 dtmHoaDon.removeRow(TableCTHD.getSelectedRow()); // xóa dòng sách khỏi model hiển thị bảng
                 
@@ -1050,7 +1056,7 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
 // Phương thức TKBtnMouseClicked xử lý sự kiện nhấn chuột vào nút tìm kiếm
-// hàm xử lý khi nhập tên sách ở phần "tên sách" VÀ ấn "tìm kiếm"
+// hàm xử lý  ấn "tìm kiếm" ở phần bảng sách 
     private void TKBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKBtnMouseClicked
         String ten = TKInput.getText(); // lấy tên sách vừa nhập 
         Sach_Connect sachnxb1 = new Sach_Connect();// kết nối tới CSDL "SACH"
@@ -1223,16 +1229,16 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_CancleBtnActionPerformed
 
     
- //Hàm lấy giá trị từ "khách đưa" => tính "tiền thừa"
+ //Hàm nhập giá trị từ "khách đưa" => cập nhật  "tiền thừa"
     private void ReceiveInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReceiveInputKeyReleased
-        String text = ReceiveInput.getText();// lấy giá trị từ ô "khách đưa"
-        //hàm xóa các định dạng tiền tệ (ví dụ dấu , ngăn cách, đơn vị đồng, v.v...) để chỉ còn lại chuỗi số có thể chuyển thành Double.
+        String text = ReceiveInput.getText();// text = giá trị từ ô "khách đưa" 
+        //hàm xóa các định dạng tiền tệ (ví dụ dấu , ngăn cách, đơn vị đồng, v.v...) =>chỉ có thể nhập chuỗi số có thể chuyển thành Double.
         String diem = removeCurrencyFormatting(DiemOutput.getText());
         //Nếu ô "ReceiveInput" đang rỗng (chưa nhập gì) thì gán text = "0".
         if (ReceiveInput.getText().equals("")) {
             text = "0";
         }
-        String total = TotalInput.getText();
+        String total = TotalInput.getText(); // total = giá trị "tổng tiền"
         //tính tiền trả lại cho khách
         //TH1: CÓ SỬ DỤNG ĐIỂM 
         if (DiemCheckBox.isSelected()) {
@@ -1250,7 +1256,9 @@ public class BanHang extends javax.swing.JFrame {
             ChangeInput.setText("0");
         }
     }//GEN-LAST:event_ReceiveInputKeyReleased
- // khi nhấn vào "quản lý hóa đơn" trong mục quản lý trên thanh codebar
+ 
+
+// khi nhấn vào "quản lý hóa đơn" trong mục quản lý trên thanh codebar
     //=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
     private void QLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLHDActionPerformed
         if (tk.getHoaDon() == 1) {
@@ -1302,17 +1310,22 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_QL_VPPActionPerformed
 
 // kiểm tra xem người dùng có nhập số vào "khách đưa " đúng kiểu hay không, nếu không phải số thì không nhận
+// KEY_TYPED cho hành động nhấn + thả các ký tự có in ra ( trừ các phím đặc biệt ctrl,shift,F1,....)
     private void ReceiveInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReceiveInputKeyTyped
        char c = evt.getKeyChar();// Lấy ra ký tự mà người dùng vừa gõ → gán vào biến c.
+       // Nếu c không thỏa mãn bất kỳ điều kiện nào trong 3 điều kiện dưới thì if thực hiện bên trong
         if (!((c >= '0') && (c <= '9')           // Kiểm tra xem c có phải là:  chữ số từ '0' → '9'.
                 || (c == KeyEvent.VK_BACK_SPACE) // Kiểm tra xem c có phải là:  phím Backspace (xóa lùi).
-                || (c == KeyEvent.VK_DELETE))) { // Kiểm tra xem c có phải là:  phím Delete (xóa phía trước).
+                || (c == KeyEvent.VK_DELETE)))   // Kiểm tra xem c có phải là:  phím Delete (xóa phía trước).
+        { 
             getToolkit().beep(); // Phát ra tiếng "bíp" cảnh báo → báo hiệu cho người dùng biết nhập sai (không được phép gõ ký tự này).
             evt.consume(); // Chặn luôn sự kiện phím đó, không cho nhập vào ô ReceiveInput.
                            // => nếu gõ chữ cái, dấu cách, ký tự đặc biệt (@, #, %,...) → sẽ không hiện gì cả.
         }
     }//GEN-LAST:event_ReceiveInputKeyTyped
 
+    // khi chọn phần "quản lý khách hàng" trong quản lý trên thanh codebar
+    // chỉ có admin(1) mới vào được , thungan(0) không có quyền
     private void QLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLKHActionPerformed
         if (tk.getKhachHang() == 1) {
             QuanLyKhachHang qlkh = new QuanLyKhachHang();
@@ -1410,21 +1423,27 @@ public class BanHang extends javax.swing.JFrame {
             CancleBtn.setEnabled(true);
         }
     }//GEN-LAST:event_addSPHDBtnActionPerformed
- // Hàm xử lý khi nhấn "tìm" ở ô "số điện thoại"
+ 
+    
+// Hàm xử lý khi nhấn "tìm" ở ô "số điện thoại"
     private void TimSDTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimSDTButtonActionPerformed
         //1. kết nối tới CSDL "KHACHHANG" để lấy thông tin 
         KhachHang_Connect kh_conn = new KhachHang_Connect();
+        
         // 2. tìm thông tin khách hàng (maKH,tenKH,SDT,diem) bằng hàm "layKhachHangBangSDT"  rồi lưu vào "kh"
         KhachHang kh = kh_conn.layKhachHangBangSDT(SDTInput.getText());
+        
         // 3. in ra giao diện thông tin : tenKH + điểm
         // Lấy tên khách hàng (kh.getTenKH()) và hiển thị lên giao diện trong ô KHOutput ="tên khách hàng"
-        KHOutput.setText(kh.getTenKH()); 
+        KHOutput.setText(kh.getTenKH()); //gán ký tự cho ô" tên khách hàng" 
         makh = kh.getMaKH(); // Lưu lại Mã khách hàng (MaKH) vào biến toàn cục makh => để có thể dùng được ở nơi khác 
         DiemOutput.setText(formatCurrency(kh.getDiem())); // lấy điểm của khách hàng rồi hiển thị lên giao diện "điểm"
         DiemCheckBox.setEnabled(true); // Bật cho phép chọn ô DiemCheckBox (checkbox "Dùng điểm").
     }//GEN-LAST:event_TimSDTButtonActionPerformed
 
-// đảm bảo khi nhập số điện thoại :  không quá 10 số + các ký tự không phải số 
+    
+// đảm bảo khi nhập số điện thoại :  không quá 10 số + các ký tự phải là chữ số(digit) 
+// KeyTyped : kiểm tra ký tự đúng yêu cầu không 
     private void SDTInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SDTInputKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isDigit(c) || SDTInput.getText().length() >= 10) {
@@ -1432,6 +1451,7 @@ public class BanHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SDTInputKeyTyped
 
+    
 // Đây là hàm xử lý sự kiện (ActionPerformed) cho checkbox DiemCheckBox. 
 // Khi người dùng click để chọn hoặc bỏ chọn checkbox này, hàm này sẽ được gọi.
     private void DiemCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiemCheckBoxActionPerformed
@@ -1462,6 +1482,10 @@ public class BanHang extends javax.swing.JFrame {
     private void SLInputMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SLInputMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_SLInputMouseClicked
+
+    private void DiemOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiemOutputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DiemOutputActionPerformed
 
     /**
      * @param args the command line arguments
