@@ -5,9 +5,11 @@ public class TaiKhoan {
 	private String userName;
 	private String passWord;
 	private String maNV ;
+
         private int baoCao;
         private int taiKhoan;
         private int danhMuc;
+
         private int Sach;
         private int NXB;
         private int NhanVien;
@@ -61,11 +63,13 @@ public class TaiKhoan {
         }
         
         public int getDanhMuc(){
+
             return this.danhMuc;
         }
         
         public void setDanhMuc(int dm){
             this.danhMuc= dm;
+
         }
         
         public int getSach(){
