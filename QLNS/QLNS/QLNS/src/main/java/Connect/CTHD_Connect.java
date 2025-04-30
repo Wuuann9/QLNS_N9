@@ -7,10 +7,7 @@ import java.sql.ResultSet;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author HUYPM
- */
+
 public class CTHD_Connect extends Connect_sqlServer{
     public int ThemCT(CTHD cthd) {
         try {	
