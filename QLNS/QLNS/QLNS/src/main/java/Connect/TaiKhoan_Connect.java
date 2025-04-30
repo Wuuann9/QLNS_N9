@@ -22,7 +22,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{
                 tk.setMaNV(result.getString(4));
                 tk.setBaoCao(result.getInt(5));
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -56,7 +56,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{
                 tk.setMaNV(result.getString(4));
                 tk.setBaoCao(result.getInt(5));
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -87,7 +87,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{
                 tk.setMaNV(result.getString(4));
                 tk.setBaoCao(result.getInt(5));
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -116,7 +116,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{
                 tk.setMaNV(result.getString(4));
                 tk.setBaoCao(result.getInt(5));
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -158,7 +158,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{
             pre.setString(4,  tk.getPassWord());
             pre.setInt(5,  tk.getBaoCao());
             pre.setInt(6,  tk.getTaiKhoan());
-            pre.setInt(7,  tk.getMaVach());
+            pre.setInt(7,  tk.getDanhMuc());
             pre.setInt(8,  tk.getSach());
             pre.setInt(9,  tk.getNXB());
             pre.setInt(10,  tk.getNhanVien());
@@ -182,7 +182,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{
             pre.setString(3,  tk.getPassWord());
             pre.setInt(4,  tk.getBaoCao());
             pre.setInt(5,  tk.getTaiKhoan());
-            pre.setInt(6,  tk.getMaVach());
+            pre.setInt(6,  tk.getDanhMuc());
             pre.setInt(7,  tk.getSach());
             pre.setInt(8,  tk.getNXB());
             pre.setInt(9,  tk.getNhanVien());
