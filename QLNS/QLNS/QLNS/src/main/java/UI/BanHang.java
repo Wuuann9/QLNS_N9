@@ -94,7 +94,7 @@ public class BanHang extends javax.swing.JFrame {
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
             vec.add(s.getTenSach());
-            vec.add(s.getTheLoai());
+            vec.add(s.getTenDM());
             vec.add(s.getTacGia());
             vec.add(s.getSoLuong());
             vec.add(s.getGiaBan());
@@ -1013,7 +1013,7 @@ public class BanHang extends javax.swing.JFrame {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(s.getMaSach());
                 vec.add(s.getTenSach());
-                vec.add(s.getTheLoai());
+                vec.add(s.getTenDM());
                 vec.add(s.getTacGia());
                 vec.add(s.getSoLuong());
                 vec.add(s.getGiaBan());
@@ -1167,7 +1167,7 @@ public class BanHang extends javax.swing.JFrame {
 
     private void DanhMucMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DanhMucMenuMouseClicked
         if (tk.getDanhMuc() == 1) {
-            QuanLyDanhMuc mvUI = new QuanLyDanhMuc("In mã vạch");
+            QuanLyDM mvUI = new QuanLyDM("In mã vạch");
             mvUI.showWindow();
         } else
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
