@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package UI;
 
 import Connect.NhanVien_Connect;
@@ -116,7 +113,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jLabel0 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TaiKhoanTable = new javax.swing.JTable();
@@ -163,10 +160,10 @@ private ArrayList<TaiKhoan> dstk_tim=null;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tài khoản");
+        jLabel0.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel0.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel0.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel0.setText("Tài khoản");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tài khoản", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -498,8 +495,18 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Phân quyền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
         TaiKhoanCheckBox.setText("Tài khoản");
+        TaiKhoanCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TaiKhoanCheckBoxActionPerformed(evt);
+            }
+        });
 
         BaoCaoCheckBox.setText("Báo cáo");
+        BaoCaoCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BaoCaoCheckBoxActionPerformed(evt);
+            }
+        });
 
         NhanVienCheckBox.setText("Nhân viên");
 
@@ -573,7 +580,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -586,7 +593,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel1)
+                .addComponent(jLabel0)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -770,6 +777,14 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         }
     }//GEN-LAST:event_TenNVInputKeyPressed
 
+    private void TaiKhoanCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TaiKhoanCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TaiKhoanCheckBoxActionPerformed
+
+    private void BaoCaoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaoCaoCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BaoCaoCheckBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -844,7 +859,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     private javax.swing.JPanel UsernamePane;
     private javax.swing.JCheckBox VPPCheckBox;
     private javax.swing.JButton XoaTKBTN;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel0;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
