@@ -7,7 +7,7 @@ public class TaiKhoan {
 	private String maNV ;
         private int BaoCao;
         private int TaiKhoan;
-        private int MaVach;
+        private int danhMuc;
         private int Sach;
         private int NXB;
         private int NhanVien;
@@ -60,12 +60,12 @@ public class TaiKhoan {
             this.TaiKhoan = tk;
         }
         
-        public int getMaVach(){
-            return this.MaVach;
+        public int getDanhMuc(){
+            return this.danhMuc;
         }
         
-        public void setMaVach(int mv){
-            this.MaVach= mv;
+        public void setDanhMuc(int dm){
+            this.danhMuc= dm;
         }
         
         public int getSach(){
