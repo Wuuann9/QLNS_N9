@@ -223,7 +223,7 @@
                                               <Component id="TKInput_MaSach" min="-2" pref="258" max="-2" attributes="0"/>
                                               <Group type="102" attributes="0">
                                                   <Component id="TKInput_TenSach" min="-2" pref="258" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <EmptySpace pref="86" max="32767" attributes="0"/>
                                                   <Component id="jLabel_SoLuong" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -237,19 +237,19 @@
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="NXBInput" min="-2" pref="258" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="85" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="87" max="32767" attributes="0"/>
                                                   <Component id="jLabel_TheLoai" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="TKInput_TacGia" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
-                                      <Component id="TKInput_SoLuong" min="-2" pref="258" max="-2" attributes="0"/>
-                                      <Component id="TKInput_TheLoai" min="-2" pref="258" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="TKInput_TacGia" alignment="0" pref="258" max="32767" attributes="0"/>
+                                      <Component id="TKInput_SoLuong" pref="258" max="32767" attributes="0"/>
+                                      <Component id="DanhM" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="85" max="32767" attributes="0"/>
+                                  <EmptySpace pref="86" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jLabel_GiaBan" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel_Discount" min="-2" max="-2" attributes="0"/>
@@ -267,9 +267,7 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -293,9 +291,9 @@
                               <Component id="jLabel_MaNXB" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="NXBInput" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="jLabel_TheLoai" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="TKInput_TheLoai" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="jLabel_Discount" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="TKInput_Discount" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="DanhM" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -374,9 +372,9 @@
                 <Component class="javax.swing.JLabel" name="jLabel_TheLoai">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="18" style="0"/>
+                      <Font name="Segoe UI" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Th&#x1ec3; Lo&#x1ea1;i"/>
+                    <Property name="text" type="java.lang.String" value="Danh M&#x1ee5;c"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="jLabel_TheLoai.setIcon(new ImageIcon(&quot;images/category_28px.png&quot;));"/>
@@ -409,8 +407,6 @@
                 <Component class="javax.swing.JTextField" name="TKInput_TenSach">
                 </Component>
                 <Component class="javax.swing.JTextField" name="TKInput_TacGia">
-                </Component>
-                <Component class="javax.swing.JTextField" name="TKInput_TheLoai">
                 </Component>
                 <Component class="javax.swing.JTextField" name="TKInput_SoLuong">
                 </Component>
@@ -540,6 +536,16 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JComboBox" name="DanhM">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JSeparator" name="jSeparator2">
