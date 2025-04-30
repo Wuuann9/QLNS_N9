@@ -64,9 +64,6 @@ public class TaiKhoan {
         
         public int getDanhMuc(){
 
-
-
-
             return this.danhMuc;
         }
         
