@@ -32,7 +32,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss.add(s);
@@ -62,7 +62,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss2.add(s);
@@ -92,7 +92,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss3.add(s);
@@ -119,7 +119,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss2.add(s);
@@ -147,7 +147,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss4.add(s);
@@ -174,7 +174,7 @@ public class Sach_Connect extends Connect_sqlServer{
                     s.setMaNXB(result.getString(3));
                     s.setTacGia(result.getString(4));
                     s.setGiaBan(result.getDouble(5));
-                    s.setTheLoai(result.getString(6));
+                    s.setTenDM(result.getString(6));
                     s.setSoLuong(result.getInt(7));
                     s.setDiscount(result.getInt(8));
                     dss2.add(s);
@@ -332,7 +332,7 @@ public class Sach_Connect extends Connect_sqlServer{
             pre.setString(3, s.getMaNXB());
             pre.setString(4, s.getTacGia());
             pre.setDouble(5, s.getGiaBan());
-            pre.setString(6, s.getTheLoai());
+            pre.setString(6, s.getTenDM());
             pre.setInt(7, s.getSoLuong());
             pre.setInt(8, s.getDiscount());
             return pre.executeUpdate();
@@ -386,7 +386,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 pre.setString(2, s.getMaNXB());
                 pre.setString(3, s.getTacGia());
                 pre.setDouble(4, s.getGiaBan());
-                pre.setString(5, s.getTheLoai());
+                pre.setString(5, s.getTenDM());
                 pre.setInt(6, s.getSoLuong());
                 pre.setInt(7, s.getDiscount());
                 pre.setString(8, s.getMaSach());
