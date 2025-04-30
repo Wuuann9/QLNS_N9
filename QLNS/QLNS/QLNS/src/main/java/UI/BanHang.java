@@ -1278,6 +1278,7 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_TaiKhoanMenuMouseClicked
 
+
 // Xử lý khi chọn thanh In mã vạch trên giao diện
 //=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
     private void DanhMucMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DanhMucMenuMouseClicked
@@ -1288,6 +1289,7 @@ public class BanHang extends javax.swing.JFrame {
         }
         // TH2: tk k có quyền tạo mã vạch => hiển thị hộp thoại cảnh báo
         else
+
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_DanhMucMenuMouseClicked
 

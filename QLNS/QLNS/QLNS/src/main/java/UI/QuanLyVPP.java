@@ -91,7 +91,7 @@ public class QuanLyVPP extends javax.swing.JFrame {
             dtmVPP.addRow(vec);
         }
         jTable_VPP.setModel(dtmVPP);
-      
+
     }
 
     private void hienThiToanBoNhaCungCap() {
@@ -330,7 +330,7 @@ public class QuanLyVPP extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(213, 213, 213)
                         .addComponent(jLabel_Discount2)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
