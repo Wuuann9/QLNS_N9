@@ -406,11 +406,7 @@ public class QuanLySach extends javax.swing.JFrame {
                                 .addComponent(TKInput_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel_DataLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-
                         .addGap(0, 0, Short.MAX_VALUE)))
-
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-
                 .addGap(55, 55, 55))
         );
         jPanel_DataLayout.setVerticalGroup(
