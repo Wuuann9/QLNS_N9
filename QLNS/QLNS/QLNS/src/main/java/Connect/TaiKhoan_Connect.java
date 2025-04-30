@@ -1,5 +1,6 @@
 
 package Connect;
+
 import Model.NhanVien;
 import Model.TaiKhoan;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo tai khoan roi luu vao lop array
     // tao ra tk 
     public ArrayList<TaiKhoan> layToanBoTaiKhoan(){  //kieu tra ve dstk
-        ArrayList<TaiKhoan> dstk = new ArrayList<TaiKhoan>();  //tao lop luu dstk jjdsaafd
+        ArrayList<TaiKhoan> dstk = new ArrayList<TaiKhoan>();  //tao lop luu dstk 
         try{ // dung them kiem tra ngoai le  tryy(code co the gay ra loi) catch code xu ly khi xay ra loi
             String sql ="select * from TAIKHOAN" ; // lay toan bo dong cot tu bang taikhoan
             PreparedStatement pre = conn.prepareStatement(sql); //ket noi voi sql
@@ -24,7 +25,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
                 
                 tk.setBaoCao(result.getInt(5)); // gan gia tri tu csdl vao tk lay tu result
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -52,13 +53,13 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
             while(result.next())
             {
                 TaiKhoan tk = new TaiKhoan();
-                tk.setMaTK(result.getString(1));// lay gia tri cot 1 va gan vao matk
+                tk.setMaTK(result.getString(1));// lay gia tri cot 1 va gan vao matk 
                 tk.setUserName(result.getString(2));
                 tk.setPassWord(result.getString(3));
                 tk.setMaNV(result.getString(4));
                 tk.setBaoCao(result.getInt(5));
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -89,7 +90,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
                 tk.setMaNV(result.getString(4));
                 tk.setBaoCao(result.getInt(5));
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -118,7 +119,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
                 tk.setMaNV(result.getString(4));
                 tk.setBaoCao(result.getInt(5));
                 tk.setTaiKhoan(result.getInt(6));
-                tk.setMaVach(result.getInt(7));
+                tk.setDanhMuc(result.getInt(7));
                 tk.setSach(result.getInt(8));
                 tk.setNXB(result.getInt(9));
                 tk.setNhanVien(result.getInt(10));
@@ -160,7 +161,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
             pre.setString(4,  tk.getPassWord());
             pre.setInt(5,  tk.getBaoCao());
             pre.setInt(6,  tk.getTaiKhoan());
-            pre.setInt(7,  tk.getMaVach());
+            pre.setInt(7,  tk.getDanhMuc());
             pre.setInt(8,  tk.getSach());
             pre.setInt(9,  tk.getNXB());
             pre.setInt(10,  tk.getNhanVien());
@@ -184,7 +185,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
             pre.setString(3,  tk.getPassWord());
             pre.setInt(4,  tk.getBaoCao());
             pre.setInt(5,  tk.getTaiKhoan());
-            pre.setInt(6,  tk.getMaVach());
+            pre.setInt(6,  tk.getDanhMuc());
             pre.setInt(7,  tk.getSach());
             pre.setInt(8,  tk.getNXB());
             pre.setInt(9,  tk.getNhanVien());
