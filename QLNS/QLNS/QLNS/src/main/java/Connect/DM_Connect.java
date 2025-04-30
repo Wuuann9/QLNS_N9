@@ -2,7 +2,6 @@ package Connect;
 
 import Model.DM;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;

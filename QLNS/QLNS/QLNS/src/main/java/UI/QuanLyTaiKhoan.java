@@ -514,11 +514,13 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         KHCheckBox.setText("Khách hàng");
 
         DanhMucCheckBox.setText("Danh Mục");
+
         DanhMucCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DanhMucCheckBoxActionPerformed(evt);
             }
         });
+
 
         NCCVPPCheckBox.setText("NCCVPP");
 

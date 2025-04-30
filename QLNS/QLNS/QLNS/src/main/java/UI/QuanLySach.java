@@ -5,12 +5,15 @@
 package UI;
 
 import Connect.CTHD_Connect;
+import Connect.DM_Connect;
 import Connect.HoaDon_Connect;
 import Connect.DM_Connect;
 import Connect.NXB_Connect;
 import Connect.Sach_Connect;
+import Model.DM;
 import Model.CTHD;
 import Model.HoaDon;
+import Model.DM;
 import Model.NXB;
 import Model.DM;
 import Model.Sach;
@@ -41,6 +44,7 @@ public class QuanLySach extends javax.swing.JFrame {
     /**
      * Creates new form QuanLySach
      */
+
     private String MaHD = null;
     private String MaNV = null;
     private DefaultTableModel dtmSach;
@@ -62,6 +66,7 @@ public class QuanLySach extends javax.swing.JFrame {
         hienThiToanBoSach();
         hienThiToanBoDanhMuc();
         hienThiToanBoNhaXuatBan();
+
     }
 
     private void hienThiToanBoSach() {
@@ -106,7 +111,9 @@ public class QuanLySach extends javax.swing.JFrame {
             NXBInput_TangGia.addItem(s);
         }
     }
+
      private void hienThiToanBoDanhMuc() {
+
         DM_Connect nxbconn = new DM_Connect();
         dsdm = nxbconn.layToanBoDanhMuc();
         DanhM.removeAllItems();
@@ -394,7 +401,7 @@ public class QuanLySach extends javax.swing.JFrame {
                                         .addComponent(jLabel_TacGia))
                                     .addGroup(jPanel_DataLayout.createSequentialGroup()
                                         .addComponent(NXBInput, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                                         .addComponent(jLabel_TheLoai)))
                                 .addGap(40, 40, 40)))
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -412,9 +419,11 @@ public class QuanLySach extends javax.swing.JFrame {
                             .addGroup(jPanel_DataLayout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(TKInput_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
+
                     .addGroup(jPanel_DataLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
+
                 .addGap(55, 55, 55))
         );
         jPanel_DataLayout.setVerticalGroup(
@@ -646,10 +655,12 @@ public class QuanLySach extends javax.swing.JFrame {
     //Chỉnh sửa, cập nhật sách
     private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ChinhSuaActionPerformed
         // TODO add your handling code here:
+
         if (TKInput_MaSach.getText().trim().isEmpty() || TKInput_TenSach.getText().trim().isEmpty()
                 || TKInput_TacGia.getText().trim().isEmpty() || TKInput_GiaBan.getText().trim().isEmpty()
                 || TKInput_SoLuong.getText().trim().isEmpty() || TKInput_Discount.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu!", "Error", JOptionPane.WARNING_MESSAGE);
+
             return;
         }
 
@@ -674,6 +685,7 @@ public class QuanLySach extends javax.swing.JFrame {
         s.setMaNXB(manxb.getMaNXB());
         s.setTacGia(TKInput_TacGia.getText().trim());
         s.setTenDM(tendm.toString());
+
 
         if (!isNumeric_Double(TKInput_GiaBan.getText().trim())
                 || !isNumeric(TKInput_SoLuong.getText().trim())
@@ -861,6 +873,7 @@ public class QuanLySach extends javax.swing.JFrame {
         } //tìm kiếm theo tên tác giả
         else if (TKInput.getText().length() == 0 && TKInput1.getText().length() != 0) {
             dtmSach.setRowCount(0);
+
             for (Sach s : dssTacGia) {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(s.getMaSach());
@@ -872,6 +885,7 @@ public class QuanLySach extends javax.swing.JFrame {
                 vec.add(s.getGiaBan());
                 vec.add(s.getDiscount());
                 dtmSach.addRow(vec);
+
             }
         }
     }//GEN-LAST:event_jButton_SearchMouseClicked
@@ -899,6 +913,7 @@ public class QuanLySach extends javax.swing.JFrame {
         TKInput_MaSach.setText("");
         TKInput_TenSach.setText("");
         NXBInput.setSelectedIndex(0);
+        DanhM.setSelectedIndex(0);
         TKInput_TacGia.setText("");
         TKInput_GiaBan.setText("");
         TKInput_SoLuong.setText("");
@@ -975,7 +990,7 @@ public class QuanLySach extends javax.swing.JFrame {
     private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_CancelActionPerformed
-    
+
     private void jButton_AccpetTangGiaNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AccpetTangGiaNXBActionPerformed
         if (TKInput_UpdateAllPriceNXB.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá cần tăng", "Error", JOptionPane.WARNING_MESSAGE);
