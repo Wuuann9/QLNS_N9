@@ -12,10 +12,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author dat
- */
+
 public class QuanLyTaiKhoan extends javax.swing.JFrame {
 private DefaultTableModel dtmNhanVien;
 private ArrayList<NhanVien> nhanViens =null;
@@ -164,6 +161,15 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Tài khoản");
+        jLabel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tài khoản", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -493,6 +499,15 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Phân quyền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel3.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jPanel3AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         TaiKhoanCheckBox.setText("Tài khoản");
         TaiKhoanCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -794,6 +809,14 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     private void DanhMucCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhMucCheckBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DanhMucCheckBoxActionPerformed
+
+    private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1AncestorAdded
+
+    private void jPanel3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel3AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3AncestorAdded
 
 
     /**
