@@ -4,16 +4,16 @@ package UI;
 import Connect.login_sql;
 import Model.TaiKhoan;
 import java.awt.Font;
-import java.awt.Toolkit;
+import java.awt.Toolkit; // truy cap chuc nang hdh 
 import javax.swing.JOptionPane;
 
-
+//tao 1 constructor hien thi interface 
 public class Login extends javax.swing.JFrame {
 
     
     public Login(String title) {
         this.setTitle(title);
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null); // can giua
         initComponents(); 
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
     }
