@@ -5,9 +5,11 @@ public class TaiKhoan {
 	private String userName;
 	private String passWord;
 	private String maNV ;
-        private int BaoCao;
-        private int TaiKhoan;
-        private int DanhMuc;
+
+
+        private int baoCao;
+        private int taiKhoan;
+        private int danhMuc;
         private int Sach;
         private int NXB;
         private int NhanVien;
@@ -45,27 +47,29 @@ public class TaiKhoan {
 	}
         
         public int getBaoCao(){
-            return this.BaoCao;
+            return this.baoCao;
         }
         
         public void setBaoCao(int baocao){
-            this.BaoCao = baocao;
+            this.baoCao = baocao;
         }
         
         public int getTaiKhoan(){
-            return this.TaiKhoan;
+            return this.taiKhoan;
         }
         
         public void setTaiKhoan(int tk){
-            this.TaiKhoan = tk;
+            this.taiKhoan = tk;
         }
         
         public int getDanhMuc(){
-            return this.DanhMuc;
+
+            return this.danhMuc;
         }
         
         public void setDanhMuc(int dm){
-            this.DanhMuc= dm;
+            this.danhMuc= dm;
+
         }
         
         public int getSach(){
