@@ -4,9 +4,9 @@ public class Sach {
 	private String maSach ;
 	private String tenSach;
 	private String maNXB ;
+        private String tenDM;
 	private String tacGia ;
 	private double giaBan ;
-	private String theLoai ;
 	private int soLuong ;
         private int discount;
 	public Sach() {
@@ -54,14 +54,6 @@ public class Sach {
 		this.giaBan = giaBan;
 	}
 
-	public String getTheLoai() {
-		return theLoai;
-	}
-
-	public void setTheLoai(String theLoai) {
-		this.theLoai = theLoai;
-	}
-
 	public int getSoLuong() {
 		return soLuong;
 	}
@@ -70,6 +62,14 @@ public class Sach {
 		this.soLuong = soLuong;
 	}
 
+    public String getTenDM() {
+        return tenDM;
+    }
+
+    public void setTenDM(String tenDM) {
+        this.tenDM = tenDM;
+    }
+        
 		@Override
 	public String toString() {
 		return this.tenSach;
