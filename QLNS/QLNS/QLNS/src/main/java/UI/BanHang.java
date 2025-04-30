@@ -1280,13 +1280,12 @@ public class BanHang extends javax.swing.JFrame {
 
 
     private void DanhMucMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DanhMucMenuMouseClicked
-        if(tk.getDanhMuc()==1){
-            QuanLyDanhMuc dmUI = new QuanLyDanhMuc("Danh Mục");
-            dmUI.showWindow();
-        }
-        else JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+        if (tk.getDanhMuc() == 1) {
+            QuanLyDanhMuc mvUI = new QuanLyDanhMuc("In mã vạch");
+            mvUI.showWindow();
+        } else
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_DanhMucMenuMouseClicked
-
 
 // khi nhấn vào "quản lý nhà cung cấp VPP" trong quản lý trên codebar
 // admin(1) , thugngan(0)   

@@ -515,6 +515,13 @@ private ArrayList<TaiKhoan> dstk_tim=null;
 
         DanhMucCheckBox.setText("Danh Mục");
 
+        DanhMucCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DanhMucCheckBoxActionPerformed(evt);
+            }
+        });
+
+
         NCCVPPCheckBox.setText("NCCVPP");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -769,6 +776,10 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             TKNhanVienBtnMouseClicked(null);
         }
     }//GEN-LAST:event_TenNVInputKeyPressed
+
+    private void DanhMucCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhMucCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DanhMucCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments

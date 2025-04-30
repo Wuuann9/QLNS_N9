@@ -702,6 +702,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Danh M&#x1ee5;c"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DanhMucCheckBoxActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="NCCVPPCheckBox">
           <Properties>
