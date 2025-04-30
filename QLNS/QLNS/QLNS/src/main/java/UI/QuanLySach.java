@@ -12,6 +12,7 @@ import Connect.Sach_Connect;
 import Model.DM;
 import Model.CTHD;
 import Model.HoaDon;
+import Model.DM;
 import Model.NXB;
 import Model.Sach;
 import java.awt.Toolkit;
@@ -45,6 +46,7 @@ public class QuanLySach extends javax.swing.JFrame {
     /**
      * Creates new form QuanLySach
      */
+
     private String MaHD = null;
     private String MaNV = null;
     private DefaultTableModel dtmSach;
@@ -55,6 +57,7 @@ public class QuanLySach extends javax.swing.JFrame {
     private ArrayList<Sach> dssTacGia = null;
     private ArrayList<Sach> dss_tensach = null;
     private ArrayList<Sach> dssByNXB = null;
+
 
     public QuanLySach(String title, String maNV) {
         initComponents();
@@ -109,6 +112,18 @@ public class QuanLySach extends javax.swing.JFrame {
         for (NXB s : dsnxb) {
             NXBInput.addItem(s);
             NXBInput_TangGia.addItem(s);
+        }
+    }
+      private void hienThiToanBoDanhMuc() {
+        DM_Connect nxbconn = new DM_Connect();
+        dsdm = nxbconn.layToanBoDanhMuc();
+        DanhM.removeAllItems();
+        DM dm = new DM();
+        dm.setMaDM("0");
+        dm.setTenDM("Tất cả");
+        DanhM.addItem(dm.getTenDM());
+        for (DM s : dsdm) {
+            DanhM.addItem(s.getTenDM());
         }
     }
 
@@ -418,9 +433,11 @@ public class QuanLySach extends javax.swing.JFrame {
                             .addGroup(jPanel_DataLayout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(TKInput_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
+
                     .addGroup(jPanel_DataLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
+
                 .addGap(55, 55, 55))
         );
         jPanel_DataLayout.setVerticalGroup(
@@ -652,12 +669,15 @@ public class QuanLySach extends javax.swing.JFrame {
     //Chỉnh sửa, cập nhật sách
     private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ChinhSuaActionPerformed
         // TODO add your handling code here:
-        if (TKInput_MaSach.getText().length() == 0
-                || TKInput_TenSach.getText().length() == 0 || TKInput_TacGia.getText().length() == 0 || TKInput_GiaBan.getText().length() == 0
-                || TKInput_SoLuong.getText().length() == 0 || TKInput_Discount.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu !", "Error", JOptionPane.WARNING_MESSAGE);
+
+        if (TKInput_MaSach.getText().trim().isEmpty() || TKInput_TenSach.getText().trim().isEmpty()
+                || TKInput_TacGia.getText().trim().isEmpty() || TKInput_GiaBan.getText().trim().isEmpty()
+                || TKInput_SoLuong.getText().trim().isEmpty() || TKInput_Discount.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu!", "Error", JOptionPane.WARNING_MESSAGE);
+
             return;
         }
+
         NXB manxb = (NXB) NXBInput.getSelectedItem();
         Object tendm = DanhM.getSelectedItem();
         if (manxb == null) {
@@ -672,22 +692,26 @@ public class QuanLySach extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn danh mục!", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
+
         Sach s = new Sach();
         s.setMaSach(TKInput_MaSach.getText().trim());
         s.setTenSach(TKInput_TenSach.getText().trim());
         s.setMaNXB(manxb.getMaNXB());
         s.setTacGia(TKInput_TacGia.getText().trim());
         s.setTenDM(tendm.toString());
-        if (!isNumeric_Double(TKInput_GiaBan.getText())
-                || !isNumeric(TKInput_SoLuong.getText())
-                || !isNumeric(TKInput_Discount.getText())) {
-            JOptionPane.showMessageDialog(this, "Giá bán, Số lượng hoặc Giảm giá đã nhập sai định dạng !\n Vui lòng thử lại !", "Error", JOptionPane.WARNING_MESSAGE);
+
+
+        if (!isNumeric_Double(TKInput_GiaBan.getText().trim())
+                || !isNumeric(TKInput_SoLuong.getText().trim())
+                || !isNumeric(TKInput_Discount.getText().trim())) {
+            JOptionPane.showMessageDialog(this, "Giá bán, Số lượng hoặc Giảm giá đã nhập sai định dạng!\nVui lòng thử lại!", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        s.setGiaBan(Double.parseDouble(TKInput_GiaBan.getText()));
-        s.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText()));
-        s.setDiscount(Integer.parseInt(TKInput_Discount.getText()));
-        
+
+        s.setGiaBan(Double.parseDouble(TKInput_GiaBan.getText().trim()));
+        s.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText().trim()));
+        s.setDiscount(Integer.parseInt(TKInput_Discount.getText().trim()));
+
         Sach_Connect sachconnect = new Sach_Connect();
         int active = sachconnect.update(s);
         if (active > 0) {
@@ -697,6 +721,7 @@ public class QuanLySach extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Chỉnh sửa sách thất bại. Kiểm tra lại kết nối hoặc dữ liệu!", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
         hienThiToanBoSach();
     }//GEN-LAST:event_jButton_ChinhSuaActionPerformed
 
@@ -862,17 +887,19 @@ public class QuanLySach extends javax.swing.JFrame {
         } //tìm kiếm theo tên tác giả
         else if (TKInput.getText().length() == 0 && TKInput1.getText().length() != 0) {
             dtmSach.setRowCount(0);
-            for (Sach s : dssTacGia) {
-                Vector<Object> vec = new Vector<Object>();
-                vec.add(s.getMaSach());
-                vec.add(s.getMaNXB());
-                vec.add(s.getTenSach());
-                vec.add(s.getTenDM());
-                vec.add(s.getTacGia());
-                vec.add(s.getSoLuong());
-                vec.add(s.getGiaBan());
-                vec.add(s.getDiscount());
-                dtmSach.addRow(vec);
+
+            for(Sach s : dssTacGia){
+            Vector<Object> vec = new Vector<Object>();			
+            vec.add(s.getMaSach());
+            vec.add(s.getMaNXB());
+            vec.add(s.getTenSach());
+            vec.add(s.getTenDM());
+            vec.add(s.getTacGia());
+            vec.add(s.getSoLuong());
+            vec.add(s.getGiaBan());	
+            vec.add(s.getDiscount());
+            dtmSach.addRow(vec);
+
             }
         }
     }//GEN-LAST:event_jButton_SearchMouseClicked

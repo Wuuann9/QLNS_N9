@@ -1,66 +1,59 @@
 package Model;
 
 public class Sach {
-	private String maSach ;
-	private String tenSach;
-	private String maNXB ;
-        private String tenDM;
-	private String tacGia ;
-	private double giaBan ;
-	private int soLuong ;
-        private int discount;
-	public Sach() {
-		super();
-	}
-	
-	
-	public String getMaSach() {
-		return maSach;
-	}
 
-	public void setMaSach(String maSach) {
-		this.maSach = maSach;
-	}
+    private String maSach;
+    private String tenSach;
+    private String maNXB;
+    private String tacGia;
+    private double giaBan;
+    private String tenDM;
+    private int soLuong;
+    private int discount;
 
-	public String getTenSach() {
-		return tenSach;
-	}
+    public Sach() {
+        super();
+    }
 
-	public void setTenSach(String tenSach) {
-		this.tenSach = tenSach;
-	}
+    public String getMaSach() {
+        return maSach;
+    }
 
-	public String getMaNXB() {
-		return maNXB;
-	}
+    public void setMaSach(String maSach) {
+        this.maSach = maSach;
+    }
 
-	public void setMaNXB(String maNXB) {
-		this.maNXB = maNXB;
-	}
+    public String getTenSach() {
+        return tenSach;
+    }
 
-	public String getTacGia() {
-		return tacGia;
-	}
+    public void setTenSach(String tenSach) {
+        this.tenSach = tenSach;
+    }
 
-	public void setTacGia(String tacGia) {
-		this.tacGia = tacGia;
-	}
+    public String getMaNXB() {
+        return maNXB;
+    }
 
-	public double getGiaBan() {
-		return giaBan;
-	}
+    public void setMaNXB(String maNXB) {
+        this.maNXB = maNXB;
+    }
 
-	public void setGiaBan(double giaBan) {
-		this.giaBan = giaBan;
-	}
+    public String getTacGia() {
+        return tacGia;
+    }
 
-	public int getSoLuong() {
-		return soLuong;
-	}
+    public void setTacGia(String tacGia) {
+        this.tacGia = tacGia;
+    }
 
-	public void setSoLuong(int soLuong) {
-		this.soLuong = soLuong;
-	}
+    public double getGiaBan() {
+        return giaBan;
+    }
+
+    public void setGiaBan(double giaBan) {
+        this.giaBan = giaBan;
+    }
 
     public String getTenDM() {
         return tenDM;
@@ -69,20 +62,26 @@ public class Sach {
     public void setTenDM(String tenDM) {
         this.tenDM = tenDM;
     }
-        
-		@Override
-	public String toString() {
-		return this.tenSach;
-	}
-	
-        public int getDiscount(){
-            return this.discount;
-        }
-        
-	public void setDiscount(int discount){
-            this.discount = discount;
-        }
-        
-	
 
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    @Override
+    public String toString() {
+        return this.tenSach;
+    }
+
+    public int getDiscount() {
+        return this.discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
 }
