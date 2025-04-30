@@ -6,10 +6,10 @@ public class TaiKhoan {
 	private String passWord;
 	private String maNV ;
 
+
         private int baoCao;
         private int taiKhoan;
         private int danhMuc;
-
         private int Sach;
         private int NXB;
         private int NhanVien;
@@ -63,6 +63,9 @@ public class TaiKhoan {
         }
         
         public int getDanhMuc(){
+
+
+
 
             return this.danhMuc;
         }

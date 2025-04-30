@@ -1279,11 +1279,17 @@ public class BanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_TaiKhoanMenuMouseClicked
 
 
+// Xử lý khi chọn thanh In mã vạch trên giao diện
+//=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
     private void DanhMucMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DanhMucMenuMouseClicked
+        //TH1: tk có quyền tạo mã vạch 
         if (tk.getDanhMuc() == 1) {
-            QuanLyDanhMuc mvUI = new QuanLyDanhMuc("In mã vạch");
-            mvUI.showWindow();
-        } else
+            QuanLyDanhMuc mvUI = new QuanLyDanhMuc("DanhMuc");//Tạo một đối tượng InMaVach (có thể là giao diện in mã vạch) với tiêu đề "In mã vạch".
+            mvUI.showWindow();//hiển thị giao diện in mã vạch.
+        }
+        // TH2: tk k có quyền tạo mã vạch => hiển thị hộp thoại cảnh báo
+        else
+
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_DanhMucMenuMouseClicked
 
