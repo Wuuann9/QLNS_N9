@@ -86,7 +86,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
                 tk.setPassWord(PasswordInput.getText());
                 tk.setBaoCao(BaoCaoCheckBox.isSelected()? 1: 0);
                 tk.setTaiKhoan(TaiKhoanCheckBox.isSelected()? 1: 0);
-                tk.setMaVach(MaVachCheckBox.isSelected()? 1: 0);
+                tk.setDanhMuc(DanhMucCheckBox.isSelected()? 1: 0);
                 tk.setSach(SachCheckBox.isSelected()? 1: 0);
                 tk.setNXB(NXBCheckBox.isSelected()? 1: 0);
                 tk.setNhanVien(NhanVienCheckBox.isSelected()? 1: 0);
@@ -158,7 +158,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         HoaDonCheckBox = new javax.swing.JCheckBox();
         VPPCheckBox = new javax.swing.JCheckBox();
         KHCheckBox = new javax.swing.JCheckBox();
-        MaVachCheckBox = new javax.swing.JCheckBox();
+        DanhMucCheckBox = new javax.swing.JCheckBox();
         NCCVPPCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -513,7 +513,12 @@ private ArrayList<TaiKhoan> dstk_tim=null;
 
         KHCheckBox.setText("Khách hàng");
 
-        MaVachCheckBox.setText("Mã vạch");
+        DanhMucCheckBox.setText("Danh Mục");
+        DanhMucCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DanhMucCheckBoxActionPerformed(evt);
+            }
+        });
 
         NCCVPPCheckBox.setText("NCCVPP");
 
@@ -529,7 +534,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
                         .addGap(18, 18, 18)
                         .addComponent(TaiKhoanCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(MaVachCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DanhMucCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(SachCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -553,7 +558,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BaoCaoCheckBox)
                     .addComponent(TaiKhoanCheckBox)
-                    .addComponent(MaVachCheckBox)
+                    .addComponent(DanhMucCheckBox)
                     .addComponent(SachCheckBox)
                     .addComponent(NXBCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
@@ -612,8 +617,8 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         else BaoCaoCheckBox.setSelected(false);
         if(tk.getTaiKhoan()==1) TaiKhoanCheckBox.setSelected(true);
         else TaiKhoanCheckBox.setSelected(false);
-        if(tk.getMaVach()==1) MaVachCheckBox.setSelected(true);
-        else MaVachCheckBox.setSelected(false);
+        if(tk.getDanhMuc()==1) DanhMucCheckBox.setSelected(true);
+        else DanhMucCheckBox.setSelected(false);
         if(tk.getSach()==1) SachCheckBox.setSelected(true);
         else SachCheckBox.setSelected(false);
         if(tk.getNXB()==1) NXBCheckBox.setSelected(true);
@@ -654,7 +659,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             tk.setPassWord(PasswordInput.getText());
             tk.setBaoCao(BaoCaoCheckBox.isSelected()? 1: 0);
             tk.setTaiKhoan(TaiKhoanCheckBox.isSelected()? 1: 0);
-            tk.setMaVach(MaVachCheckBox.isSelected()? 1: 0);
+            tk.setDanhMuc(DanhMucCheckBox.isSelected()? 1: 0);
             tk.setSach(SachCheckBox.isSelected()? 1: 0);
             tk.setNXB(NXBCheckBox.isSelected()? 1: 0);
             tk.setNhanVien(NhanVienCheckBox.isSelected()? 1: 0);
@@ -740,7 +745,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         PasswordInput.setText("");
         BaoCaoCheckBox.setSelected(false);
         TaiKhoanCheckBox.setSelected(false);
-        MaVachCheckBox.setSelected(false);
+        DanhMucCheckBox.setSelected(false);
         SachCheckBox.setSelected(false);
         NXBCheckBox.setSelected(false);
         NhanVienCheckBox.setSelected(false);
@@ -769,6 +774,10 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             TKNhanVienBtnMouseClicked(null);
         }
     }//GEN-LAST:event_TenNVInputKeyPressed
+
+    private void DanhMucCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhMucCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DanhMucCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -809,6 +818,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     private javax.swing.JButton ALLNhanVienBtn;
     private javax.swing.JButton AllTKTaiKhoanBtn;
     private javax.swing.JCheckBox BaoCaoCheckBox;
+    private javax.swing.JCheckBox DanhMucCheckBox;
     private javax.swing.JCheckBox HoaDonCheckBox;
     private javax.swing.JCheckBox KHCheckBox;
     private javax.swing.JTextField MaNVInput;
@@ -817,7 +827,6 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     private javax.swing.JTextField MaTKInput;
     private javax.swing.JLabel MaTKLabel;
     private javax.swing.JPanel MaTaiKhoanPanel;
-    private javax.swing.JCheckBox MaVachCheckBox;
     private javax.swing.JCheckBox NCCVPPCheckBox;
     private javax.swing.JCheckBox NXBCheckBox;
     private javax.swing.JCheckBox NhanVienCheckBox;
