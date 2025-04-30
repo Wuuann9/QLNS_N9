@@ -1285,12 +1285,14 @@ public class BanHang extends javax.swing.JFrame {
 
         //TH1: tk có quyền tạo mã vạch 
         if (tk.getDanhMuc() == 1) {
+
             QuanLyDM mvUI = new QuanLyDM("DanhMuc");//Tạo một đối tượng InMaVach (có thể là giao diện in mã vạch) với tiêu đề "In mã vạch".
             mvUI.showWindow();//hiển thị giao diện in mã vạch.
 
         }
         // TH2: tk k có quyền tạo mã vạch => hiển thị hộp thoại cảnh báo
         else
+
 
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_DanhMucMenuMouseClicked

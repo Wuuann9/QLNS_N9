@@ -7,6 +7,7 @@ package UI;
 import Connect.CTHD_Connect;
 import Connect.DM_Connect;
 import Connect.HoaDon_Connect;
+import Connect.DM_Connect;
 import Connect.NXB_Connect;
 import Connect.Sach_Connect;
 import Model.DM;
@@ -14,6 +15,7 @@ import Model.CTHD;
 import Model.HoaDon;
 import Model.DM;
 import Model.NXB;
+import Model.DM;
 import Model.Sach;
 import java.awt.Toolkit;
 import java.io.File;
@@ -37,10 +39,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-/**
- *
- * @author nguye
- */
 public class QuanLySach extends javax.swing.JFrame {
 
     /**
@@ -57,7 +55,6 @@ public class QuanLySach extends javax.swing.JFrame {
     private ArrayList<Sach> dssTacGia = null;
     private ArrayList<Sach> dss_tensach = null;
     private ArrayList<Sach> dssByNXB = null;
-
 
     public QuanLySach(String title, String maNV) {
         initComponents();
@@ -114,20 +111,9 @@ public class QuanLySach extends javax.swing.JFrame {
             NXBInput_TangGia.addItem(s);
         }
     }
-      private void hienThiToanBoDanhMuc() {
-        DM_Connect nxbconn = new DM_Connect();
-        dsdm = nxbconn.layToanBoDanhMuc();
-        DanhM.removeAllItems();
-        DM dm = new DM();
-        dm.setMaDM("0");
-        dm.setTenDM("Tất cả");
-        DanhM.addItem(dm.getTenDM());
-        for (DM s : dsdm) {
-            DanhM.addItem(s.getTenDM());
-        }
-    }
 
-    private void hienThiToanBoDanhMuc() {
+     private void hienThiToanBoDanhMuc() {
+
         DM_Connect nxbconn = new DM_Connect();
         dsdm = nxbconn.layToanBoDanhMuc();
         DanhM.removeAllItems();
@@ -888,17 +874,17 @@ public class QuanLySach extends javax.swing.JFrame {
         else if (TKInput.getText().length() == 0 && TKInput1.getText().length() != 0) {
             dtmSach.setRowCount(0);
 
-            for(Sach s : dssTacGia){
-            Vector<Object> vec = new Vector<Object>();			
-            vec.add(s.getMaSach());
-            vec.add(s.getMaNXB());
-            vec.add(s.getTenSach());
-            vec.add(s.getTenDM());
-            vec.add(s.getTacGia());
-            vec.add(s.getSoLuong());
-            vec.add(s.getGiaBan());	
-            vec.add(s.getDiscount());
-            dtmSach.addRow(vec);
+            for (Sach s : dssTacGia) {
+                Vector<Object> vec = new Vector<Object>();
+                vec.add(s.getMaSach());
+                vec.add(s.getMaNXB());
+                vec.add(s.getTenSach());
+                vec.add(s.getTenDM());
+                vec.add(s.getTacGia());
+                vec.add(s.getSoLuong());
+                vec.add(s.getGiaBan());
+                vec.add(s.getDiscount());
+                dtmSach.addRow(vec);
 
             }
         }
