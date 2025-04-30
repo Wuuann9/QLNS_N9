@@ -1,5 +1,6 @@
 package Model;
 
+// contructor thuc hien cac phuong thuc set get
 public class TaiKhoan {
 	private String maTK;
 	private String userName;
