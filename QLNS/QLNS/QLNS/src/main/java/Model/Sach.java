@@ -63,6 +63,7 @@ public class Sach {
         this.tenDM = tenDM;
     }
 
+
     public int getSoLuong() {
         return soLuong;
     }
@@ -83,5 +84,4 @@ public class Sach {
     public void setDiscount(int discount) {
         this.discount = discount;
     }
-
 }

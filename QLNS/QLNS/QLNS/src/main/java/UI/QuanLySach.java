@@ -9,6 +9,7 @@ import Connect.DM_Connect;
 import Connect.HoaDon_Connect;
 import Connect.NXB_Connect;
 import Connect.Sach_Connect;
+import Model.DM;
 import Model.CTHD;
 import Model.HoaDon;
 import Model.DM;
@@ -45,31 +46,32 @@ public class QuanLySach extends javax.swing.JFrame {
     /**
      * Creates new form QuanLySach
      */
-        private String MaHD=null;
-        private String MaNV= null;
-        private DefaultTableModel dtmSach ;
-        private ArrayList<DM> dsdm = null;
-	private ArrayList<NXB> dsnxb = null;
-        private ArrayList<Sach> dsChung = null;
-	private ArrayList<Sach> dss = null;
-	private ArrayList<Sach> dssTacGia = null;
-	private ArrayList<Sach> dss_tensach = null;
-	private ArrayList<Sach> dssByNXB = null;
-        
+
+    private String MaHD = null;
+    private String MaNV = null;
+    private DefaultTableModel dtmSach;
+    private ArrayList<DM> dsdm = null;
+    private ArrayList<NXB> dsnxb = null;
+    private ArrayList<Sach> dsChung = null;
+    private ArrayList<Sach> dss = null;
+    private ArrayList<Sach> dssTacGia = null;
+    private ArrayList<Sach> dss_tensach = null;
+    private ArrayList<Sach> dssByNXB = null;
+
+
     public QuanLySach(String title, String maNV) {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
         this.setTitle(title);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        MaNV=maNV;
+        MaNV = maNV;
         hienThiToanBoSach();
         hienThiToanBoDanhMuc();
         hienThiToanBoNhaXuatBan();
-        
+
     }
 
-    
     private void hienThiToanBoSach() {
         Sach_Connect sachConn = new Sach_Connect();
         dss = sachConn.layToanBoSach();
@@ -83,7 +85,7 @@ public class QuanLySach extends javax.swing.JFrame {
         dtmSach.addColumn("Giá Bán (VNĐ)");
         dtmSach.addColumn("Giảm Giá (%)");
         dtmSach.setRowCount(0);
-        for (Sach s : dss){
+        for (Sach s : dss) {
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
             vec.add(s.getMaNXB());
@@ -93,25 +95,24 @@ public class QuanLySach extends javax.swing.JFrame {
             vec.add(s.getSoLuong());
             vec.add(s.getGiaBan());
             vec.add(s.getDiscount());
-            dtmSach.addRow(vec);	
+            dtmSach.addRow(vec);
         }
         jTable_Books.setModel(dtmSach);
     }
-    
-    
-      private void hienThiToanBoNhaXuatBan() {
+
+    private void hienThiToanBoNhaXuatBan() {
         NXB_Connect nxbconn = new NXB_Connect();
-        dsnxb=nxbconn.layToanBoNhaXuatBan();
+        dsnxb = nxbconn.layToanBoNhaXuatBan();
         NXBInput.removeAllItems();
         NXBInput_TangGia.removeAllItems();
         NXB nxb = new NXB();
         nxb.setMaNXB("0");
         nxb.setTenNXB("Tất cả");
         NXBInput.addItem(nxb);
-        for(NXB s : dsnxb) {
+        for (NXB s : dsnxb) {
             NXBInput.addItem(s);
             NXBInput_TangGia.addItem(s);
-        } 	
+        }
     }
       private void hienThiToanBoDanhMuc() {
         DM_Connect nxbconn = new DM_Connect();
@@ -126,43 +127,55 @@ public class QuanLySach extends javax.swing.JFrame {
         }
     }
 
-      //Functions for validations !!!
-      public static boolean isNumeric(String string) {
-    int intValue;
-	
-    //System.out.println(String.format("Parsing string: \"%s\"", string));
-		
-    if(string == null || string.equals("")) {
-        //System.out.println("String cannot be parsed, it is null or empty.");
+    private void hienThiToanBoDanhMuc() {
+        DM_Connect nxbconn = new DM_Connect();
+        dsdm = nxbconn.layToanBoDanhMuc();
+        DanhM.removeAllItems();
+        DM dm = new DM();
+        dm.setMaDM("0");
+        dm.setTenDM("Tất cả");
+        DanhM.addItem(dm.getTenDM());
+        for (DM s : dsdm) {
+            DanhM.addItem(s.getTenDM());
+        }
+    }
+
+    //Functions for validations !!!
+    public static boolean isNumeric(String string) {
+        int intValue;
+
+        //System.out.println(String.format("Parsing string: \"%s\"", string));
+        if (string == null || string.equals("")) {
+            //System.out.println("String cannot be parsed, it is null or empty.");
+            return false;
+        }
+
+        try {
+            intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            //System.out.println("Input String cannot be parsed to Integer.");
+        }
         return false;
     }
-    
-    try {
-        intValue = Integer.parseInt(string);
-        return true;
-    } catch (NumberFormatException e) {
-        //System.out.println("Input String cannot be parsed to Integer.");
-    }
-    return false;
-}
+
     public static boolean isNumeric_Double(String string) {
-    double intValue;
-	
-    //System.out.println(String.format("Parsing string: \"%s\"", string));
-		
-    if(string == null || string.equals("")) {
-        //System.out.println("String cannot be parsed, it is null or empty.");
+        double intValue;
+
+        //System.out.println(String.format("Parsing string: \"%s\"", string));
+        if (string == null || string.equals("")) {
+            //System.out.println("String cannot be parsed, it is null or empty.");
+            return false;
+        }
+
+        try {
+            intValue = Double.parseDouble(string);
+            return true;
+        } catch (NumberFormatException e) {
+            //System.out.println("Input String cannot be parsed to Integer.");
+        }
         return false;
     }
-    
-    try {
-        intValue = Double.parseDouble(string);
-        return true;
-    } catch (NumberFormatException e) {
-        //System.out.println("Input String cannot be parsed to Integer.");
-    }
-    return false;
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -420,7 +433,11 @@ public class QuanLySach extends javax.swing.JFrame {
                             .addGroup(jPanel_DataLayout.createSequentialGroup()
                                 .addGap(31, 31, 31)
                                 .addComponent(TKInput_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+
+                    .addGroup(jPanel_DataLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+
                 .addGap(55, 55, 55))
         );
         jPanel_DataLayout.setVerticalGroup(
@@ -649,14 +666,15 @@ public class QuanLySach extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     //Chỉnh sửa, cập nhật sách
     private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ChinhSuaActionPerformed
         // TODO add your handling code here:
+
         if (TKInput_MaSach.getText().trim().isEmpty() || TKInput_TenSach.getText().trim().isEmpty()
                 || TKInput_TacGia.getText().trim().isEmpty() || TKInput_GiaBan.getText().trim().isEmpty()
                 || TKInput_SoLuong.getText().trim().isEmpty() || TKInput_Discount.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu!", "Error", JOptionPane.WARNING_MESSAGE);
+
             return;
         }
 
@@ -682,6 +700,7 @@ public class QuanLySach extends javax.swing.JFrame {
         s.setTacGia(TKInput_TacGia.getText().trim());
         s.setTenDM(tendm.toString());
 
+
         if (!isNumeric_Double(TKInput_GiaBan.getText().trim())
                 || !isNumeric(TKInput_SoLuong.getText().trim())
                 || !isNumeric(TKInput_Discount.getText().trim())) {
@@ -706,7 +725,6 @@ public class QuanLySach extends javax.swing.JFrame {
         hienThiToanBoSach();
     }//GEN-LAST:event_jButton_ChinhSuaActionPerformed
 
-    
     //Thêm sách
     private void jButton_ThemSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSachActionPerformed
         // TODO add your handling code here:
@@ -766,63 +784,63 @@ public class QuanLySach extends javax.swing.JFrame {
     protected void xuLyThemMoi(Sach s) {
         Sach_Connect themsach = new Sach_Connect();
         int active = themsach.themSachMoi(s);
-        if(active > 0 ){
+        if (active > 0) {
             JOptionPane.showMessageDialog(null, "Thêm mới thành công");
             TaoHDVaCTHD();
             TKInput_MaSach.setText("");
-            TKInput_TenSach.setText("");	
+            TKInput_TenSach.setText("");
             TKInput_TacGia.setText("");
             TKInput_GiaBan.setText("");
             TKInput_SoLuong.setText("");
             TKInput_Discount.setText("");
             TKInput_MaSach.requestFocus();
-            hienThiToanBoSach();		
-        }
-        else{
+            hienThiToanBoSach();
+        } else {
             JOptionPane.showMessageDialog(null, "Thêm mới thất bại");
-        }           
+        }
     }
-    
-    private void TaoHDVaCTHD(){
+
+    private void TaoHDVaCTHD() {
         String HD = "HD";
         //tạo hóa đơn với mã hóa đơn mới tính từ hóa đơn cuối cùng
         HoaDon_Connect tHD = new HoaDon_Connect();
         CTHD_Connect cthd = new CTHD_Connect();
         String lastmahd = tHD.LastMaHD();
-        if (lastmahd==null) MaHD= "HD01";
-        else {
-            int sohd = Integer.parseInt(lastmahd.substring(2))+1; //bỏ đi hai chữ "HD" và công thêm 1 vào hai số phía sau
-            if (sohd<10) MaHD = HD+"0"+String.valueOf(sohd);
-            else MaHD = HD+String.valueOf(sohd);
-        }    
+        if (lastmahd == null) {
+            MaHD = "HD01";
+        } else {
+            int sohd = Integer.parseInt(lastmahd.substring(2)) + 1; //bỏ đi hai chữ "HD" và công thêm 1 vào hai số phía sau
+            if (sohd < 10) {
+                MaHD = HD + "0" + String.valueOf(sohd);
+            } else {
+                MaHD = HD + String.valueOf(sohd);
+            }
+        }
         System.out.println(MaHD);
         System.out.println(MaNV);
         HoaDon hd = new HoaDon();
         hd.setMaHD(MaHD);
         hd.setMaNV(MaNV);
-        
+
         Date date = new Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(date);
         hd.setNgaylap(currentTime);
-        hd.setTongTien(Double.parseDouble(TKInput_GiaBan.getText())*Double.parseDouble(TKInput_SoLuong.getText()) );
+        hd.setTongTien(Double.parseDouble(TKInput_GiaBan.getText()) * Double.parseDouble(TKInput_SoLuong.getText()));
         hd.setTrangThai(0);
         hd.setNhapSach(1);
-        tHD.TaoHD(hd); 
+        tHD.TaoHD(hd);
 //        
         CTHD ct = new CTHD();
         ct.setMaHD(MaHD);
         ct.setMaSP(TKInput_MaSach.getText());
         ct.setDonGia(Double.parseDouble(TKInput_GiaBan.getText()));
         ct.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText()));
-        ct.setThanhTien(Double.parseDouble(TKInput_GiaBan.getText())*Double.parseDouble(TKInput_SoLuong.getText()) );
+        ct.setThanhTien(Double.parseDouble(TKInput_GiaBan.getText()) * Double.parseDouble(TKInput_SoLuong.getText()));
         CTHD_Connect ctCon = new CTHD_Connect();
         ctCon.ThemCT(ct);
-   }
-    
-   
+    }
 
-    
     //Tìm kiếm sách
     private void jButton_SearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_SearchMouseClicked
         // TODO add your handling code here:
@@ -833,12 +851,13 @@ public class QuanLySach extends javax.swing.JFrame {
         dssTacGia = sachnxb1.laySachTheoTenTacGia(tenTacGia);
         dsChung = sachnxb1.laySachTheoMaTenVaTenTacGia(ten, tenTacGia);
         //show all data
-        if (TKInput.getText().length()==0 && TKInput1.getText().length()==0)
+        if (TKInput.getText().length() == 0 && TKInput1.getText().length() == 0) {
             hienThiToanBoSach();
+        }
         //tìm kiếm theo tên sách
-        if (TKInput.getText().length()!= 0 && TKInput1.getText().length()==0){
+        if (TKInput.getText().length() != 0 && TKInput1.getText().length() == 0) {
             dtmSach.setRowCount(0);
-            for(Sach s : dss_tensach){
+            for (Sach s : dss_tensach) {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(s.getMaSach());
                 vec.add(s.getMaNXB());
@@ -850,11 +869,10 @@ public class QuanLySach extends javax.swing.JFrame {
                 vec.add(s.getDiscount());
                 dtmSach.addRow(vec);
             }
-        }
-        //Tìm kiếm theo tên sách và tên tác giả
-        else if (TKInput.getText().length()!= 0 && TKInput1.getText().length()!=0){
+        } //Tìm kiếm theo tên sách và tên tác giả
+        else if (TKInput.getText().length() != 0 && TKInput1.getText().length() != 0) {
             dtmSach.setRowCount(0);
-            for(Sach s : dsChung){
+            for (Sach s : dsChung) {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(s.getMaSach());
                 vec.add(s.getMaNXB());
@@ -862,14 +880,14 @@ public class QuanLySach extends javax.swing.JFrame {
                 vec.add(s.getTenDM());
                 vec.add(s.getTacGia());
                 vec.add(s.getSoLuong());
-                vec.add(s.getGiaBan());	
+                vec.add(s.getGiaBan());
                 vec.add(s.getDiscount());
                 dtmSach.addRow(vec);
-            } 
-        }
-        //tìm kiếm theo tên tác giả
-        else if (TKInput.getText().length()== 0 && TKInput1.getText().length()!=0){
+            }
+        } //tìm kiếm theo tên tác giả
+        else if (TKInput.getText().length() == 0 && TKInput1.getText().length() != 0) {
             dtmSach.setRowCount(0);
+
             for(Sach s : dssTacGia){
             Vector<Object> vec = new Vector<Object>();			
             vec.add(s.getMaSach());
@@ -881,35 +899,35 @@ public class QuanLySach extends javax.swing.JFrame {
             vec.add(s.getGiaBan());	
             vec.add(s.getDiscount());
             dtmSach.addRow(vec);
+
             }
-	}
+        }
     }//GEN-LAST:event_jButton_SearchMouseClicked
 
-    
     //Xoá sách
     private void jButton_XoaSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_XoaSachActionPerformed
         // TODO add your handling code here:
         int select = jTable_Books.getSelectedRow();
-        if(select==-1) {
-           JOptionPane.showMessageDialog(this, "Bạn chưa chọn sách muốn xoá","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (select == -1) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sách muốn xoá", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         String maSach = (String) jTable_Books.getValueAt(select, 0);
         //JOptionPane.showMessageDialog(null,jTable_Books.getValueAt(select, 0) );
         int active = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa", "Xác Nhận Xóa", JOptionPane.OK_CANCEL_OPTION);
-        if(active==JOptionPane.OK_OPTION){
+        if (active == JOptionPane.OK_OPTION) {
             xuLyXoa(maSach);
             //JOptionPane.showMessageDialog(null,maSach );
         }
     }//GEN-LAST:event_jButton_XoaSachActionPerformed
 
-    
     //Nhập lại
     private void jButton_NhapLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_NhapLaiActionPerformed
         // TODO add your handling code here:
         TKInput_MaSach.setText("");
         TKInput_TenSach.setText("");
         NXBInput.setSelectedIndex(0);
+        DanhM.setSelectedIndex(0);
         TKInput_TacGia.setText("");
         TKInput_GiaBan.setText("");
         TKInput_SoLuong.setText("");
@@ -917,8 +935,6 @@ public class QuanLySach extends javax.swing.JFrame {
         TKInput_MaSach.requestFocus();
     }//GEN-LAST:event_jButton_NhapLaiActionPerformed
 
-    
-    
     //Get selected row
     private void jTable_BooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_BooksMouseClicked
         // TODO add your handling code here:
@@ -990,29 +1006,29 @@ public class QuanLySach extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_CancelActionPerformed
 
     private void jButton_AccpetTangGiaNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AccpetTangGiaNXBActionPerformed
-        if (TKInput_UpdateAllPriceNXB.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá cần tăng","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (TKInput_UpdateAllPriceNXB.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập giá cần tăng", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-        if (!isNumeric(TKInput_UpdateAllPriceNXB.getText().trim())){
-            JOptionPane.showMessageDialog(this, "Nhập sai định dạng giá","Error", JOptionPane.WARNING_MESSAGE);
-            return ;
+        if (!isNumeric(TKInput_UpdateAllPriceNXB.getText().trim())) {
+            JOptionPane.showMessageDialog(this, "Nhập sai định dạng giá", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-         double extraMoney = (Double.parseDouble(TKInput_UpdateAllPriceNXB.getText().trim()));
-     
-         NXB nxb = (NXB) NXBInput_TangGia.getSelectedItem();
-         Sach_Connect sc = new Sach_Connect();
-         dssByNXB = sc.laySachTheoNXB(nxb.getMaNXB());
-        
-        for (Sach s: dssByNXB){
-            sc.updateAllPrice(s.getMaSach(), (s.getGiaBan()+extraMoney));
+        double extraMoney = (Double.parseDouble(TKInput_UpdateAllPriceNXB.getText().trim()));
+
+        NXB nxb = (NXB) NXBInput_TangGia.getSelectedItem();
+        Sach_Connect sc = new Sach_Connect();
+        dssByNXB = sc.laySachTheoNXB(nxb.getMaNXB());
+
+        for (Sach s : dssByNXB) {
+            sc.updateAllPrice(s.getMaSach(), (s.getGiaBan() + extraMoney));
         }
-       hienThiToanBoSach();
+        hienThiToanBoSach();
     }//GEN-LAST:event_jButton_AccpetTangGiaNXBActionPerformed
 
     private void jButton_CancelNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelNXBActionPerformed
         // TODO add your handling code here:
-        TKInput_UpdateAllPriceNXB.setText("");   
+        TKInput_UpdateAllPriceNXB.setText("");
     }//GEN-LAST:event_jButton_CancelNXBActionPerformed
 
     private void jButton_RefreshSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RefreshSearchMouseClicked
@@ -1021,23 +1037,19 @@ public class QuanLySach extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_RefreshSearchMouseClicked
     protected void xuLyXoa(String maSach) {
         Sach_Connect sachXoa = new Sach_Connect();
-        int active= sachXoa.XoaSach(maSach);
-        if(active > 0){
+        int active = sachXoa.XoaSach(maSach);
+        if (active > 0) {
             JOptionPane.showMessageDialog(null, "Xóa thành công sách!");
             hienThiToanBoSach();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Xóa thất bại");	
+        } else {
+            JOptionPane.showMessageDialog(null, "Xóa thất bại");
         }
     }
 
-
 //Chỉnh Sửa
-
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> DanhM;
@@ -1099,5 +1111,4 @@ public class QuanLySach extends javax.swing.JFrame {
         });
     }
 
-    
 }
