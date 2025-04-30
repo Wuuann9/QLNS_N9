@@ -5,6 +5,8 @@
 package Connect;
 
 
+
+
 import Model.ChucVu;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +25,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 public class DanhMuc_Connect extends Connect_sqlServer {
+
 
     public ArrayList<DanhMuc> layToanBoDanhMuc() {
         ArrayList<DanhMuc> dss = new ArrayList<DanhMuc>();
