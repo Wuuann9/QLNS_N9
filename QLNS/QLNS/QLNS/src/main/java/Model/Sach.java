@@ -2,7 +2,6 @@ package Model;
 
 public class Sach {
 
-
     private String maSach;
     private String tenSach;
     private String maNXB;
@@ -63,7 +62,6 @@ public class Sach {
     public void setTenDM(String tenDM) {
         this.tenDM = tenDM;
     }
-
 
     public int getSoLuong() {
         return soLuong;
