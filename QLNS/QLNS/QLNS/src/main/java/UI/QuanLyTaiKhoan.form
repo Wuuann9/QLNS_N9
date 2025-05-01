@@ -611,7 +611,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="TaiKhoanCheckBox" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="MaVachCheckBox" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="DanhMucCheckBox" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="SachCheckBox" min="-2" pref="85" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -640,7 +640,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="BaoCaoCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="TaiKhoanCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="MaVachCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="DanhMucCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="SachCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="NXBCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -698,10 +698,13 @@
             <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="MaVachCheckBox">
+        <Component class="javax.swing.JCheckBox" name="DanhMucCheckBox">
           <Properties>
-            <Property name="text" type="java.lang.String" value="M&#xe3; v&#x1ea1;ch"/>
+            <Property name="text" type="java.lang.String" value="Danh M&#x1ee5;c"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DanhMucCheckBoxActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="NCCVPPCheckBox">
           <Properties>
