@@ -34,12 +34,16 @@ public class QuanLyHoaDon extends javax.swing.JFrame {
 private DefaultTableModel dtmHoaDon = null, dtmCTHD =null;
 private ArrayList<HoaDon> dshd_thongke =null;
 private double tongTien =0;
-private DecimalFormat df = new DecimalFormat("###,###,###");
+private DecimalFormat df = new DecimalFormat("###,###,###"); //=> in ra theo mẫu ví dụ : 100000000 => 100,000,00
+
 //sửa lại đường dẫn này cho phù hợp với đường dẫn trong máy
-String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
+String filePath = "B:\\BTL_OOP\\QLNS_N9\\QLNS\\QLNS\\Excel\\";
     /**
      * Creates new form QuanLyHoaDon
      */
+
+
+// 
     public QuanLyHoaDon(String title) {
         this.setTitle(title);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
@@ -48,38 +52,47 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
         hienThiHoaDon();
         hienThiCTHD("0");
     }
+ 
     
+// Hàm hiển thị hóa đơn 
     private void hienThiHoaDon() {
+        // 1. Lấy tháng + năm hiện tại 
+        // tháng và năm có cách lấy dữ liệu khác nhau vì tháng là chọn còn năm là nhập 
         Calendar cal = Calendar.getInstance();
         MonthInput.setSelectedIndex(cal.get(Calendar.MONTH) + 1); // Tháng bắt đầu từ 0 nên cần +1 để lấy tháng thực tế
         YearInput.setText(Integer.toString(cal.get(Calendar.YEAR)) );
-
+        // 2. Lấy Dữ Liệu Hóa Đơn Và Hiển Thị Trên Bảng
         HoaDon_Connect hd_connect = new HoaDon_Connect();
-
         HoaDonTable.setModel(hd_connect.layToanBoHoaDonTheoThangNam(Integer.toString(MonthInput.getSelectedIndex()), YearInput.getText()));
         tongTien = 0;
+        // Tính tổng tiền và in ra 
         for (int i = 0; i< HoaDonTable.getRowCount();i++){
             tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());
         }
-        ToTalLabel.setText(df.format(tongTien) + " vnđ");
+        ToTalLabel.setText(df.format(tongTien) + " vnđ"); // hiển thì theo df.fomat() đc định nghĩa ở đầu kiểu ví dụ  100,000,000
     }
-    
-    private void hienThiHoaDonHomNay(){
-        HoaDon_Connect hd_connect = new HoaDon_Connect();
 
-        HoaDonTable.setModel(hd_connect.layToanBoHoaDonHomNay());
+// Hàm hiển thị hóa đơn hôm nay 
+    private void hienThiHoaDonHomNay(){
+        // 1. Lấy toàn bộ hóa đơn trong ngày => hiển thị lên bảng "danh sách hóa đơn" = HoaDonTable
+        HoaDon_Connect hd_connect = new HoaDon_Connect();
+        HoaDonTable.setModel(hd_connect.layToanBoHoaDonHomNay()); // setModel là một phương thức trong các lớp Swing như JTable, dùng để gán một mô hình dữ liệu (model) cho thành phần giao diện đó.
+        
+        //2. Tính tổng tiền tất cả hóa đơn trong ngày 
         tongTien = 0;
         for (int i = 0; i< HoaDonTable.getRowCount();i++){
-            tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());
+            tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());// getValueAt(hàng,cột)
         }
-
-        ToTalLabel.setText(df.format(tongTien) + " vnđ");
+        ToTalLabel.setText(df.format(tongTien) + " vnđ");// df.fomat đc định nghĩa ở đầu kiểu 100,000,000
     }
+    
+    
   // Hiển thị CTHD qua MaHD  
     private void hienThiCTHD(String mahd){
         CTHD_Connect cthd_conn = new CTHD_Connect();// tạo CTHD_Connect mới => có thể sử dụng các methods trong đó 
         dtmCTHD = cthd_conn.layCTHDBangMaHD(mahd);// lấy data CTHD qua mahd rồi lưu vào dtmCTHD
         CTHDTable.setModel(dtmCTHD);// hiển thị dữ liệu lên bảng CTHD
+                                    // setmodel : gán model của dtmCTHD cho CTHDTable
     }
    
     
@@ -341,33 +354,39 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+// ấn chuột vào "Tìm" hóa đơn theo tháng và năm 
     private void SearchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchBtnMouseClicked
         HoaDon_Connect hd_connect = new HoaDon_Connect();
+        //1. Lấy hóa đơn theo tháng + năm => Hiển thị dữ liệu thành bảng "Danh sách hóa đơn"
         String thang  = MonthInput.getSelectedItem().toString();
         String nam = YearInput.getText();
         HoaDonTable.setModel(hd_connect.layToanBoHoaDonTheoThangNam(thang, nam));
+        // 2. tính tổng tiền hóa đơn trong tháng + hiển thị trên giao diện
         tongTien = 0;
         for (int i = 0; i< HoaDonTable.getRowCount();i++){
             tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());
         }
+        // hiển thị lên giao diện 
         TongTienLabel.setText("Tổng tiền bán được tháng này: ");
-        ToTalLabel.setText(df.format(tongTien) + " vnđ");
-        dtmCTHD.setColumnCount(0);
+        ToTalLabel.setText(df.format(tongTien) + " vnđ");// in ra dưới dạng có "," ví dụ : 100,000,000
+        dtmCTHD.setColumnCount(0); //xóa tất cả cột của bảng này, làm bảng trở thành rỗng.
     }//GEN-LAST:event_SearchBtnMouseClicked
 
     
- // Xử lý khi ấn "Xuất file Excel"
+ // Xử lý khi ấn "Xuất Excel"
     private void PrintBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintBtnActionPerformed
         int dialogResult = JOptionPane.showConfirmDialog (null, "Xuất file excel?","Warning",JOptionPane.YES_NO_OPTION);
         if(dialogResult == JOptionPane.YES_OPTION){
             String filePath = "B:\\BTL_OOP\\QLNS_N9\\QLNS\\QLNS\\Excel\\";
             XuatFileExcel((DefaultTableModel)HoaDonTable.getModel(), "Danh sách hóa đơn", filePath+"HoaDon.xls" ); // tên tệp = HoaDon.xls
                                                                                                                    // tên sheet = Danh sách hóa đơn
+                                                                                                                   // getModel() = lấy mô hình dữ liệu của model 
         }           
     }//GEN-LAST:event_PrintBtnActionPerformed
 
     
-//
+// Hàm kiểm tra xem năm được nhập đúng định dạng chưa : tất cả phải là số + lớn hơn 4 số 
     private void YearInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_YearInputKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isDigit(c) || YearInput.getText().length() >= 4) {
@@ -375,12 +394,16 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
         }
     }//GEN-LAST:event_YearInputKeyTyped
 
+
+// Xử lý khi  "Hôm nay" = in ra tất cả hóa đơn trong ngày 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        hienThiHoaDonHomNay();
-        dtmCTHD.setColumnCount(0);
+        hienThiHoaDonHomNay();// lấy danh sách hóa đơn + hiển thị lên bảng giao diện 
+        dtmCTHD.setColumnCount(0); //Xóa bảng chi tiết hóa đơn (dtmCTHD) bằng cách đặt số cột về 0 => chuẩn bị cho việc hiển thị chi tiết hóa đơn khác sau này.
         TongTienLabel.setText("Tổng tiền bán được hôm nay: ");
     }//GEN-LAST:event_jButton1MouseClicked
 
+    
+    
     // xử lý hành động khi người dùng nhấp chuột vào một hàng(1 hóa đơn) trong bảng HoaDonTable
     // => hiển thị chi tiết hóa đơn đó trên bảng CTHD
     private void HoaDonTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoaDonTableMouseClicked
