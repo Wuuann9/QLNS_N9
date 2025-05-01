@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package UI;
 
 import Connect.ChucVu_Connect;
@@ -35,10 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 
-/**
- *
- * @author dat
- */
+
 public class QuanLyNhanVien extends javax.swing.JFrame {
 private DefaultTableModel dtmNhanVien;
 private ArrayList<NhanVien> nhanViens =null;
