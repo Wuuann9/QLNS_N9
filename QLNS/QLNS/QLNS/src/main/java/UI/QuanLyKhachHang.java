@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package UI;
 
 import Connect.KhachHang_Connect;
@@ -13,22 +9,20 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Vector;
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;//Hien thi hop thoai thong bao 
 import javax.swing.table.DefaultTableModel;
 
 
 public class QuanLyKhachHang extends javax.swing.JFrame {
 private DefaultTableModel dtmKH;
-private ArrayList<KhachHang> khachHangs =null;
+private ArrayList<KhachHang> khachHangs = null;
 private ArrayList<KhachHang> dskh_tim = null;
-    /**
-     * Creates new form QuanLyKhachHang
-     */
+
     public QuanLyKhachHang() {
-        initComponents();
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
-        this.setTitle("Quản lý khách hàng");
-        this.setLocationRelativeTo(null);
+        initComponents();//Khoi tao cac thanh phan GUI
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));//Dat icon 
+        this.setTitle("Quản lý khách hàng");//Dat tieu de
+        this.setLocationRelativeTo(null);//Can giua man hinh 
         hienThiTatCaKH();
     }
     
@@ -36,6 +30,7 @@ private ArrayList<KhachHang> dskh_tim = null;
         KhachHang_Connect kh_conn = new KhachHang_Connect();
         khachHangs = kh_conn.LayTatCaKhachHang();
         dtmKH = new DefaultTableModel();
+        //Them cac cot vao model 
         dtmKH.addColumn("Mã khách hàng");
         dtmKH.addColumn("Tên khách hàng");
         dtmKH.addColumn("Số điện thoại");
@@ -530,9 +525,7 @@ private ArrayList<KhachHang> dskh_tim = null;
         if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) TKBtnMouseClicked(null);
     }//GEN-LAST:event_TKKHInputKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public void showWindow() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
