@@ -5,7 +5,7 @@ import Connect.login_sql;
 import Model.TaiKhoan;
 import java.awt.Font;
 import java.awt.Toolkit; // truy cap chuc nang hdh 
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane; 
 
 //tao 1 constructor hien thi interface 
 public class Login extends javax.swing.JFrame {
@@ -19,7 +19,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // tat canh bao ep kieu du lieu
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -116,21 +116,23 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // kiem tra tai khoan mat khau da nhap chua khi click dang nhap
     private void LoginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginBtnMouseClicked
         if(TKInput.getText()==null || MKInput.getText()==null) 
             return ;
             xuLyDangNhap();
     }//GEN-LAST:event_LoginBtnMouseClicked
 
+    // xu ly khi nhan enter tai o TKInput
     private void TKInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){ // neu nhan enter thi tra ve true thuc hien cau lenh tiep theo
             if(TKInput.getText()==null || MKInput.getText()==null) return ;
             xuLyDangNhap();
         }
     }//GEN-LAST:event_TKInputKeyPressed
-
+// xu ly khi nhan enter tai o MKinput
     private void MKInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MKInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){  
             if(TKInput.getText()==null || MKInput.getText()==null) return ;
             xuLyDangNhap();
         }
@@ -140,21 +142,23 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TKInputActionPerformed
   
+    // kiem tra MKinput va TKinput  với TK MK cua CSDl
     protected void xuLyDangNhap() {
-        login_sql login = new login_sql();
-        TaiKhoan active = login.login(TKInput.getText(), MKInput.getText());
+        login_sql login = new login_sql(); // tao 1 doi tuong cua sql de kiem tra 
+        TaiKhoan active = login.login(TKInput.getText(), MKInput.getText()); // truyen du lieu vao phuong thuc login va thuc hien kiem tra với csdl
         if(active == null){
             JOptionPane.showMessageDialog(null, "Đăng nhập thất bại ");
         }
         else{
-            dispose();	
-            BanHang ui = new BanHang("Bán hàng",active.getMaNV());
-            ui.showWindow();
+            dispose();	// dong cua so dang nhap 
+            BanHang ui = new BanHang("Bán hàng",active.getMaNV()); // tao 1 giao dien ban hang va truy vet nguoc tu MaNV xac dinh quyen cua tk
+            ui.showWindow(); // hien thi trang ban hang
         }	
     }
    
     public void showWindow() {
-        /* Set the Nimbus look and feel */
+        
+        // cai nimbus làm giao dien ung dung 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -178,9 +182,9 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable() {  // dam bao chay dung va khong bi treo (xếp vào hàng đợi và chạy trên luồng GUI)
             public void run() {
-                new Login("Đăng nhập").setVisible(true);
+                new Login("Đăng nhập").setVisible(true); // tao 1 jframe login moi va hien thi dang nhap 
             }
         });
     }

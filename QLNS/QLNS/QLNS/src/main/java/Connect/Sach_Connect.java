@@ -20,22 +20,25 @@ public class Sach_Connect extends Connect_sqlServer{
 	
     public ArrayList<Sach> layToanBoSach()
     {
-        ArrayList<Sach> dss = new ArrayList<Sach>() ;
+        ArrayList<Sach> dss = new ArrayList<Sach>() ;// tạo arraylist rỗng để chứa sách 
         try {
+            // truy vấn tất cả sách rồi lưu kết quả vào resultset
             String sql ="select MaSach, TenSach, TenNXB, TacGia, GiaBan, TheLoai, SoLuong, Discount  from SACH,NXB where SACH.MaNXB = NXB.MaNXB" ;
-            Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery(sql);
-            while(result.next()){
+            Statement statement = conn.createStatement();// 
+            ResultSet result = statement.executeQuery(sql);// tạo một đối tượng Statement,
+                                          //=> dùng để thực thi các câu truy vấn SQL tĩnh (không có tham số), ngược preparedstatment (có tham số ????)
+                // lấy kết quả result truy vấn được gán cho sách (s) 
+                while(result.next()){// 1 lần next là 1 lần xuống dòng trong bảng result 
                 Sach s = new Sach();
                 s.setMaSach(result.getString(1));
                 s.setTenSach(result.getString(2));
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
-                dss.add(s);
+                dss.add(s); //thêm đối tượng Sach vừa tạo vào danh sách sách (dss) .
             }
         } 
         catch (Exception e) {
@@ -62,7 +65,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss2.add(s);
@@ -75,15 +78,17 @@ public class Sach_Connect extends Connect_sqlServer{
 
         return dss2;
     }
-    // ham lay doanh sach theo ten sach
+    
+    // hàm lấy sách theo "mã tên" = 1 phần tên sách hoặc tên sách
     public ArrayList<Sach> laySachTheoMaTen(String maten)
     {
-        ArrayList<Sach> dss3 = new ArrayList<Sach>();
+        ArrayList<Sach> dss3 = new ArrayList<Sach>();// arraylist rỗng , lưu sách tìm được 
 
         try {
+            // Truy vấn CSDL 
             String sql = "select MaSach, TenSach, TenNXB, TacGia, GiaBan, TheLoai, SoLuong, Discount from SACH,NXB where SACH.MaNXB = NXB.MaNXB and TenSach like ? " ;
             PreparedStatement pre1 = conn.prepareStatement(sql);
-            pre1.setString(1, "%"+maten+"%");
+            pre1.setString(1, "%"+maten+"%"); // Dấu % ở cả hai đầu cho phép tìm kiếm chuỗi con (chỉ cần gõ 1 phần tên sách là đủ)
             ResultSet result = pre1.executeQuery();
             while (result.next()){
                 Sach s = new Sach();
@@ -92,7 +97,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss3.add(s);
@@ -119,7 +124,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss2.add(s);
@@ -147,7 +152,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 s.setMaNXB(result.getString(3));
                 s.setTacGia(result.getString(4));
                 s.setGiaBan(result.getDouble(5));
-                s.setTheLoai(result.getString(6));
+                s.setTenDM(result.getString(6));
                 s.setSoLuong(result.getInt(7));
                 s.setDiscount(result.getInt(8));
                 dss4.add(s);
@@ -174,7 +179,7 @@ public class Sach_Connect extends Connect_sqlServer{
                     s.setMaNXB(result.getString(3));
                     s.setTacGia(result.getString(4));
                     s.setGiaBan(result.getDouble(5));
-                    s.setTheLoai(result.getString(6));
+                    s.setTenDM(result.getString(6));
                     s.setSoLuong(result.getInt(7));
                     s.setDiscount(result.getInt(8));
                     dss2.add(s);
@@ -332,7 +337,7 @@ public class Sach_Connect extends Connect_sqlServer{
             pre.setString(3, s.getMaNXB());
             pre.setString(4, s.getTacGia());
             pre.setDouble(5, s.getGiaBan());
-            pre.setString(6, s.getTheLoai());
+            pre.setString(6, s.getTenDM());
             pre.setInt(7, s.getSoLuong());
             pre.setInt(8, s.getDiscount());
             return pre.executeUpdate();
@@ -386,7 +391,7 @@ public class Sach_Connect extends Connect_sqlServer{
                 pre.setString(2, s.getMaNXB());
                 pre.setString(3, s.getTacGia());
                 pre.setDouble(4, s.getGiaBan());
-                pre.setString(5, s.getTheLoai());
+                pre.setString(5, s.getTenDM());
                 pre.setInt(6, s.getSoLuong());
                 pre.setInt(7, s.getDiscount());
                 pre.setString(8, s.getMaSach());
@@ -399,15 +404,16 @@ public class Sach_Connect extends Connect_sqlServer{
 
             return -1 ;
     }
-    //Hàm update số lượng sách sau khi bán
+    
+    //**Hàm update số lượng sách sau khi bán
     public int updateSL(String MaSach, int SL){
         try {
             String sql ="update SACH set SoLuong=? where MaSach=?" ;
-            PreparedStatement pre = conn.prepareStatement(sql);
+            PreparedStatement pre = conn.prepareStatement(sql); // dùng preparedStatement để truy cập CSDL an toàn , tránh SQL injection
             pre.setInt(1, SL);
-            pre.setString(2,MaSach);
+            pre.setString(2,MaSach); // 2 là vị trí ? thứ 2 
 
-            return pre.executeUpdate();
+            return pre.executeUpdate();//thực thi lệnh UPDATE
 
             } catch (Exception e) {
                     e.printStackTrace();

@@ -9,10 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- *
- * @author dat
- */
+
 public class ChucVu_Connect extends Connect_sqlServer{
     public ArrayList<ChucVu> layToanBoChucVu(){
         ArrayList<ChucVu> dscv = new ArrayList<ChucVu>();
