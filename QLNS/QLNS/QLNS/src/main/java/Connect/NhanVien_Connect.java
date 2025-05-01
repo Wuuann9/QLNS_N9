@@ -20,7 +20,7 @@ public class NhanVien_Connect extends Connect_sqlServer{
     private DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
     public ArrayList<NhanVien> layToanBoNhanVien(){
-        ArrayList<NhanVien> dsnv = new ArrayList<NhanVien>();//kieu NhanVien
+        ArrayList<NhanVien> dsnv = new ArrayList<NhanVien>();
         try {
             String sql ="select MaNV, TenNV, NgaySinh, NgayVaoLam, SoChungMinh, ChucVu, SDT, Email, Luong from NHANVIEN,CHUCVU where NHANVIEN.MaCV = CHUCVU.MaCV" ;
             PreparedStatement pre = conn.prepareStatement(sql);//Tao cau lenh sql co the truyen tham so
@@ -72,7 +72,6 @@ public class NhanVien_Connect extends Connect_sqlServer{
         try {
             String sql ="update NHANVIEN set TenNV=?, NgaySinh=CONVERT(DATE, ?, 103), NgayVaoLam=CONVERT(DATE, ?, 103), SoChungMinh=?, MaCV=?, SDT=?, Email=?, Luong=? where MaNV=?" ;
             //CONVERT(DATE, ?, 103) chuyển chuỗi thành kiểu DATE, định dạng dd/MM/yyyy 
-            //(103 là mã định dạng SQL Server)
             PreparedStatement pre =conn.prepareStatement(sql);
             //truyen cac gia tri thuoc tinh (?)
             pre.setString(1, nv.getTenNV());
