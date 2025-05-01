@@ -8,12 +8,8 @@ import java.sql.ResultSet; //  Nhận dữ liệu trả về từ truy vấn SQL
 import java.util.Vector;        
 import javax.swing.table.DefaultTableModel; 
 
-/**
- *
- * @author dat
- */
 
-// thao tác với bảng CTHD trong CSDL
+
 public class CTHD_Connect extends Connect_sqlServer{
     
     // thêm một sách/vpp chi tiết hóa đơn vào bảng CTHD.
