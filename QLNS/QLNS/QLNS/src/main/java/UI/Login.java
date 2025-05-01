@@ -118,22 +118,45 @@ public class Login extends javax.swing.JFrame {
 
     // kiem tra tai khoan mat khau da nhap chua khi click dang nhap
     private void LoginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginBtnMouseClicked
-        if(TKInput.getText()==null || MKInput.getText()==null) 
-            return ;
-            xuLyDangNhap();
+      
+        String tk = TKInput.getText().trim();  // lay du lieu nhap va bo khoang trang
+        String mk = MKInput.getText().trim();
+
+        if (tk.isEmpty() || mk.isEmpty()) {   // kiem tra TK MK rong thì trả về true 
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu!"); // thực hiện cảnh báo 
+            return;
+        }
+    // nếu isempty trả về false thực hiện xulydangnhap
+        xuLyDangNhap();
     }//GEN-LAST:event_LoginBtnMouseClicked
 
     // xu ly khi nhan enter tai o TKInput
     private void TKInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){ // neu nhan enter thi tra ve true thuc hien cau lenh tiep theo
-            if(TKInput.getText()==null || MKInput.getText()==null) return ;
+       
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String tk = TKInput.getText().trim();
+            String mk = MKInput.getText().trim();
+
+            if (tk.isEmpty() || mk.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu!");
+                return;
+            }
+
             xuLyDangNhap();
         }
     }//GEN-LAST:event_TKInputKeyPressed
 // xu ly khi nhan enter tai o MKinput
     private void MKInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MKInputKeyPressed
-        if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){  
-            if(TKInput.getText()==null || MKInput.getText()==null) return ;
+      
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String tk = TKInput.getText().trim();
+            String mk = MKInput.getText().trim();
+
+            if (tk.isEmpty() || mk.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu!");
+                return;
+            }
+
             xuLyDangNhap();
         }
     }//GEN-LAST:event_MKInputKeyPressed
