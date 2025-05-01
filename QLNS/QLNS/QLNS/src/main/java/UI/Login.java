@@ -184,7 +184,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {  // dam bao chay dung va khong bi treo (xếp vào hàng đợi và chạy trên luồng GUI)
             public void run() {
-                new Login("Đăng nhập").setVisible(true); // tao 1 jframe login moi va hien thi dang nhap 
+                new Login("Đăng nhập").setVisible(true); // tao 1 jframe login moi va hien thi dang nhap  
             }
         });
     }
