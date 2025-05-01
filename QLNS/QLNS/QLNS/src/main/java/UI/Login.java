@@ -71,6 +71,11 @@ public class Login extends javax.swing.JFrame {
                 LoginBtnMouseClicked(evt);
             }
         });
+        LoginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginBtnActionPerformed(evt);
+            }
+        });
 
         MKInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -141,6 +146,10 @@ public class Login extends javax.swing.JFrame {
             xuLyDangNhap();
         }
     }//GEN-LAST:event_MKInputKeyPressed
+
+    private void LoginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginBtnActionPerformed
   
     protected void xuLyDangNhap() {
         login_sql login = new login_sql();
