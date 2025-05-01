@@ -116,13 +116,15 @@ public class HoaDon_Connect extends Connect_sqlServer{
         return dshd ;
     }
 	
+    // lấy ra "MaHD" mới nhất từ CSDL "HOADON"
     public String LastMaHD(){
         try{
             //String sql = "select * from hoadon ORDER BY mahd DESC LIMIT 1" ;
-            String sql = "SELECT TOP 1 * FROM hoadon ORDER BY mahd DESC";
-            Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery(sql);
-            while(result.next()) return result.getString(1); 
+            String sql = "SELECT TOP 1 * FROM hoadon ORDER BY mahd DESC";// lấy bản ghi chứa mã hóa đơn mới nhất = dòng 1
+            Statement statement = conn.createStatement(); //Tạo một đối tượng Statement để gửi câu lệnh SQL đến cơ sở dữ liệu (conn là kết nối Database).
+            ResultSet result = statement.executeQuery(sql);// lấy mã hóa đơn lớn nhất lưu vào resultst
+            while(result.next()) return result.getString(1);   // Lấy giá trị của cột đầu tiên (cột 1) trong dòng vừa đọc được.
+                                                               // Ở đây vì SELECT *, nên cột 1 chính là mahd (mã hóa đơn).
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -146,7 +148,7 @@ public class HoaDon_Connect extends Connect_sqlServer{
         }
         return dataset;
     }
-
+// HÀM Đẩy hóa đơn vào CSDL
     public int TaoHD(HoaDon hd) {
         try {
             String sql="insert into hoadon values(?,?,?,?,?,?,?) " ;
@@ -183,39 +185,54 @@ public class HoaDon_Connect extends Connect_sqlServer{
         return -1 ;
     }
     
+    
+    // hàm cập nhật mã khách hàng (makh) vào hóa đơn (mahd) trong CSDL "HOADON" .
+    // => ĐẢM BẢO truy vấn được hóa đơn thuộc về khách hàng nào
     public int capNhatMaKH(String makh, String mahd){
         try {
             String sql="update hoadon set makh = ? where mahd=?" ;
             PreparedStatement pre =conn.prepareStatement(sql);
             pre.setString(1, makh);
             pre.setString(2, mahd);
-            return pre.executeUpdate();
+            return pre.executeUpdate();// HÀM THỰC HIỆN UPDATE
         } catch (Exception e) {
                 e.printStackTrace();
         }
         return -1;
     }
     
+    
+    
+    // hàm dùng để:
+    // Cập nhật hóa đơn đã thanh toán (ThanhCong = 1)
+    // Cập nhật tổng tiền (TongTien)
+    // Chỉ áp dụng cho hóa đơn bán hàng (không phải nhập sách) → NhapSach = 0
     public int ThanhToan(String MaHD, String total){
         try{
+            // NhapSach = 0 → là hóa đơn bán hàng  bán hàng 
+            // NhapSach = 1 → là hóa đơn nhập hàng về kho 
             String sql="update hoadon set ThanhCong = 1, TongTien = ? where MaHD=? and NhapSach=0" ;
             PreparedStatement pre =conn.prepareStatement(sql);
-            pre.setString(1,total);
-            pre.setString(2,MaHD+"");
-            return pre.executeUpdate();
+            pre.setString(1,total); // total = tong tien moi 
+            pre.setString(2,MaHD+"");// Chỉ cập nhật hóa đơn bán hàng có mã khớp
+                                     // +"" là ép kiểu sang String nếu lỡ MaHD là số
+            return pre.executeUpdate();// thực hiện update 
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return -1;
+        return -1; //  là thanh toán thất bại
     }
     
+    
+    // xóa một hóa đơn khỏi cơ sở dữ liệu dựa trên MaHD (mã hóa đơn)
     public int HuyHoaDon(String MaHD){
         try{
-            String sql="DELETE FROM HOADON WHERE MaHD=?" ;
-            PreparedStatement pre =conn.prepareStatement(sql);
-            pre.setString(1,MaHD);
-            return pre.executeUpdate();
+            String sql="DELETE FROM HOADON WHERE MaHD=?" ; // xóa hóa đơn có MaHD = ? (ví dụ ? = "HD02")
+            PreparedStatement pre =conn.prepareStatement(sql);// câu lệnh SQL này để truyền giá trị vào dấu ?(chỗ trông đại diện) .
+            pre.setString(1,MaHD);// 1 là dấu ? thứ 1
+            return pre.executeUpdate();//Thực thi lệnh SQL và trả về số dòng bị ảnh hưởng 
+                                       // là 1 nếu xóa thành công, 0 nếu không có mã hóa đơn nào khớp.
         }
         catch (Exception e){
             e.printStackTrace();
