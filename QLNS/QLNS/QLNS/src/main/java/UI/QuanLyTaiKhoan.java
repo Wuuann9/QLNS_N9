@@ -1,4 +1,3 @@
-
 package UI;
 
 import Connect.NhanVien_Connect;
@@ -10,19 +9,20 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableModel;// quan ly du lieu 
 
-
-public class QuanLyTaiKhoan extends javax.swing.JFrame {
-private DefaultTableModel dtmNhanVien;
-private ArrayList<NhanVien> nhanViens =null;
+// khai bao thuoc tinh qltk 
+public class QuanLyTaiKhoan extends javax.swing.JFrame {  // hien thi interface
+private DefaultTableModel dtmNhanVien; //dữ liệu bảng jTable
+private ArrayList<NhanVien> nhanViens =null;// ds nhanvien
 private DefaultTableModel dtmTaiKhoan;
 private ArrayList<TaiKhoan> taiKhoans =null;
-private ArrayList<NhanVien> dsnv_tim = null;
+private ArrayList<NhanVien> dsnv_tim = null; // ds nv filter
 private ArrayList<TaiKhoan> dstk_tim=null;
 
+//constructor chạy giao diện interface 
     public QuanLyTaiKhoan(String title) {
-        initComponents();
+        initComponents(); // thực hiện lệnh chạy nhờ vào kéo thả 
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
         this.setLocationRelativeTo(null);
         this.setTitle(title);
@@ -173,6 +173,14 @@ private ArrayList<TaiKhoan> dstk_tim=null;
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tài khoản", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
+        TaiKhoanTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         TaiKhoanTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TaiKhoanTableMouseClicked(evt);
@@ -311,6 +319,11 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             }
         });
 
+        TKMaNVInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TKMaNVInputActionPerformed(evt);
+            }
+        });
         TKMaNVInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TKMaNVInputKeyPressed(evt);
@@ -416,6 +429,14 @@ private ArrayList<TaiKhoan> dstk_tim=null;
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhân viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
+        NhanVienTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         jScrollPane2.setViewportView(NhanVienTable);
 
         TimKiemNhanVienPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -817,6 +838,10 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     private void jPanel3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel3AncestorAdded
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel3AncestorAdded
+
+    private void TKMaNVInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKMaNVInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TKMaNVInputActionPerformed
 
 
     /**
