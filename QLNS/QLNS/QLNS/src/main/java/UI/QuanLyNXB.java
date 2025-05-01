@@ -431,11 +431,11 @@ public class QuanLyNXB extends javax.swing.JFrame {
     }//GEN-LAST:event_AllNXBBtnActionPerformed
 
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
-        String manv = MaNXBInput.getText();
+        String manxb = MaNXBInput.getText();
         NXB_Connect nxb_conn = new NXB_Connect();
         int ret = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa?", "Xác nhận xóa", JOptionPane.OK_CANCEL_OPTION);
         if (ret == JOptionPane.OK_OPTION) {
-            int active = nxb_conn.XoaNXB(manv);
+            int active = nxb_conn.XoaNXB(manxb);
             if (active > 0) {
                 JOptionPane.showMessageDialog(null, "Xóa thành công!");
                 hienThiToanBoNhaXuatBan();
