@@ -1,5 +1,7 @@
-package UI;
+package UI;//** gói UI chứa các file tạo giao diện người dùng như dưới import (từ B:\QLNS\QLNS\QLNS\src\main\java\UI)
 
+// Các lớp này nằm trong gói Connect, có nhiệm vụ kết nối và xử lý dữ liệu từ cơ sở dữ liệu (Database).
+//** cú pháp : import package_name.ClassName;
 import Connect.CTHD_Connect;
 import Connect.HoaDon_Connect;
 import Connect.KhachHang_Connect;
@@ -7,6 +9,8 @@ import Connect.NXB_Connect;
 import Connect.Sach_Connect;
 import Connect.TaiKhoan_Connect;
 import Connect.VanPhongPham_Connect;
+
+//** cú pháp : import package_name.ClassName;
 import Model.CTHD;
 import Model.HoaDon;
 import Model.KhachHang;
@@ -14,16 +18,21 @@ import Model.NXB;
 import Model.Sach;
 import Model.TaiKhoan;
 import Model.VPP;
+
+//** import các thư viện và giao diện sử lý GUI(Graphical User Interface)
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
-import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
+
+
+//** Các thành phần Swing (Giao diện)
+import javax.swing.JFormattedTextField;//  ô nhập có định dạng (ví dụ: chỉ cho nhập số, hoặc ngày).
+import javax.swing.JOptionPane;//dùng để hiển thị hộp thoại (thông báo, xác nhận, v.v).
+import javax.swing.JSpinner;//thành phần nhập số có mũi tên tăng giảm.
+import javax.swing.SpinnerNumberModel;//mô hình cho JSpinner, quy định số min, max, bước nhảy,...
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.NumberFormatter;
 
@@ -49,12 +58,13 @@ public class BanHang extends javax.swing.JFrame {
     /**
      * Creates new form BanHang
      */
+     //** Hàm khởi tạo của lớp BanHang
     public BanHang(String title, String maNV) {
-        initComponents();
+        initComponents();//Phương thức này thường được tạo tự động khi dùng thiết kế GUI với NetBeans hoặc các IDE tương tự=> thiết lập các thành phần giao diện như button, textfield, table...
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
-        this.setTitle(title);
-        this.setLocationRelativeTo(null);
-        MaNV = maNV;
+        this.setTitle(title);//Đặt tiêu đề (title) cho cửa sổ bằng chuỗi được truyền vào.
+        this.setLocationRelativeTo(null);//**Đặt cửa sổ ở chính giữa màn hình.
+        MaNV = maNV;//**Gán mã nhân viên truyền vào cho biến MaNV (biến thành viên của lớp).
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
         tk = tk_conn.timTaiKhoanBangMaNV(MaNV);
         hienThiToanBoSach();
@@ -63,6 +73,7 @@ public class BanHang extends javax.swing.JFrame {
         hienThiTatCaVPP();
         hienThiTatCaDanhMuc();
     }
+    
 
 //    private void hienThiToanBoNhaXuatBan() {
 //        NXB_Connect nxbconn = new NXB_Connect();
@@ -77,6 +88,7 @@ public class BanHang extends javax.swing.JFrame {
 //        }
 //    }
 
+// 
     private void hienThiToanBoSach() {
         Sach_Connect sachConn = new Sach_Connect();
         dss = sachConn.layToanBoSach();
@@ -94,7 +106,7 @@ public class BanHang extends javax.swing.JFrame {
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
             vec.add(s.getTenSach());
-            vec.add(s.getTheLoai());
+            vec.add(s.getTenDM());
             vec.add(s.getTacGia());
             vec.add(s.getSoLuong());
             vec.add(s.getGiaBan());
@@ -140,41 +152,56 @@ public class BanHang extends javax.swing.JFrame {
         }
     }
 
+    // tạo bảng CTHD gồm 3 cột 
     private void TaoBangCTHD() {
-        dtmHoaDon = new DefaultTableModel();
+        // 1. Khởi tạo một mô hình dữ liệu mới (DefaultTableModel) cho bảng chi tiết hóa đơn.
+        // Biến dtmHoaDon là một biến instance (được khai báo trước đó) 
+        dtmHoaDon = new DefaultTableModel();// tạo 1 bảng rỗng
+        // 2. thêm 3 cột vào bảng 
         dtmHoaDon.addColumn("Tên sách");
         dtmHoaDon.addColumn("Số lượng");
         dtmHoaDon.addColumn("Thành tiền");
+        //3. Gán mô hình dữ liệu này cho bảng TableCTHD để bảng hiển thị đúng cấu trúc trên giao diện.
         TableCTHD.setModel(dtmHoaDon);
     }
-
+    
+    
+    // Tạo 1 hóa đơn mới 
     private void TaoHD() {
         String HD = "HD";
-        //tạo hóa đơn với mã hóa đơn mới tính từ hóa đơn cuối cùng
+        //1. tạo MaHD mới = MaHD cuối cùng +1
         HoaDon_Connect tHD = new HoaDon_Connect();
-        String lastmahd = tHD.LastMaHD();
+        String lastmahd = tHD.LastMaHD();// LẤY RA MaHD mới nhất
+        // nếu chưa có hóa đơn nào
         if (lastmahd == null) {
             MaHD = "HD01";
+        // nếu đã có hóa đơn 
         } else {
-            int sohd = Integer.parseInt(lastmahd.substring(2)) + 1; //bỏ đi hai chữ "HD" và công thêm 1 vào hai số phía sau
+            int sohd = Integer.parseInt(lastmahd.substring(2)) + 1; //số hd mới = lấy 2 số cuối(dạng int)  + 1   vd :05,...
             if (sohd < 10) {
                 MaHD = HD + "0" + String.valueOf(sohd);
             } else {
                 MaHD = HD + String.valueOf(sohd);
             }
         }
+        
+        //2.Tạo một đối tượng HoaDon  với 6 thông tin như sau : MaHD,MaNV,makh,date,trangthai,nhapsach
         HoaDon hd = new HoaDon();
-        hd.setMaHD(MaHD);
-        hd.setMaNV(MaNV);
-        hd.setMaKH(makh);
+        hd.setMaHD(MaHD);// lấy giá trị từ hàm tạo ở 1.
+        hd.setMaNV(MaNV);// biến toàn cục => đã được khởi tạo giá trị từ hàm khác 
+        hd.setMaKH(makh);// biến toàn cục => đã được khởi tạo giá trị từ hàm khác
+        // Lấy thời gian hiện tại : ngày tháng + giờ 
         Date date = new Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(date);
-        hd.setNgaylap(currentTime);
-        hd.setTrangThai(0);
-        hd.setNhapSach(0);
+        hd.setNgaylap(currentTime);// gán thời gian 
+        hd.setTrangThai(0);// chưa thanh toán
+        hd.setNhapSach(0);// 1 là hóa đơn nhập hàng, 0 là hóa đơn bán hàng
+        
+        // 3. Lưu hóa đơn này vào CSDL "HOADON" thông qua lớp HoaDon_Connect.
         tHD.TaoHD(hd);
     }
+
 
     private void ThemCTHD(boolean sach) {
         Vector<Object> vec = new Vector<Object>();
@@ -336,7 +363,7 @@ public class BanHang extends javax.swing.JFrame {
         QLKH = new javax.swing.JMenuItem();
         TKMenu = new javax.swing.JMenu();
         TaiKhoanMenu = new javax.swing.JMenu();
-        BarcodeMenu = new javax.swing.JMenu();
+        DanhMucMenu = new javax.swing.JMenu();
         ThoatBtn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -597,6 +624,11 @@ public class BanHang extends javax.swing.JFrame {
         DiemOutput.setEditable(false);
         DiemOutput.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         DiemOutput.setText("0");
+        DiemOutput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DiemOutputActionPerformed(evt);
+            }
+        });
 
         DiemCheckBox.setText("Dùng điểm");
         DiemCheckBox.setEnabled(false);
@@ -765,13 +797,13 @@ public class BanHang extends javax.swing.JFrame {
         });
         NavBar.add(TaiKhoanMenu);
 
-        BarcodeMenu.setText("In mã vạch");
-        BarcodeMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+        DanhMucMenu.setText("Danh Mục");
+        DanhMucMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BarcodeMenuMouseClicked(evt);
+                DanhMucMenuMouseClicked(evt);
             }
         });
-        NavBar.add(BarcodeMenu);
+        NavBar.add(DanhMucMenu);
 
         ThoatBtn.setForeground(new java.awt.Color(255, 0, 51));
         ThoatBtn.setText("Thoát");
@@ -896,7 +928,8 @@ public class BanHang extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//Khi nhấn vào "quản lý nhà xuất bản" trong quản lý trên thanh codebar
+// admin(1), thungan(0)
     private void QLNXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLNXBActionPerformed
         if (tk.getNXB() == 1) {
             QuanLyNXB nxbUi = new QuanLyNXB("Quản lý nhà xuất bản");
@@ -905,6 +938,7 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLNXBActionPerformed
 
+// khi nhấn "quản lý nhân viên" trên thanh codebar
     private void QLNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLNVActionPerformed
         if (tk.getNhanVien() == 1) {
             QuanLyNhanVien nhanVienui = new QuanLyNhanVien("Quản lý nhân viên");
@@ -913,12 +947,15 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLNVActionPerformed
 
+// khi nhấn "thoát" trên thanh codebar
     private void ThoatBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThoatBtnMouseClicked
         int ret = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muôn thoát chương trình?", "Xác Nhận Thoát", JOptionPane.OK_CANCEL_OPTION);
         if (ret == JOptionPane.OK_OPTION)
             System.exit(0);
     }//GEN-LAST:event_ThoatBtnMouseClicked
 
+//Khi bạn nhấn vào "thống kê" trong báo cáo thuộc thanh codebar
+//=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
     private void TKMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKMenuMouseClicked
         if (tk.getBaoCao() == 1) {
             ThongKe thongkeui = new ThongKe("Thống kê");
@@ -927,6 +964,8 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_TKMenuMouseClicked
 
+//khi bạn nhấn vào "quản lý sách" trong quản lý thuộc codebar
+//=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
     private void QLSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLSachActionPerformed
         if (tk.getSach() == 1) {
             QuanLySach sachui = new QuanLySach("Quản lý sách", MaNV);
@@ -935,50 +974,67 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLSachActionPerformed
 
+ // hàm xử lý khi thêm sách vào chi tiết hóa đơn (nhấn " thêm vào hóa đơn" )
     private void addHDBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHDBtnActionPerformed
+        // TH1 :CHƯA CHỌN SÁCH NÀO 
         if ((TableSach.getSelectedRow() < 0)) {
             JOptionPane.showMessageDialog(null, "Bạn chưa chọn loại sách muốn thêm vào hóa đơn");
             return;
-        } //        nếu sách cần lấy có giá trị là 0 thì không cho lấy
+        } // TH2: HẾT SÁCH => sách cần lấy có giá trị là 0 thì không cho lấy
         else if ("0".equals(TableSach.getValueAt(TableSach.getSelectedRow(), TableSach.getSelectedColumn()).toString())) {
             JOptionPane.showMessageDialog(null, "Sách bạn muốn chọn đã hết");
             return;
-        } else if (makh == "") {
+        }// TH3: CHỌN ĐÚNG SÁCH NHƯNG CHƯA CHỌN KHÁCH HÀNG NÀO 
+        else if (makh == "") {
             int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn chưa chọn khách hàng! Muốn tiếp tục tạo hóa đơn!", "Warning", JOptionPane.YES_NO_OPTION);
             if (dialogResult == JOptionPane.YES_OPTION) {
                 if (MaHD == null) {
                     TaoHD();
                 }
                 ThemCTHD(true);
-                ReceiveInputKeyReleased(null);
+                ReceiveInputKeyReleased(null);// TÍNH TOÁN  "Tiền thừa "
                 DeleteBtn.setEnabled(true);
                 PaymentBtn.setEnabled(true);
                 CancleBtn.setEnabled(true);
             } else {
                 return;
             }
-        } else {
+        } // TH4 : Trường hợp hợp lệ (đã chọn sách, còn hàng, và có khách hàng)
+        else {
             if (MaHD == null) {
                 TaoHD();
             }
             ThemCTHD(true);
-            ReceiveInputKeyReleased(null);
+            ReceiveInputKeyReleased(null);// TÍNH TOÁN  "Tiền thừa "
             DeleteBtn.setEnabled(true);
             PaymentBtn.setEnabled(true);
             CancleBtn.setEnabled(true);
         }
     }//GEN-LAST:event_addHDBtnActionPerformed
 
+    
+// Xóa 1 sách,vpp đã thêm vào " chi tiết hóa đơn "
     private void DeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteBtnActionPerformed
+         //  Kiểm tra xem người dùng đã chọn dòng nào trong bảng chưa
+        // nếu chưa chọn dòng nào để xóa 
         if (TableCTHD.getSelectedRow() < 0)
             JOptionPane.showMessageDialog(null, "Bạn chưa chọn sách muốn xóa!");
+        // đã chọn 1 dòng để xóa 
         else {
+           //Hiển thị một hộp thoại xác nhận để hỏi người dùng có chắc chắn muốn xóa không.
             int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xóa?", "Warning", JOptionPane.YES_NO_OPTION);
+            // Nếu người dùng chọn "YES"    
             if (dialogResult == JOptionPane.YES_OPTION) {
-                cthd.remove(TableCTHD.getSelectedRow());
-                double tien = Double.parseDouble(TableCTHD.getValueAt(TableCTHD.getSelectedRow(), 2).toString());
-                dtmHoaDon.removeRow(TableCTHD.getSelectedRow());
-                tien = Double.parseDouble(TotalInput.getText()) - tien;
+                // 1. Xóa sách khỏi "chi tiết hóa đơn" 
+                cthd.remove(TableCTHD.getSelectedRow()); // xóa sản phẩm khỏi danh sách chi tiết hóa đơn (cthd)
+                double tien = Double.parseDouble(TableCTHD.getValueAt(TableCTHD.getSelectedRow(), 2).toString());// để tính lại TotalInput(tổng tiền)
+                dtmHoaDon.removeRow(TableCTHD.getSelectedRow()); // xóa dòng sách khỏi model hiển thị bảng
+                
+               // 2. Cập nhật lại tổng tiền (TotalInput)
+               //tổng tiền mới =  tổng tiền hiên tại- giá trị sách bị xóa (giá trị ở cột thứ của dòng được chọn)
+                tien = Double.parseDouble(TotalInput.getText()) - tien;// -> cập nhật tổng tiền.
+
+                // Cập nhật lại giá trị ô "tổng tiền"
                 if (tien == 0) {
                     TotalInput.setText("0");
                 } else {
@@ -988,9 +1044,10 @@ public class BanHang extends javax.swing.JFrame {
             //nếu không còn sản phẩm nào trong bảng thì hủy hóa đơn này
             ReceiveInputKeyReleased(null);
             if (TableCTHD.getRowCount() == 0) {
-                DeleteBtn.setEnabled(false);
-                PaymentBtn.setEnabled(false);
-                CancleBtn.setEnabled(false);
+                 DeleteBtn.setEnabled(false);//Vô hiệu hóa nút Xóa
+                PaymentBtn.setEnabled(false);//Vô hiệu hóa nút  Thanh toán
+                CancleBtn.setEnabled(false);//Vô hiệu hóa nút Hủy
+                // Hủy hóa đơn trong CSDL
                 HoaDon_Connect HD = new HoaDon_Connect();
                 HD.HuyHoaDon(MaHD);
                 MaHD = null;
@@ -998,14 +1055,17 @@ public class BanHang extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DeleteBtnActionPerformed
 
+// Phương thức TKBtnMouseClicked xử lý sự kiện nhấn chuột vào nút tìm kiếm
+// hàm xử lý  ấn "tìm kiếm" ở phần bảng sách 
     private void TKBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKBtnMouseClicked
-        String ten = TKInput.getText(); // lấy tên sách
-        Sach_Connect sachnxb1 = new Sach_Connect();
+        String ten = TKInput.getText(); // lấy tên sách vừa nhập 
+        Sach_Connect sachnxb1 = new Sach_Connect();// kết nối tới CSDL "SACH"
 
-        // khi tên sách rỗng
+       //TH1:  khi tên sách rỗng => Hiển thị tất cả sách 
         if (ten.equals("")) {
             hienThiToanBoSach(); // Hiển thị tất cả sách nếu không có tên sách
-        } // khi chỉ có tên sách
+        }
+        //TH2:  khi có tên sách
         else {
             dss_tensach = sachnxb1.laySachTheoMaTen(ten); // Lấy danh sách sách theo tên
             dtmSach.setRowCount(0); // Xóa dữ liệu trong bảng
@@ -1013,7 +1073,7 @@ public class BanHang extends javax.swing.JFrame {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(s.getMaSach());
                 vec.add(s.getTenSach());
-                vec.add(s.getTheLoai());
+                vec.add(s.getTenDM());
                 vec.add(s.getTacGia());
                 vec.add(s.getSoLuong());
                 vec.add(s.getGiaBan());
@@ -1022,28 +1082,43 @@ public class BanHang extends javax.swing.JFrame {
                 dtmSach.addRow(vec); // Thêm dữ liệu vào bảng
             }
         }
-
     }//GEN-LAST:event_TKBtnMouseClicked
 
+    
+// Hàm xử lý khi nhấn nút "thanh toán "
     private void PaymentBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentBtnActionPerformed
-        if (Double.parseDouble(ChangeInput.getText()) < 0) {
+         // TH1: khách đưa tiền k đủ để thanh toán 
+        if (Double.parseDouble(ChangeInput.getText()) < 0) {// ChangeInput là một JTextField chứa tiền thừa 
+                                                            // getText() : lấy nội dung từ JtextField
+                                                            // changeInput (tiền thừa) 
             JOptionPane.showMessageDialog(null, "Không đủ tiền để thanh toán");
             return;
         }
+        
+        // TH2: khách đưa tiền đủ để thanh toán
         int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thanh toán?", "Warning", JOptionPane.YES_NO_OPTION);
+        //  chọn "YES"
         if (dialogResult == JOptionPane.YES_OPTION) {
             //duyệt qua tất cả các dòng của bảng hóa đơn
-            Sach_Connect sach = new Sach_Connect();
-            VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect();
+            Sach_Connect sach = new Sach_Connect();   // Tạo đối tượng "sach" kết nối tới CSDL để làm việc với CSDL sách 
+            VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect(); // Tạo đối tượng "vpp_conn" để làm việc với CSDL văn phòng phẩm.
+            // hóa đơn gồm nhiều sản phẩm , mỗi sản phẩm là 1 "ct"
+            //Duyệt từng đối tượng " ct " trong danh sách chi tiết hóa đơn cthd.
+            // 1. Cập nhật số lượng sản phẩm trong CSDL của "sách" và "VPP"
             for (CTHD ct : cthd) {
-                CTHD_Connect taoCT = new CTHD_Connect();
-                taoCT.ThemCT(ct);
-                //kiểm tra xem mã sản phẩm phải sách hay không
-                int thanhcong = -1;
-                if (ct.getMaSP().substring(0, 1).equals("s")) { //nếu chữ đầu của masp la "s" thì là sách
+                CTHD_Connect taoCT = new CTHD_Connect(); // Tạo đối tượng "taoCT" để làm việc với CSDL Chi tiết hóa đơn 
+                taoCT.ThemCT(ct); // Gọi hàm " ThemCT()" để lưu từng dòng chi tiết hóa đơn(MaHD,MaSP,DonGia,SoLuong,ThanhTien) vào database CTHD
+                //kiểm tra xem mã sản phẩm là sách hay văn phòng phẩm
+                int thanhcong = -1; // lưu trạng thái thanh toán
+                // Cập nhật số lượng sản phẩm khỏi CSDL : có 2 trường hợp
+                //nếu chữ đầu của masp la "s" (vd: s01,s02...) thì là sách 
+                //nếu chữ đầu của masp là "v" (vd: v01,v02,..)thì là đồ văn phòng phẩm
+                if (ct.getMaSP().substring(0, 1).equals("s")) { 
                     //giảm số lượng sách sau khi bán cho khách
-                    for (Sach s : dss) {
+                    for (Sach s : dss) {// Duyệt danh sách tất cả sách dss
                         if (s.getMaSach() == ct.getMaSP()) {
+                            // Khi tìm đúng mã sách → cập nhật số lượng: số lượng mới = số lượng hiện tại - số lượng đã bán
+                            // Gọi " updateSL()" thuộc " Sach_connect" để cập nhật số lượng sách tồn kho trong CSDL sách
                             thanhcong = sach.updateSL(s.getMaSach(), s.getSoLuong() - ct.getSoLuong());
                         }
                     }
@@ -1056,99 +1131,135 @@ public class BanHang extends javax.swing.JFrame {
                     }
                 }
             }
-            cthd.clear();
+            
+            //2.  Xóa dữ liệu chi tiết hóa đơn khỏi giao diện
+            cthd.clear(); // Xóa toàn bộ danh sách chi tiết hóa đơn trong bộ nhớ
             while (dtmHoaDon.getRowCount() > 0) {
-                dtmHoaDon.removeRow(0);
+                dtmHoaDon.removeRow(0);// Xóa từng dòng khỏi bảng giao diện
             }
+            
+             // 3. lưu hóa đơn vào CSDL "HOADON" ( khác CTHD)+ Tạo hóa đơn tổng (gồm thông tin MaHD và TotalInput)
             HoaDon_Connect HD = new HoaDon_Connect();
-            int state = HD.ThanhToan(MaHD, TotalInput.getText());
+            // hàm ThanhToan(String MaHD, String total) thuộc HoaDon_connect
+            // => Cập nhật hóa đơn đã thanh toán (ThanhCong = 1 , không thành công = -1) + Cập nhật tổng tiền (TongTien)
+            int state = HD.ThanhToan(MaHD, TotalInput.getText()); // hàm ThanhToan() thuộc HoaDon_Connect
             if (state != -1) {
                 JOptionPane.showMessageDialog(null, "Thanh toán thành công!");
             } else {
+                // thanh toán thất bại có thể do : sai MaHD, lỗi khi kết nối tới CSDL 
                 JOptionPane.showMessageDialog(null, "Thanh toán thất bại!");
             }
-            //khi có mã khách hàng thì mới cập nhật
-            if (!"".equals(makh)) {
-                //điểm của khách sẽ bằng điểm hiện tại cộng thêm tổng hóa đơn  x 0.02
-                HD.capNhatMaKH(makh, MaHD); //cập nhật lại mã khách hàng nếu đã chọn khách hàng
+            
+            //4. Cập nhật điểm tích lũy cho khách (khi có mã khách hàng thì mới cập nhật được ) + Gán khách hàng(maKH) với hóa đơn
+            if (!"".equals(makh)) {//nếu mã khách hàng khác rỗng => khách hàng này không phải khách hàng mới mua lần đầu 
+                //điểm của khách =  (điểm hiện tại + tổng hóa đơn)  x 0.02
+                HD.capNhatMaKH(makh, MaHD);// ghi nhận hóa đơn thuộc về khách hàng nào để phục vụ truy xuất (cộng điểm,...)
+                // tạo đối tượng kh => kết nối tới CSDL "KHACHHANG" => lấy thông tin (maKH,tenKH,SDT,diem) qua SDT
                 KhachHang kh = new KhachHang();
                 KhachHang_Connect kh_conn = new KhachHang_Connect();
                 kh = kh_conn.layKhachHangBangSDT(SDTInput.getText());
-                if (DiemCheckBox.isSelected()) // khi khach dung diem
+                // CỘNG point thưởng cho khách 
+                if (DiemCheckBox.isSelected()) // khi khach dung diem => chọn ô dùng điểm
                 {
                     kh.setDiem(0 + Double.parseDouble(TotalInput.getText()) * 0.02);
-                } else {
+                } else {// khi khách hàng không dùng điểm 
                     kh.setDiem(kh.getDiem() + Double.parseDouble(TotalInput.getText()) * 0.02);
                 }
                 kh_conn.updateKhachHang(kh);
                 DiemOutput.setText(Double.toString(kh.getDiem()));
             }
+            //5. Reset lại giao diện về ban đầu 
+            //
             TotalInput.setText("0");
             ReceiveInput.setText("0");
             ChangeInput.setText("0");
+            //
             MaHD = null;
             makh = "";
+            //
             SDTInput.setText("");
             KHOutput.setText("");
             DiemOutput.setText("0");
+            //load lại dữ liệu sách và VPP ra giao diện.
             hienThiToanBoSach();
             hienThiTatCaVPP();
+            //
             TKInput.setText("");
             TKSPInput.setText("");
             DeleteBtn.setEnabled(false);
+            //
             PaymentBtn.setEnabled(false);
             CancleBtn.setEnabled(false);
             DiemCheckBox.setEnabled(false);
         }
     }//GEN-LAST:event_PaymentBtnActionPerformed
 
+    
+//khi muốn hủy hóa đơn 
     private void CancleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancleBtnActionPerformed
+        //Hiển thị hộp thoại xác nhận hủy -> Người dùng có thể chọn “YES” hoặc “NO”. Kết quả người dùng chọn được lưu trong biến dialogResult.
         int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn hủy hóa đơn này?", "Warning", JOptionPane.YES_NO_OPTION);
+        // Nếu chọn YES
         if (dialogResult == JOptionPane.YES_OPTION) {
-            cthd.clear();
-            while (dtmHoaDon.getRowCount() > 0) {
-                dtmHoaDon.removeRow(0);
+            cthd.clear();// xóa toàn bộ hóa đơn 
+            // 1. Xóa toàn bộ dòng trong bảng chi tiết hóa đơn 
+            while (dtmHoaDon.getRowCount() > 0) {// trả về số dòng còn lại trong bảng chi tiết hóa đơn
+                dtmHoaDon.removeRow(0); // Liên tục xóa dòng ở vị trí đầu tiên (0) cho đến khi hết
             }
-            TotalInput.setText("0");
-            ReceiveInput.setText("0");
-            ChangeInput.setText("0");
+            // 2. ĐẶT LẠI GIÁ TRỊ CHO 3 Ô 
+            TotalInput.setText("0");// Đặt lại ô " tổng tiền" =0
+            ReceiveInput.setText("0");//Đặt lại ô "khách đưa "=0
+            ChangeInput.setText("0");//Đặt lại ô " tiền thừa"  =0
+            // 3. kết nối đến CSDL để xóa hóa đơn khỏi CSDL "HOADON" , thông qua MaHD (mã hóa đơn hiện tại).
             HoaDon_Connect HD = new HoaDon_Connect();
-            HD.HuyHoaDon(MaHD);
-            MaHD = null;
+            HD.HuyHoaDon(MaHD);// hàm thuộc hoadon_connect
+            MaHD = null; // hệ thống reset lại MaHD để sẵn sàng tạo MaHD mới cho hóa đơn tiếp theo.
             makh = "";
             JOptionPane.showMessageDialog(null, "Hủy hóa đơn thành công!");
-            SDTInput.setText("");
-            KHOutput.setText("");
-            DiemOutput.setText("0");
-            DeleteBtn.setEnabled(false);
-            PaymentBtn.setEnabled(false);
-            CancleBtn.setEnabled(false);
-            DiemCheckBox.setEnabled(false);
+            // 4. Xóa thông tin KHÁCH HÀNG
+            SDTInput.setText("");// Xóa thông tin" SDT"  của khách hàng
+            KHOutput.setText("");//Xóa thông tin " Tên " của khách hàng
+            DiemOutput.setText("0");//Xóa thông tin " điểm "của khách hàng
+            //  5. Vô hiệu hóa các nút thừa vì không còn hóa đơn nào đang xử lý
+            DeleteBtn.setEnabled(false);//Vô hiệu hóa " Xóa sản phẩm "
+            PaymentBtn.setEnabled(false);//Vô hiệu hóa " Thanh toán "
+            CancleBtn.setEnabled(false);//Vô hiệu hóa " Hủy sản phẩm "
+            DiemCheckBox.setEnabled(false);//Vô hiệu hóa "Dùng điểm "
         }
     }//GEN-LAST:event_CancleBtnActionPerformed
 
+    
+ //Hàm nhập giá trị từ "khách đưa" => cập nhật  "tiền thừa"
     private void ReceiveInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReceiveInputKeyReleased
-        String text = ReceiveInput.getText();
+        String text = ReceiveInput.getText();// text = giá trị từ ô "khách đưa" 
+        //hàm xóa các định dạng tiền tệ (ví dụ dấu , ngăn cách, đơn vị đồng, v.v...) =>chỉ có thể nhập chuỗi số có thể chuyển thành Double.
         String diem = removeCurrencyFormatting(DiemOutput.getText());
+        //Nếu ô "ReceiveInput" đang rỗng (chưa nhập gì) thì gán text = "0".
         if (ReceiveInput.getText().equals("")) {
             text = "0";
         }
-        String total = TotalInput.getText();
+        String total = TotalInput.getText(); // total = giá trị "tổng tiền"
         //tính tiền trả lại cho khách
+        //TH1: CÓ SỬ DỤNG ĐIỂM 
         if (DiemCheckBox.isSelected()) {
-            double tienthua = Double.parseDouble(diem) + Double.parseDouble(text) - Double.parseDouble(total);
+            double tienthua = Double.parseDouble(diem) + Double.parseDouble(text) - Double.parseDouble(total);//.parseDouble(String s) : String → (double).
             ChangeInput.setText(Double.toString(tienthua));
-        } else { //ko được chọn
+        } 
+        // TH2: K SỬ DỤNG ĐIỂM 
+        else { 
             double tienthua = Double.parseDouble(text) - Double.parseDouble(total);
             ChangeInput.setText(Double.toString(tienthua));
         }
 
-        //tính tiền trả lại cho khách
+        //Trường hợp cả 2 ô (ReceiveInput và TotalInput) đều trống: → Gán ChangeInput(tiền thừa) = 0 để tránh bị lỗi tính toán.
         if (text.isEmpty() && total.isEmpty()) {
             ChangeInput.setText("0");
         }
     }//GEN-LAST:event_ReceiveInputKeyReleased
+ 
 
+// khi nhấn vào "quản lý hóa đơn" trong mục quản lý trên thanh codebar
+    //=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
     private void QLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLHDActionPerformed
         if (tk.getHoaDon() == 1) {
             QuanLyHoaDon hdUI = new QuanLyHoaDon("Quản Lý Hóa Đơn");
@@ -1157,6 +1268,8 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QLHDActionPerformed
 
+// Xử ký khi chọn tài khoản trên 
+//=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
     private void TaiKhoanMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TaiKhoanMenuMouseClicked
         if (tk.getTaiKhoan() == 1 || tk.getUserName().equals("admin")) {
             QuanLyTaiKhoan tkUI = new QuanLyTaiKhoan("Tài khoản");
@@ -1165,14 +1278,25 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_TaiKhoanMenuMouseClicked
 
-    private void BarcodeMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarcodeMenuMouseClicked
-        if (tk.getMaVach() == 1) {
-            InMaVach mvUI = new InMaVach("In mã vạch");
-            mvUI.showWindow();
-        } else
-            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
-    }//GEN-LAST:event_BarcodeMenuMouseClicked
 
+// Xử lý khi chọn thanh In mã vạch trên giao diện
+//=> chỉ có admin(1) mới vào đc , thu ngân (0) không thể 
+    private void DanhMucMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DanhMucMenuMouseClicked
+
+        //TH1: tk có quyền tạo mã vạch 
+        if (tk.getDanhMuc() == 1) {
+            QuanLyDM mvUI = new QuanLyDM("DanhMuc");//Tạo một đối tượng InMaVach (có thể là giao diện in mã vạch) với tiêu đề "In mã vạch".
+            mvUI.showWindow();//hiển thị giao diện in mã vạch.
+
+        }
+        // TH2: tk k có quyền tạo mã vạch => hiển thị hộp thoại cảnh báo
+        else
+
+            JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
+    }//GEN-LAST:event_DanhMucMenuMouseClicked
+
+// khi nhấn vào "quản lý nhà cung cấp VPP" trong quản lý trên codebar
+// admin(1) , thugngan(0)   
     private void QL_NCCVPPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QL_NCCVPPActionPerformed
         if (tk.getNCCVPP() == 1) {
             QuanLyNCCVPP np = new QuanLyNCCVPP("Quản lý nhà cung cấp văn phòng mẫu");
@@ -1189,17 +1313,23 @@ public class BanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập vào trang này!");
     }//GEN-LAST:event_QL_VPPActionPerformed
 
+// kiểm tra xem người dùng có nhập số vào "khách đưa " đúng kiểu hay không, nếu không phải số thì không nhận
+// KEY_TYPED cho hành động nhấn + thả các ký tự có in ra ( trừ các phím đặc biệt ctrl,shift,F1,....)
     private void ReceiveInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ReceiveInputKeyTyped
-        //kiểm tra xem người dùng có nhập số vào không, nếu không phải số thì không nhận
-        char c = evt.getKeyChar();
-        if (!((c >= '0') && (c <= '9')
-                || (c == KeyEvent.VK_BACK_SPACE)
-                || (c == KeyEvent.VK_DELETE))) {
-            getToolkit().beep();
-            evt.consume();
+       char c = evt.getKeyChar();// Lấy ra ký tự mà người dùng vừa gõ → gán vào biến c.
+       // Nếu c không thỏa mãn bất kỳ điều kiện nào trong 3 điều kiện dưới thì if thực hiện bên trong
+        if (!((c >= '0') && (c <= '9')           // Kiểm tra xem c có phải là:  chữ số từ '0' → '9'.
+                || (c == KeyEvent.VK_BACK_SPACE) // Kiểm tra xem c có phải là:  phím Backspace (xóa lùi).
+                || (c == KeyEvent.VK_DELETE)))   // Kiểm tra xem c có phải là:  phím Delete (xóa phía trước).
+        { 
+            getToolkit().beep(); // Phát ra tiếng "bíp" cảnh báo → báo hiệu cho người dùng biết nhập sai (không được phép gõ ký tự này).
+            evt.consume(); // Chặn luôn sự kiện phím đó, không cho nhập vào ô ReceiveInput.
+                           // => nếu gõ chữ cái, dấu cách, ký tự đặc biệt (@, #, %,...) → sẽ không hiện gì cả.
         }
     }//GEN-LAST:event_ReceiveInputKeyTyped
 
+    // khi chọn phần "quản lý khách hàng" trong quản lý trên thanh codebar
+    // chỉ có admin(1) mới vào được , thungan(0) không có quyền
     private void QLKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QLKHActionPerformed
         if (tk.getKhachHang() == 1) {
             QuanLyKhachHang qlkh = new QuanLyKhachHang();
@@ -1297,32 +1427,46 @@ public class BanHang extends javax.swing.JFrame {
             CancleBtn.setEnabled(true);
         }
     }//GEN-LAST:event_addSPHDBtnActionPerformed
-
+ 
+    
+// Hàm xử lý khi nhấn "tìm" ở ô "số điện thoại"
     private void TimSDTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimSDTButtonActionPerformed
+        //1. kết nối tới CSDL "KHACHHANG" để lấy thông tin 
         KhachHang_Connect kh_conn = new KhachHang_Connect();
+        
+        // 2. tìm thông tin khách hàng (maKH,tenKH,SDT,diem) bằng hàm "layKhachHangBangSDT"  rồi lưu vào "kh"
         KhachHang kh = kh_conn.layKhachHangBangSDT(SDTInput.getText());
-        KHOutput.setText(kh.getTenKH());
-        makh = kh.getMaKH();
-        DiemOutput.setText(formatCurrency(kh.getDiem()));
-        //lưu lại điểm của khách hàng này bằng biến toàn cục
-        DiemOutput.setText(formatCurrency(kh.getDiem()));
-        DiemCheckBox.setEnabled(true);
+        
+        // 3. in ra giao diện thông tin : tenKH + điểm
+        // Lấy tên khách hàng (kh.getTenKH()) và hiển thị lên giao diện trong ô KHOutput ="tên khách hàng"
+        KHOutput.setText(kh.getTenKH()); //gán ký tự cho ô" tên khách hàng" 
+        makh = kh.getMaKH(); // Lưu lại Mã khách hàng (MaKH) vào biến toàn cục makh => để có thể dùng được ở nơi khác 
+        DiemOutput.setText(formatCurrency(kh.getDiem())); // lấy điểm của khách hàng rồi hiển thị lên giao diện "điểm"
+        DiemCheckBox.setEnabled(true); // Bật cho phép chọn ô DiemCheckBox (checkbox "Dùng điểm").
     }//GEN-LAST:event_TimSDTButtonActionPerformed
 
+    
+// đảm bảo khi nhập số điện thoại :  không quá 10 số + các ký tự phải là chữ số(digit) 
+// KeyTyped : kiểm tra ký tự đúng yêu cầu không 
     private void SDTInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SDTInputKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isDigit(c) || SDTInput.getText().length() >= 10) {
-            evt.consume(); // Ngăn chặn ký tự không hợp lệ và ngăn chặn nhập quá 4 ký tự
+            evt.consume(); // Ngăn chặn ký tự không hợp lệ và ngăn chặn nhập quá 10 ký tự
         }
     }//GEN-LAST:event_SDTInputKeyTyped
 
+    
+// Đây là hàm xử lý sự kiện (ActionPerformed) cho checkbox DiemCheckBox. 
+// Khi người dùng click để chọn hoặc bỏ chọn checkbox này, hàm này sẽ được gọi.
     private void DiemCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiemCheckBoxActionPerformed
         ReceiveInputKeyReleased(null);
     }//GEN-LAST:event_DiemCheckBoxActionPerformed
 
+
+// Hàm này chạy khi người dùng nhấn một phím trên bàn phím khi đang nhập trong ô SDTInput "số điện thoại".
     private void SDTInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SDTInputKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER)
-            TimSDTButtonActionPerformed(null);
+            TimSDTButtonActionPerformed(null);// thực hiện "tìm" khi người dùng ấn phím ENTER
     }//GEN-LAST:event_SDTInputKeyPressed
 
     private void TKInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKInputKeyPressed
@@ -1342,6 +1486,10 @@ public class BanHang extends javax.swing.JFrame {
     private void SLInputMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SLInputMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_SLInputMouseClicked
+
+    private void DiemOutputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DiemOutputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DiemOutputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1379,13 +1527,13 @@ public class BanHang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu BarcodeMenu;
     private javax.swing.JLabel BookNameLabel;
     private javax.swing.JLabel BookNameLabel2;
     private javax.swing.JButton CancleBtn;
     private javax.swing.JTextField ChangeInput;
     private javax.swing.JLabel ChangeLabel;
     private javax.swing.JComboBox<String> DanhMucInput;
+    private javax.swing.JMenu DanhMucMenu;
     private javax.swing.JButton DeleteBtn;
     private javax.swing.JCheckBox DiemCheckBox;
     private javax.swing.JLabel DiemLabel;
