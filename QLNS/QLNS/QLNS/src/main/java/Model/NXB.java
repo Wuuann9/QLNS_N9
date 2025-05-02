@@ -43,7 +43,4 @@ public class NXB {
 	public String toString() {
 		return this.tenNXB;
 	}
-	
-	
-
 }
