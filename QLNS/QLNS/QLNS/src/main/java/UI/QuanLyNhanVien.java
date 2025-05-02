@@ -112,9 +112,9 @@ private ArrayList<ChucVu> dscv = null;
         }
         nv.setSoChungMinh(CCCDInput.getText());
         if(CVInput.getSelectedIndex()<10)
-            nv.setMaCV(CVInput.getSelectedIndex()+1);
+            nv.setMaCV("CV0"+(CVInput.getSelectedIndex()+1));
         else
-            nv.setMaCV(CVInput.getSelectedIndex()+1);
+            nv.setMaCV("CV"+(CVInput.getSelectedIndex()+1));
         nv.setSDT(SDTInput.getText());
         nv.setEmail(EmailInput.getText());
         nv.setLuong(Double.parseDouble(LuongInput.getText()));
@@ -594,7 +594,7 @@ private ArrayList<ChucVu> dscv = null;
             vec.add(nv.getNgaySinh());
             vec.add(nv.getNgayVaolam());
             vec.add(nv.getSoChungMinh());
-            vec.add(nv.getMaCV());
+            vec.add(nv.getChucVu());
             vec.add(nv.getSDT());
             vec.add(nv.getEmail());
             vec.add(String.format("%.0f", nv.getLuong()));
