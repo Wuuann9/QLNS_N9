@@ -122,7 +122,10 @@ public class NhanVien_Connect extends Connect_sqlServer{
     public ArrayList<NhanVien> timNhanVien(String key){
         ArrayList<NhanVien> dsnv = new ArrayList<NhanVien>();
         try {
-            String sql ="select * from NHANVIEN where MaNV like ? or TenNV like ?" ;
+            String sql ="SELECT nv.*, cv.ChucVu " +
+                    "FROM NHANVIEN nv " + 
+                    "JOIN CHUCVU cv ON nv.MaCV = cv.MaCV " +
+                    "WHERE nv.MaNV LIKE ? OR nv.TenNV LIKE ?";
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, "%"+key+"%"); //%key%: tim tat ca cac chuoi co chua key o bat ky vi tri nao 
             pre.setString(2, "%"+key+"%");
@@ -135,9 +138,10 @@ public class NhanVien_Connect extends Connect_sqlServer{
                 nv.setNgaySinh(df.format(result.getDate(3)));
                 nv.setNgayVaolam(df.format(result.getDate(4)));
                 nv.setSoChungMinh(result.getString(5));
-                nv.setMaCV(result.getString(6));
+                nv.setChucVu(result.getString(10));
                 nv.setSDT(result.getString(7));
                 nv.setEmail(result.getString(8));
+                nv.setLuong(result.getDouble(9));
                 dsnv.add(nv);
             }
         } catch (Exception e) {
