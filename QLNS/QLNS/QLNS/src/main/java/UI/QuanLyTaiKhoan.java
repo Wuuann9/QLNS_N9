@@ -26,28 +26,28 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
         this.setLocationRelativeTo(null);
         this.setTitle(title);
-        hienThiToanBoTaiKhoan();
+        hienThiToanBoTaiKhoan(); // thuc hien ham
         hienThiToanBoNhanVien();
     }
-    
+    // hien thi ds nhann vien len NhanvienTable
     private void hienThiToanBoNhanVien() {
-        NhanVien_Connect nv_conn = new NhanVien_Connect();
-        nhanViens = nv_conn.layToanBoNhanVien();
-        dtmNhanVien = new DefaultTableModel();
-        dtmNhanVien.addColumn("Mã nhân viên");
+        NhanVien_Connect nv_conn = new NhanVien_Connect();// tao 1 nv_conn moi cua NV_connect
+        nhanViens = nv_conn.layToanBoNhanVien(); // lay ds nv luu vao 1 arrayList nhanViens
+        dtmNhanVien = new DefaultTableModel(); // tao 1 bang nhanvien 
+        dtmNhanVien.addColumn("Mã nhân viên");  // them 3 cot 
         dtmNhanVien.addColumn("Tên nhân viên");
         dtmNhanVien.addColumn("Chức vụ");
-        dtmNhanVien.setRowCount(0);
-        for(NhanVien nv : nhanViens){
-            Vector<Object> vec = new Vector<Object>();
-            vec.add(nv.getMaNV());
+        dtmNhanVien.setRowCount(0); // xoa sach cac dong hien co de reload 
+        for(NhanVien nv : nhanViens){  // duyet
+            Vector<Object> vec = new Vector<Object>();  
+            vec.add(nv.getMaNV()); // them theo dung thu tu 
             vec.add(nv.getTenNV());
             vec.add(nv.getMaCV());
-            dtmNhanVien.addRow(vec);
+            dtmNhanVien.addRow(vec);// them 1 dong moi theo kieu vec
         }
-        NhanVienTable.setModel(dtmNhanVien);
+        NhanVienTable.setModel(dtmNhanVien); // gan du lieu dtmNhanVien hien thi len NhanVientable
     }   
-    
+    //hien thi ds tai khoan len TaiKhoanTable
     private void hienThiToanBoTaiKhoan(){
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
         taiKhoans = tk_conn.layToanBoTaiKhoan();
@@ -66,18 +66,22 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         }
         TaiKhoanTable.setModel(dtmTaiKhoan);
     }
-    
-    private void xuLyThemMoi(String maTK, String username, String manv) throws ParseException{
+    // xu ly envent them tai khoan 
+    private void xuLyThemMoi(String maTK, String username, String manv) throws ParseException{  // throws nem loi ngay gio tu csdl vao 
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
-        if(tk_conn.kiemTraTonTai(maTK, username, manv)==true) JOptionPane.showMessageDialog(null, "Mã tài khoản, username hoặc mã nhân viên đã tồn tại!");
+        if(tk_conn.kiemTraTonTai(maTK, username, manv)==true) // check ton tai 
+            JOptionPane.showMessageDialog(null, "Mã tài khoản, username hoặc mã nhân viên đã tồn tại!");
         else{
-            int ret=JOptionPane.showConfirmDialog(null, "Bạn muốn thêm tài khoản mới?", "xác nhận xác nhận để thêm", JOptionPane.OK_CANCEL_OPTION);
+            // thuc hien OK Cancle truoc khi thuc hien lenh tiep theo 
+            int ret=JOptionPane.showConfirmDialog(null, "Bạn muốn thêm tài khoản mới?", "Vui Lòng Xác Nhận", JOptionPane.OK_CANCEL_OPTION);
             if(ret==JOptionPane.OK_OPTION){
                 TaiKhoan tk= new TaiKhoan();
                 tk.setMaTK(maTK);
                 tk.setMaNV(manv);
                 tk.setUserName(username);
                 tk.setPassWord(PasswordInput.getText());
+                
+                //thuc hien phan quyen bang Jcheckbox tra ve true flase 
                 tk.setBaoCao(BaoCaoCheckBox.isSelected()? 1: 0);
                 tk.setTaiKhoan(TaiKhoanCheckBox.isSelected()? 1: 0);
                 tk.setDanhMuc(DanhMucCheckBox.isSelected()? 1: 0);
@@ -88,7 +92,8 @@ private ArrayList<TaiKhoan> dstk_tim=null;
                 tk.setNCCVPP(NCCVPPCheckBox.isSelected()? 1: 0);
                 tk.setVPP(VPPCheckBox.isSelected()? 1: 0);
                 tk.setKhachHang(KHCheckBox.isSelected()? 1: 0);
-                int activeLuu = tk_conn.themTaiKhoan(tk);
+                
+                int activeLuu = tk_conn.themTaiKhoan(tk);// kiem tra thao tac them tk tra ve 1 / 0 
                 if(activeLuu>0){
                     JOptionPane.showMessageDialog(null, "Thêm mới thành công!");
                     hienThiToanBoTaiKhoan();
