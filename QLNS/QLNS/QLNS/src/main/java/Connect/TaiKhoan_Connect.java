@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo tai khoan roi luu vao lop array
     // tao ra tk 
-    public ArrayList<TaiKhoan> layToanBoTaiKhoan(){  //kieu tra ve dstk
+    public ArrayList<TaiKhoan> layToanBoTaiKhoan(){  //kieu tra ve  1 dstk
         ArrayList<TaiKhoan> dstk = new ArrayList<TaiKhoan>();  //tao lop luu dstk 
         try{ // dung them kiem tra ngoai le  tryy(code co the gay ra loi) catch code xu ly khi xay ra loi
             String sql ="select * from TAIKHOAN" ; // lay toan bo dong cot tu bang taikhoan
@@ -155,11 +155,14 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
         try{
             String sql ="INSERT INTO TAIKHOAN (MaTk, MaNV, username, password, BaoCao, TaiKhoan, MaVach, Sach, NXB, NhanVien, HoaDon, NCCVPP, VPP, KhachHang) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
             PreparedStatement pre  =  conn.prepareStatement(sql);
+            
+            //thực hiện kiểm tra phân quyền 
             pre.setString(1, tk.getMaTK());// duoi nay them tai khoan se truy xuat tung cot voi viec lay get de tra ve thuoc tinh cua matk
             pre.setString(2, tk.getMaNV());
             pre.setString(3,  tk.getUserName());
             pre.setString(4,  tk.getPassWord());
-            pre.setInt(5,  tk.getBaoCao());
+            // sau khi set xong gọi hàm này để get vào csdl
+            pre.setInt(5,  tk.getBaoCao()); // tra ve 1/0
             pre.setInt(6,  tk.getTaiKhoan());
             pre.setInt(7,  tk.getDanhMuc());
             pre.setInt(8,  tk.getSach());
