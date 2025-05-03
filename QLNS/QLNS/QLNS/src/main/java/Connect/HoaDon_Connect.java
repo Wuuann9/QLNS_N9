@@ -37,32 +37,42 @@ public class HoaDon_Connect extends Connect_sqlServer{
         return dshd ;
     }
 
+    
+// Lấy toàn bộ hóa đơn theo tháng và năm 
     public DefaultTableModel layToanBoHoaDonTheoThangNam(String month , String year)
     {
+        // 1. Tạo bảng mới và add 5 cột 
         DefaultTableModel dshd = new DefaultTableModel();
         dshd.addColumn("Mã hóa Đơn");
         dshd.addColumn("Nhân viên");
         dshd.addColumn("Khách hàng");
         dshd.addColumn("Ngày lập");
         dshd.addColumn("Tổng tiền");
-        dshd.setRowCount(0);
+        dshd.setRowCount(0); // Đặt số hàng của dshd về 0, đảm bảo bảng trống trước khi thêm dữ liệu mới.
+        
+        // 2.Truy vấn CSDL để lấy data
+        // DÙNG LEFT JOIN vì : Đảm bảo tất cả hóa đơn từ bảng HOADON được trả về, bất kể có thông tin nhân viên hoặc khách hàng có đủ hay không 
         String sql = "";
         try {
+            // NẾU THÁNG =0  => IN RA TẤT CẢ HÓA ĐƠN TRONG NĂM 
             if("0".equals(month))
                 sql = "select H.MaHD, N.TenNV, K.TenKH, NgayLap, TongTien from HOADON AS H LEFT JOIN NHANVIEN AS N ON H.MaNV=N.MaNV LEFT JOIN KHACHHANG AS K ON H.MaKH=K.MaKH where Year(NgayLap) = ? and ThanhCong = 1 and NhapSach=0" ;
+            // THÁNG !=0   => IN RA THEO THÁNG ĐÓ 
             else
                 sql = "select H.MaHD, N.TenNV, K.TenKH, NgayLap, TongTien from HOADON AS H LEFT JOIN NHANVIEN AS N ON H.MaNV=N.MaNV LEFT JOIN KHACHHANG AS K ON H.MaKH=K.MaKH where MONTH(NgayLap) = ? and Year(NgayLap) = ? and ThanhCong = 1 and NhapSach=0" ;
-
-            PreparedStatement pre = conn.prepareStatement(sql);
-
+        
+           // 3. Chuẩn bị và gán tham số cho truy vấn
+            PreparedStatement pre = conn.prepareStatement(sql); // PreparedStatement cho phép gán tham số an toàn.
             if ("0".equals(month))
                 pre.setString(1, year);
             else {
-                pre.setString(1,month);
-                pre.setString(2, year);
+                pre.setString(1,month); // ? thứ 1 là month
+                pre.setString(2, year); // ? thứ 1 là year
             }
-            ResultSet result  = pre.executeQuery();
-            while(result.next())
+            
+            // 4. Thực thi truy vấn và xử lý kết quả
+            ResultSet result  = pre.executeQuery(); // thực thi câu truy vấn SQL và trả về một ResultSet, chứa các hàng dữ liệu từ cơ sở dữ liệu.
+            while(result.next()) // result.next() di chuyển con trỏ đến hàng tiếp theo
             {
                 Vector<Object> vec = new Vector<Object>();
                 vec.add(result.getString(1));
@@ -70,7 +80,7 @@ public class HoaDon_Connect extends Connect_sqlServer{
                 vec.add(result.getString(3));
                 vec.add(result.getString(4));
                 vec.add(result.getString(5));
-                dshd.addRow(vec);
+                dshd.addRow(vec); // thêm hàng dữ liệu (vec) vào DefaultTableModel dshd, tạo một hàng mới trong bảng.
             }
 
         } catch (Exception e) {
@@ -78,27 +88,38 @@ public class HoaDon_Connect extends Connect_sqlServer{
         }
         return dshd ;
     }
+ 
     
+    
+// Hmà Lấy toàn bộ hóa đơn trong ngày 
     public DefaultTableModel layToanBoHoaDonHomNay()
     {
-        Calendar cal = Calendar.getInstance();
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        int month = cal.get(Calendar.MONTH) + 1; // Tháng bắt đầu từ 0 nên cần +1 để lấy tháng thực tế
-        int year =cal.get(Calendar.YEAR);
+        
+        // 1. Lấy ngày, tháng, năm hiện tại từ hệ thống.
+        Calendar cal = Calendar.getInstance(); // đại diện cho thời điểm hiện tại của hệ thống, dựa trên múi giờ và locale mặc định.
+        int day = cal.get(Calendar.DAY_OF_MONTH); // lấy ngày hiện tại 
+        int month = cal.get(Calendar.MONTH) + 1; // Lấy tháng hiện tại. Trong Java, Calendar.MONTH trả về giá trị từ 0 (tháng 1) đến 11 (tháng 12), nên cần +1 để lấy tháng thực tế (1–12).
+        int year =cal.get(Calendar.YEAR);   // lấy năm hiện tại 
+        
+        // 2. Tạo một DefaultTableModel để lưu trữ dữ liệu hóa đơn.
         DefaultTableModel dshd = new DefaultTableModel();
         dshd.addColumn("Mã hóa Đơn");
         dshd.addColumn("Nhân viên");
         dshd.addColumn("Khách hàng");
         dshd.addColumn("Ngày lập");
         dshd.addColumn("Tổng tiền");
-        dshd.setRowCount(0);
+        dshd.setRowCount(0); // Đặt số hàng của dshd về 0, đảm bảo bảng trống trước khi thêm dữ liệu mới.
+        
+        // 3. Truy vấn SQL để lấy hóa đơn trong ngày hiện tại.
         try {
             String sql = "select H.MaHD, N.TenNV, K.TenKH, NgayLap, TongTien from HOADON AS H LEFT JOIN NHANVIEN AS N ON H.MaNV=N.MaNV LEFT JOIN KHACHHANG AS K ON H.MaKH=K.MaKH where Day(NgayLap)=? and MONTH(NgayLap)=? and Year(NgayLap) = ? and ThanhCong = 1 and NhapSach=0";
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1, day);
-            pre.setInt(2, month);
-            pre.setInt(3, year);
-            ResultSet result  = pre.executeQuery();
+            pre.setInt(1, day);  // ? 1
+            pre.setInt(2, month);// ? 2
+            pre.setInt(3, year); // ? 3
+            ResultSet result  = pre.executeQuery(); // thực hiện lệnh select
+            
+        // 4. Đưa dữ liệu vào DefaultTableModel để sử dụng trong bảng giao diện.
             while(result.next())
             {
                 Vector<Object> vec = new Vector<Object>();
@@ -107,7 +128,7 @@ public class HoaDon_Connect extends Connect_sqlServer{
                 vec.add(result.getString(3));
                 vec.add(result.getString(4));
                 vec.add(result.getString(5));
-                dshd.addRow(vec);
+                dshd.addRow(vec); // thêm 1 hàng dữ liệu mới gồm 5 cột data ở trên (vec)
             }
 
         } catch (Exception e) {
@@ -116,7 +137,9 @@ public class HoaDon_Connect extends Connect_sqlServer{
         return dshd ;
     }
 	
-    // lấy ra "MaHD" mới nhất từ CSDL "HOADON"
+    
+    
+ // lấy ra "MaHD" mới nhất từ CSDL "HOADON"
     public String LastMaHD(){
         try{
             //String sql = "select * from hoadon ORDER BY mahd DESC LIMIT 1" ;
@@ -133,6 +156,8 @@ public class HoaDon_Connect extends Connect_sqlServer{
         return null;
     }
     
+    
+//
     public DefaultCategoryDataset DoanhThuCacThang(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         try{
@@ -148,6 +173,9 @@ public class HoaDon_Connect extends Connect_sqlServer{
         }
         return dataset;
     }
+    
+    
+    
 // HÀM Đẩy hóa đơn vào CSDL
     public int TaoHD(HoaDon hd) {
         try {
