@@ -443,9 +443,10 @@ public class Sach_Connect extends Connect_sqlServer{
     {
         ArrayList<Sach> dssTon = new ArrayList<Sach>();
         try {
+            //ket hop 2 bang sach va nxb voi dk = nxb loc sach <=
             String sql ="select SACH.MaSach , SACH.TenSach , SACH.SoLuong , NXB.TenNXB from SACH,NXB where SACH.MaNXB = NXB.MaNXB and SACH.SoLuong<=?" ;
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1, SL);
+            pre.setInt(1, SL);// gan gia tri SL vao ?
             ResultSet result = pre.executeQuery();
             while (result.next()){	
                 Sach s = new Sach();				
@@ -465,6 +466,7 @@ public class Sach_Connect extends Connect_sqlServer{
    public DefaultPieDataset laySachTheoTheLoai(){
        DefaultPieDataset dataset = new DefaultPieDataset();
        try{
+           //truy van ra the loai sach va so luong 
             String sql = "SELECT TheLoai, COUNT(MaSach) AS SoLuongSach FROM SACH GROUP BY TheLoai";
             PreparedStatement pre = conn.prepareStatement(sql);		
             ResultSet result = pre.executeQuery();
