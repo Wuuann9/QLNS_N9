@@ -148,7 +148,7 @@ String filePath = "D:\\";
         dtmSach.addColumn("Tên NXB");
         dtmSach.addColumn("Số lượng tồn");
         dtmSach.setRowCount(0);
-        //duyet qua tung sach day vao vector a
+        //duyet qua tung sach day vao vector as
         for(Sach s : dss){
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
