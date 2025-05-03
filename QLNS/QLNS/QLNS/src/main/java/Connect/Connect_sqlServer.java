@@ -28,7 +28,8 @@ public class Connect_sqlServer {
             //** databaseName = dbQLNS: tên cơ sở dữ liệu muốn kết nối.
             String connectionUrl="jdbc:sqlserver://"+"DESKTOP-HUGLVTT"+":1433;databaseName="+"dbQLNS"+";user=sa;password=17112003;";
             conn = DriverManager.getConnection(connectionUrl); //**Tạo kết nối đến CSDL bằng DriverManager rồi lưu vào biến conn
-                                                              //** => các class khác có thể sử dụng
+                                                       //** => các class khác có thể sử dụng
+
         } 
         //** Nếu có lỗi khi kết nối (sai driver, sai tên DB, sai user/pass...), chương trình sẽ in lỗi ra console.
         catch (Exception e) {
