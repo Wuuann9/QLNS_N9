@@ -40,7 +40,7 @@ public class NhanVien_Connect extends Connect_sqlServer{
                 dsnv.add(nv);
             }
         } catch (Exception e) {
-            e.printStackTrace();//In ra vi tri loi 
+            e.printStackTrace();
         }
 
         return dsnv;
