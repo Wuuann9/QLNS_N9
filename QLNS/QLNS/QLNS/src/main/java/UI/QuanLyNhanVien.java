@@ -41,7 +41,7 @@ private ArrayList<ChucVu> dscv = null;
     public QuanLyNhanVien(String title) {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);//Đóng cửa sổ k thoát toàn bộ ct
         this.setLocationRelativeTo(null);
         this.setTitle(title);
         hienThiChucVu();
@@ -144,7 +144,7 @@ private ArrayList<ChucVu> dscv = null;
     
     //hàm check email
     public boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";//biểu thức chính quy email
         Pattern pattern = Pattern.compile(emailRegex);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
