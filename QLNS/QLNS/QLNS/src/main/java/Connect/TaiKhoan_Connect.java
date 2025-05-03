@@ -18,7 +18,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
             while(result.next()) // duyet tung dong trong bang 
             {
                 TaiKhoan tk = new TaiKhoan();
-                tk.setMaTK(result.getString(1)); // truy xuat csdl cot 1-4 gan vao tk 
+                tk.setMaTK(result.getString(1)); // truy xuat csdl cot 1-4 gan vao tk .
                 tk.setUserName(result.getString(2));//set la gan gia tri 
                 tk.setPassWord(result.getString(3));
                 tk.setMaNV(result.getString(4));
