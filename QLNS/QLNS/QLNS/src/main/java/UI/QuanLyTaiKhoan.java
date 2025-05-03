@@ -563,11 +563,13 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         KHCheckBox.setText("Khách hàng");
 
         DanhMucCheckBox.setText("Danh Mục");
+
         DanhMucCheckBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DanhMucCheckBoxActionPerformed(evt);
             }
         });
+
 
         NCCVPPCheckBox.setText("NCCVPP");
 
@@ -835,6 +837,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     }//GEN-LAST:event_TenNVInputKeyPressed
 
 
+
     private void TaiKhoanCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TaiKhoanCheckBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TaiKhoanCheckBoxActionPerformed
@@ -843,9 +846,11 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         // TODO add your handling code here:
     }//GEN-LAST:event_BaoCaoCheckBoxActionPerformed
 
+
     private void DanhMucCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhMucCheckBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DanhMucCheckBoxActionPerformed
+
 
     private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
         // TODO add your handling code here:

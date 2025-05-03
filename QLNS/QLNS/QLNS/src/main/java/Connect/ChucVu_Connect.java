@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Connect;
 
 import Model.ChucVu;
@@ -32,7 +28,7 @@ public class ChucVu_Connect extends Connect_sqlServer{
     public ChucVu TimChucVu(String Chucvu){
         ChucVu cv = new ChucVu();
         try{
-            String sql ="select top 1 MaCV, ChucVu, DinhDoanh from CHUCVU where ChucVu=?" ;
+            String sql ="select top 1 MaCV, ChucVu from CHUCVU where ChucVu=?" ;
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, Chucvu);
             ResultSet result = pre.executeQuery();

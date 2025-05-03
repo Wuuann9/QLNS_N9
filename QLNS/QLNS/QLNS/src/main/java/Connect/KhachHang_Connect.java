@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Connect;
 
 import Model.KhachHang;
@@ -9,13 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- *
- * @author dat
- */
+
 public class KhachHang_Connect extends Connect_sqlServer{
     public ArrayList<KhachHang> LayTatCaKhachHang(){
-        ArrayList<KhachHang> dskh = new ArrayList<KhachHang>();
+        ArrayList<KhachHang> dskh = new ArrayList<KhachHang>(); //Tao ds rong dskh
         try {
             String sql = "select MaKH,TenKH, Sdt, Diem from KHACHHANG" ;
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -37,7 +30,7 @@ public class KhachHang_Connect extends Connect_sqlServer{
     public KhachHang layKhachHangBangSDT(String sdt){
         KhachHang kh = new KhachHang();
         try {
-            String sql = "select top 1 MaKH, TenKH, Sdt, Diem from KHACHHANG where Sdt like ?" ;
+            String sql = "select top 1 MaKH, TenKH, Sdt, Diem from KHACHHANG where Sdt like ?" ;//top 1: Chi lay 1 kh dau tien phu hop, like?: tim gan dúng 
             PreparedStatement pre = conn.prepareStatement(sql);
             pre.setString(1, "%"+sdt+"%");
             ResultSet result  = pre.executeQuery();

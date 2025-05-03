@@ -64,6 +64,11 @@ public class Login extends javax.swing.JFrame {
                 LoginBtnMouseClicked(evt);
             }
         });
+        LoginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginBtnActionPerformed(evt);
+            }
+        });
 
         MKInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -161,9 +166,15 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MKInputKeyPressed
 
+
+    private void LoginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginBtnActionPerformed
+
     private void TKInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TKInputActionPerformed
+
   
     // kiem tra MKinput va TKinput  với TK MK cua CSDl
     protected void xuLyDangNhap() {

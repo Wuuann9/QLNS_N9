@@ -21,14 +21,9 @@ public class Connect_sqlServer {
 
     public Connect_sqlServer() {
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");//** tải driver JDBC(Java Database Connectivity)cho SQL Server (bắt buộc để kết nối).
-            //** tạo chuỗi kết nối bao gồm :
-            //** DESKTOP-HUGLVTT( tên máy chủ đang chạy SQL server)
-            //** 1433:  cổng mặc định của SQL Server.
-            //** databaseName = dbQLNS: tên cơ sở dữ liệu muốn kết nối.
-            String connectionUrl="jdbc:sqlserver://"+"DESKTOP-HUGLVTT"+":1433;databaseName="+"dbQLNS"+";user=sa;password=17112003;";
-            conn = DriverManager.getConnection(connectionUrl); //**Tạo kết nối đến CSDL bằng DriverManager rồi lưu vào biến conn
-                                                       //** => các class khác có thể sử dụng
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String connectionUrl="jdbc:sqlserver://"+"ANY"+":1433;databaseName="+"dbQLNS"+";user=sa;password=quyenntt;";
+            conn= DriverManager.getConnection(connectionUrl);         
 
         } 
         //** Nếu có lỗi khi kết nối (sai driver, sai tên DB, sai user/pass...), chương trình sẽ in lỗi ra console.

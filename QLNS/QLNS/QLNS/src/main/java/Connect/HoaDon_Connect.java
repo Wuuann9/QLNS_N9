@@ -137,9 +137,8 @@ public class HoaDon_Connect extends Connect_sqlServer{
         return dshd ;
     }
 	
-    
-    
- // lấy ra "MaHD" mới nhất từ CSDL "HOADON"
+
+    // lấy ra "MaHD" mới nhất từ CSDL "HOADON"
     public String LastMaHD(){
         try{
             //String sql = "select * from hoadon ORDER BY mahd DESC LIMIT 1" ;
@@ -173,9 +172,7 @@ public class HoaDon_Connect extends Connect_sqlServer{
         }
         return dataset;
     }
-    
-    
-    
+
 // HÀM Đẩy hóa đơn vào CSDL
     public int TaoHD(HoaDon hd) {
         try {
