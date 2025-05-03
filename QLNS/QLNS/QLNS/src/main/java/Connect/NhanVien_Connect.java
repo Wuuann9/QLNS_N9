@@ -27,7 +27,7 @@ public class NhanVien_Connect extends Connect_sqlServer{
             ResultSet result = pre.executeQuery(); //kq duoi dang bang 
             while(result.next())
             {
-                NhanVien nv = new NhanVien();//Tao doi tuong NhanVien
+                NhanVien nv = new NhanVien();
                 nv.setMaNV(result.getString(1));
                 nv.setTenNV(result.getString(2));
                 nv.setNgaySinh(df.format(result.getDate(3))); //df.format(): chuyen Date sang dd/mm/yy
