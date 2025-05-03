@@ -20,8 +20,8 @@ private ArrayList<KhachHang> dskh_tim = null;
 
     public QuanLyKhachHang() {
         initComponents();//Khoi tao cac thanh phan GUI
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));//Dat icon 
-        this.setTitle("Quản lý khách hàng");//Dat tieu de
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png")); 
+        this.setTitle("Quản lý khách hàng");
         this.setLocationRelativeTo(null);//Can giua man hinh 
         hienThiTatCaKH();
     }
@@ -72,7 +72,7 @@ private ArrayList<KhachHang> dskh_tim = null;
         } 
     }
     
-    //hàm định dạng tiền tệ
+    //hàm định dạng điểm
     public String formatCurrency(double amount) {
         // Định dạng số có dấu phân cách và đơn vị tiền tệ
         DecimalFormat formatter = new DecimalFormat("#,###");
