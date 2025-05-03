@@ -34,12 +34,16 @@ public class QuanLyHoaDon extends javax.swing.JFrame {
 private DefaultTableModel dtmHoaDon = null, dtmCTHD =null;
 private ArrayList<HoaDon> dshd_thongke =null;
 private double tongTien =0;
-private DecimalFormat df = new DecimalFormat("###,###,###");
+private DecimalFormat df = new DecimalFormat("###,###,###"); //=> in ra theo mẫu ví dụ : 100000000 => 100,000,00
+
 //sửa lại đường dẫn này cho phù hợp với đường dẫn trong máy
-String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
+String filePath = "B:\\BTL_OOP\\QLNS_N9\\QLNS\\QLNS\\Excel\\";
     /**
      * Creates new form QuanLyHoaDon
      */
+
+
+// 
     public QuanLyHoaDon(String title) {
         this.setTitle(title);
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
@@ -48,82 +52,98 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
         hienThiHoaDon();
         hienThiCTHD("0");
     }
+ 
     
+// Hàm hiển thị hóa đơn 
     private void hienThiHoaDon() {
+        // 1. Lấy tháng + năm hiện tại 
+        // tháng và năm có cách lấy dữ liệu khác nhau vì tháng là chọn còn năm là nhập 
         Calendar cal = Calendar.getInstance();
         MonthInput.setSelectedIndex(cal.get(Calendar.MONTH) + 1); // Tháng bắt đầu từ 0 nên cần +1 để lấy tháng thực tế
         YearInput.setText(Integer.toString(cal.get(Calendar.YEAR)) );
-
+        // 2. Lấy Dữ Liệu Hóa Đơn Và Hiển Thị Trên Bảng
         HoaDon_Connect hd_connect = new HoaDon_Connect();
-
         HoaDonTable.setModel(hd_connect.layToanBoHoaDonTheoThangNam(Integer.toString(MonthInput.getSelectedIndex()), YearInput.getText()));
         tongTien = 0;
+        // Tính tổng tiền và in ra 
         for (int i = 0; i< HoaDonTable.getRowCount();i++){
             tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());
         }
-        ToTalLabel.setText(df.format(tongTien) + " vnđ");
+        ToTalLabel.setText(df.format(tongTien) + " vnđ"); // hiển thì theo df.fomat() đc định nghĩa ở đầu kiểu ví dụ  100,000,000
     }
-    
-    private void hienThiHoaDonHomNay(){
-        HoaDon_Connect hd_connect = new HoaDon_Connect();
 
-        HoaDonTable.setModel(hd_connect.layToanBoHoaDonHomNay());
+// Hàm hiển thị hóa đơn hôm nay 
+    private void hienThiHoaDonHomNay(){
+        // 1. Lấy toàn bộ hóa đơn trong ngày => hiển thị lên bảng "danh sách hóa đơn" = HoaDonTable
+        HoaDon_Connect hd_connect = new HoaDon_Connect();
+        HoaDonTable.setModel(hd_connect.layToanBoHoaDonHomNay()); // setModel là một phương thức trong các lớp Swing như JTable, dùng để gán một mô hình dữ liệu (model) cho thành phần giao diện đó.
+        
+        //2. Tính tổng tiền tất cả hóa đơn trong ngày 
         tongTien = 0;
         for (int i = 0; i< HoaDonTable.getRowCount();i++){
-            tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());
+            tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());// getValueAt(hàng,cột)
         }
-
-        ToTalLabel.setText(df.format(tongTien) + " vnđ");
+        ToTalLabel.setText(df.format(tongTien) + " vnđ");// df.fomat đc định nghĩa ở đầu kiểu 100,000,000
     }
     
+    
+  // Hiển thị CTHD qua MaHD  
     private void hienThiCTHD(String mahd){
-        CTHD_Connect cthd_conn = new CTHD_Connect();
-        dtmCTHD = cthd_conn.layCTHDBangMaHD(mahd);
-        CTHDTable.setModel(dtmCTHD);
+        CTHD_Connect cthd_conn = new CTHD_Connect();// tạo CTHD_Connect mới => có thể sử dụng các methods trong đó 
+        dtmCTHD = cthd_conn.layCTHDBangMaHD(mahd);// lấy data CTHD qua mahd rồi lưu vào dtmCTHD
+        CTHDTable.setModel(dtmCTHD);// hiển thị dữ liệu lên bảng CTHD
+                                    // setmodel : gán model của dtmCTHD cho CTHDTable
     }
+   
     
+// xuất dữ liệu từ bảng HoaDon ra một tệp Exce
+// XuatFileExcel((DefaultTableModel)HoaDonTable.getModel(), "Danh sách hóa đơn", filePath+"HoaDon.xls" ); 
     private void XuatFileExcel(DefaultTableModel dtm, String sheetName, String excelFilePath){
+       // 1. Khởi tạo các đối tượng cần thiết 
         try{
             TableModel model = dtm;
-            Workbook workbook = new HSSFWorkbook();
-            Sheet sheet = workbook.createSheet(sheetName);
+            Workbook workbook = new HSSFWorkbook();   //Tạo một đối tượng Workbook (sổ làm việc Excel)
+            Sheet sheet = workbook.createSheet(sheetName);// Tạo một sheet (trang tính) trong workbook với tên được chỉ định bởi sheetName (ví dụ: "Danh sách hóa đơn").
+                                                          // Một workbook có thể chứa nhiều sheet, nhưng ở đây chỉ tạo một sheet duy nhất.
 
-            // Ghi tiêu đề cột
-            Row headerRow = sheet.createRow(0);
+       // 2. Ghi tiêu đề cột sao cho giống tên các cột trong bảng HoaDon
+            Row headerRow = sheet.createRow(0); // Tạo hàng đầu tiên (hàng 0) trong sheet để chứa tiêu đề cột (header).
             for (int col = 0; col < model.getColumnCount(); col++) {
                 Cell cell = headerRow.createCell(col);
                 cell.setCellValue(model.getColumnName(col));
             }
 
-            // Ghi dữ liệu từ JTable vào Sheet
+       // 3. Ghi toàn bộ dữ liệu từ Hóa đơn  vào sheet Excel, duyệt tất cả các hàng bắt đầu từ hàng 1 (hàng 0 là tiêu đề).
+       // Xử lý kiểu dữ liệu để đảm bảo dữ liệu được ghi đúng định dạng trong Excel. 
             for (int row = 0; row < model.getRowCount(); row++) {
-                Row sheetRow = sheet.createRow(row + 1);
+                Row sheetRow = sheet.createRow(row + 1); // Tạo một hàng mới trong sheet tại vị trí row + 1 (bắt đầu từ hàng 1, vì hàng 0 đã dùng cho tiêu đề).
                 for (int col = 0; col < model.getColumnCount(); col++) {
                     Object value = model.getValueAt(row, col);
-                    Cell cell = sheetRow.createCell(col);
+                    Cell cell = sheetRow.createCell(col);// Tạo một ô trong hàng sheetRow tại vị trí cột col.
 
-                    // Xác định kiểu dữ liệu của ô dữ liệu
+                    // Xác định kiểu dữ liệu của ô dữ liệu : số => double , chuỗi , trống 
                     if (value instanceof Number) cell.setCellValue(((Number) value).doubleValue());
                     else if(value instanceof String) cell.setCellValue(value.toString());
                     else cell.setCellValue(""); //dữ liệu là null
                 }
             }
 
-            // Tự động điều chỉnh kích thước các cột trong Excel
+       // 4. Tự động điều chỉnh chiều rộng của cột col trong sheet để phù hợp với nội dung của cột.
             for (int col = 0; col < model.getColumnCount(); col++) {
                 sheet.autoSizeColumn(col);
             }
 
-            //tạo file .xls
+      // 5. tạo file .xls
+            // tạo một luồng ghi tệp (FileOutputStream) tới đường dẫn excelFilePath
             FileOutputStream outputStream = new FileOutputStream(excelFilePath);
-            workbook.write(outputStream);
+            workbook.write(outputStream);// Ghi toàn bộ workbook (bao gồm sheet và dữ liệu) vào luồng outputStream, tạo tệp Excel tại đường dẫn chỉ định.
             workbook.close();
             outputStream.close();
             //mở file pdf đó ra
-            File pdfFile = new File(excelFilePath);
-            if (pdfFile.exists()) {
+            File excelFile = new File(excelFilePath);
+            if (excelFile.exists()) {
                 if (Desktop.isDesktopSupported()) {
-                    Desktop.getDesktop().open(pdfFile);
+                    Desktop.getDesktop().open(excelFile);
                 } else {
                     JOptionPane.showMessageDialog(null, "Máy tính không hỗ trợ!");
                 }
@@ -260,10 +280,10 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
                 .addGap(50, 50, 50)
                 .addComponent(TongTienLabel)
                 .addGap(18, 18, 18)
-                .addComponent(ToTalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(ToTalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PrintBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(90, 90, 90))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +309,6 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -297,27 +316,32 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 649, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane1))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1)
-                                .addGap(138, 138, 138)))
+                                .addGap(218, 218, 218)
+                                .addComponent(jLabel3)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(152, 152, 152))))
+                    .addComponent(TitleLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(24, 24, 24)
                 .addComponent(TitleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
@@ -330,26 +354,39 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+// ấn chuột vào "Tìm" hóa đơn theo tháng và năm 
     private void SearchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchBtnMouseClicked
         HoaDon_Connect hd_connect = new HoaDon_Connect();
+        //1. Lấy hóa đơn theo tháng + năm => Hiển thị dữ liệu thành bảng "Danh sách hóa đơn"
         String thang  = MonthInput.getSelectedItem().toString();
         String nam = YearInput.getText();
         HoaDonTable.setModel(hd_connect.layToanBoHoaDonTheoThangNam(thang, nam));
+        // 2. tính tổng tiền hóa đơn trong tháng + hiển thị trên giao diện
         tongTien = 0;
         for (int i = 0; i< HoaDonTable.getRowCount();i++){
             tongTien = tongTien + Double.parseDouble(HoaDonTable.getValueAt(i, 4).toString());
         }
+        // hiển thị lên giao diện 
         TongTienLabel.setText("Tổng tiền bán được tháng này: ");
-        ToTalLabel.setText(df.format(tongTien) + " vnđ");
-        dtmCTHD.setColumnCount(0);
+        ToTalLabel.setText(df.format(tongTien) + " vnđ");// in ra dưới dạng có "," ví dụ : 100,000,000
+        dtmCTHD.setColumnCount(0); //xóa tất cả cột của bảng này, làm bảng trở thành rỗng.
     }//GEN-LAST:event_SearchBtnMouseClicked
 
+    
+ // Xử lý khi ấn "Xuất Excel"
     private void PrintBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintBtnActionPerformed
         int dialogResult = JOptionPane.showConfirmDialog (null, "Xuất file excel?","Warning",JOptionPane.YES_NO_OPTION);
-        if(dialogResult == JOptionPane.YES_OPTION)
-            XuatFileExcel((DefaultTableModel)HoaDonTable.getModel(), "Danh sách hóa đơn", filePath+"HoaDon.xls" );        
+        if(dialogResult == JOptionPane.YES_OPTION){
+            String filePath = "B:\\BTL_OOP\\QLNS_N9\\QLNS\\QLNS\\Excel\\";
+            XuatFileExcel((DefaultTableModel)HoaDonTable.getModel(), "Danh sách hóa đơn", filePath+"HoaDon.xls" ); // tên tệp = HoaDon.xls
+                                                                                                                   // tên sheet = Danh sách hóa đơn
+                                                                                                                   // getModel() = lấy mô hình dữ liệu của model 
+        }           
     }//GEN-LAST:event_PrintBtnActionPerformed
 
+    
+// Hàm kiểm tra xem năm được nhập đúng định dạng chưa : tất cả phải là số + lớn hơn 4 số 
     private void YearInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_YearInputKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isDigit(c) || YearInput.getText().length() >= 4) {
@@ -357,15 +394,23 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel";
         }
     }//GEN-LAST:event_YearInputKeyTyped
 
+
+// Xử lý khi  "Hôm nay" = in ra tất cả hóa đơn trong ngày 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        hienThiHoaDonHomNay();
-        dtmCTHD.setColumnCount(0);
+        hienThiHoaDonHomNay();// lấy danh sách hóa đơn + hiển thị lên bảng giao diện 
+        dtmCTHD.setColumnCount(0); //Xóa bảng chi tiết hóa đơn (dtmCTHD) bằng cách đặt số cột về 0 => chuẩn bị cho việc hiển thị chi tiết hóa đơn khác sau này.
         TongTienLabel.setText("Tổng tiền bán được hôm nay: ");
     }//GEN-LAST:event_jButton1MouseClicked
 
+    
+    
+    // xử lý hành động khi người dùng nhấp chuột vào một hàng(1 hóa đơn) trong bảng HoaDonTable
+    // => hiển thị chi tiết hóa đơn đó trên bảng CTHD
     private void HoaDonTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HoaDonTableMouseClicked
+       // 1. trả về chỉ số của hàng được chọn trong bảng = select
         int select = HoaDonTable.getSelectedRow();
-        hienThiCTHD(HoaDonTable.getValueAt(select, 0).toString());
+       // 2. getValueAt(hang,cot) = lấy ra maHD ở cột đầu(0) của hàng select
+        hienThiCTHD(HoaDonTable.getValueAt(select, 0).toString()); // ví dụ = hienThiCTHD(HD01)
     }//GEN-LAST:event_HoaDonTableMouseClicked
 
     /**

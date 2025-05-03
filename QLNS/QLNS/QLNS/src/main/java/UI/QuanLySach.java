@@ -111,9 +111,8 @@ public class QuanLySach extends javax.swing.JFrame {
             NXBInput_TangGia.addItem(s);
         }
     }
-
-     private void hienThiToanBoDanhMuc() {
-
+    
+    private void hienThiToanBoDanhMuc() {
         DM_Connect nxbconn = new DM_Connect();
         dsdm = nxbconn.layToanBoDanhMuc();
         DanhM.removeAllItems();
@@ -144,6 +143,7 @@ public class QuanLySach extends javax.swing.JFrame {
         }
         return false;
     }
+
 
     public static boolean isNumeric_Double(String string) {
         double intValue;
@@ -656,10 +656,11 @@ public class QuanLySach extends javax.swing.JFrame {
     private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ChinhSuaActionPerformed
         // TODO add your handling code here:
 
-        if (TKInput_MaSach.getText().trim().isEmpty() || TKInput_TenSach.getText().trim().isEmpty()
-                || TKInput_TacGia.getText().trim().isEmpty() || TKInput_GiaBan.getText().trim().isEmpty()
-                || TKInput_SoLuong.getText().trim().isEmpty() || TKInput_Discount.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu!", "Error", JOptionPane.WARNING_MESSAGE);
+        if (TKInput_MaSach.getText().length() == 0
+                || TKInput_TenSach.getText().length() == 0 || TKInput_TacGia.getText().length() == 0
+                || TKInput_GiaBan.getText().length() == 0
+                || TKInput_SoLuong.getText().length() == 0 || TKInput_Discount.getText().length() == 0) {
+            JOptionPane.showMessageDialog(this, "Nhập thiếu dữ liệu !", "Error", JOptionPane.WARNING_MESSAGE);
 
             return;
         }
@@ -683,7 +684,7 @@ public class QuanLySach extends javax.swing.JFrame {
         s.setMaSach(TKInput_MaSach.getText().trim());
         s.setTenSach(TKInput_TenSach.getText().trim());
         s.setMaNXB(manxb.getMaNXB());
-        s.setTacGia(TKInput_TacGia.getText().trim());
+        s.setTacGia(TKInput_TacGia.getText());
         s.setTenDM(tendm.toString());
 
 
@@ -697,10 +698,11 @@ public class QuanLySach extends javax.swing.JFrame {
         s.setGiaBan(Double.parseDouble(TKInput_GiaBan.getText().trim()));
         s.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText().trim()));
         s.setDiscount(Integer.parseInt(TKInput_Discount.getText().trim()));
-
+        
         Sach_Connect sachconnect = new Sach_Connect();
         int active = sachconnect.update(s);
-        if (active > 0) {
+         if (active > 0) {
+
             JOptionPane.showMessageDialog(null, "Chỉnh sửa thông tin sách thành công");
         } else if (active == 0) {
             JOptionPane.showMessageDialog(this, "Không tìm thấy sách để chỉnh sửa!", "Error", JOptionPane.WARNING_MESSAGE);
@@ -850,6 +852,7 @@ public class QuanLySach extends javax.swing.JFrame {
                 vec.add(s.getTenSach());
                 vec.add(s.getTenDM());
                 vec.add(s.getTacGia());
+
                 vec.add(s.getSoLuong());
                 vec.add(s.getGiaBan());
                 vec.add(s.getDiscount());
