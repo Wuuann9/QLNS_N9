@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package UI;
 
 import Connect.NhanVien_Connect;
@@ -13,47 +9,45 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableModel;// quan ly du lieu 
 
-/**
- *
- * @author dat
- */
-public class QuanLyTaiKhoan extends javax.swing.JFrame {
-private DefaultTableModel dtmNhanVien;
-private ArrayList<NhanVien> nhanViens =null;
+// khai bao thuoc tinh qltk 
+public class QuanLyTaiKhoan extends javax.swing.JFrame {  // hien thi interface
+private DefaultTableModel dtmNhanVien; //dữ liệu bảng jTable
+private ArrayList<NhanVien> nhanViens =null;// ds nhanvien
 private DefaultTableModel dtmTaiKhoan;
 private ArrayList<TaiKhoan> taiKhoans =null;
-private ArrayList<NhanVien> dsnv_tim = null;
+private ArrayList<NhanVien> dsnv_tim = null; // ds nv filter
 private ArrayList<TaiKhoan> dstk_tim=null;
 
+//constructor chạy giao diện interface 
     public QuanLyTaiKhoan(String title) {
-        initComponents();
+        initComponents(); // thực hiện lệnh chạy nhờ vào kéo thả 
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
         this.setLocationRelativeTo(null);
         this.setTitle(title);
-        hienThiToanBoTaiKhoan();
+        hienThiToanBoTaiKhoan(); // thuc hien ham
         hienThiToanBoNhanVien();
     }
-    
+    // hien thi ds nhann vien len NhanvienTable
     private void hienThiToanBoNhanVien() {
-        NhanVien_Connect nv_conn = new NhanVien_Connect();
-        nhanViens = nv_conn.layToanBoNhanVien();
-        dtmNhanVien = new DefaultTableModel();
-        dtmNhanVien.addColumn("Mã nhân viên");
+        NhanVien_Connect nv_conn = new NhanVien_Connect();// tao 1 nv_conn moi cua NV_connect
+        nhanViens = nv_conn.layToanBoNhanVien(); // lay ds nv luu vao 1 arrayList nhanViens
+        dtmNhanVien = new DefaultTableModel(); // tao 1 bang nhanvien 
+        dtmNhanVien.addColumn("Mã nhân viên");  // them 3 cot 
         dtmNhanVien.addColumn("Tên nhân viên");
         dtmNhanVien.addColumn("Chức vụ");
-        dtmNhanVien.setRowCount(0);
-        for(NhanVien nv : nhanViens){
-            Vector<Object> vec = new Vector<Object>();
-            vec.add(nv.getMaNV());
+        dtmNhanVien.setRowCount(0); // xoa sach cac dong hien co de reload 
+        for(NhanVien nv : nhanViens){  // duyet
+            Vector<Object> vec = new Vector<Object>();  
+            vec.add(nv.getMaNV()); // them theo dung thu tu 
             vec.add(nv.getTenNV());
             vec.add(nv.getMaCV());
-            dtmNhanVien.addRow(vec);
+            dtmNhanVien.addRow(vec);// them 1 dong moi theo kieu vec
         }
-        NhanVienTable.setModel(dtmNhanVien);
+        NhanVienTable.setModel(dtmNhanVien); // gan du lieu dtmNhanVien hien thi len NhanVientable
     }   
-    
+    //hien thi ds tai khoan len TaiKhoanTable
     private void hienThiToanBoTaiKhoan(){
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
         taiKhoans = tk_conn.layToanBoTaiKhoan();
@@ -72,18 +66,22 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         }
         TaiKhoanTable.setModel(dtmTaiKhoan);
     }
-    
-    private void xuLyThemMoi(String maTK, String username, String manv) throws ParseException{
+    // xu ly envent them tai khoan 
+    private void xuLyThemMoi(String maTK, String username, String manv) throws ParseException{  // throws nem loi ngay gio tu csdl vao 
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
-        if(tk_conn.kiemTraTonTai(maTK, username, manv)==true) JOptionPane.showMessageDialog(null, "Mã tài khoản, username hoặc mã nhân viên đã tồn tại!");
+        if(tk_conn.kiemTraTonTai(maTK, username, manv)==true) // check ton tai 
+            JOptionPane.showMessageDialog(null, "Mã tài khoản, username hoặc mã nhân viên đã tồn tại!");
         else{
-            int ret=JOptionPane.showConfirmDialog(null, "Bạn muốn thêm tài khoản mới?", "xác nhận xác nhận để thêm", JOptionPane.OK_CANCEL_OPTION);
+            // thuc hien OK Cancle truoc khi thuc hien lenh tiep theo 
+            int ret=JOptionPane.showConfirmDialog(null, "Bạn muốn thêm tài khoản mới?", "Vui Lòng Xác Nhận", JOptionPane.OK_CANCEL_OPTION);
             if(ret==JOptionPane.OK_OPTION){
                 TaiKhoan tk= new TaiKhoan();
                 tk.setMaTK(maTK);
                 tk.setMaNV(manv);
                 tk.setUserName(username);
-                tk.setPassWord(PasswordInput.getText());
+                tk.setPassWord(PasswordInput.getText()); // thuc hien set ở ô password 
+                
+                //thuc hien phan quyen set  bang isselected  Jcheckbox tra ve true flase 
                 tk.setBaoCao(BaoCaoCheckBox.isSelected()? 1: 0);
                 tk.setTaiKhoan(TaiKhoanCheckBox.isSelected()? 1: 0);
                 tk.setDanhMuc(DanhMucCheckBox.isSelected()? 1: 0);
@@ -94,7 +92,9 @@ private ArrayList<TaiKhoan> dstk_tim=null;
                 tk.setNCCVPP(NCCVPPCheckBox.isSelected()? 1: 0);
                 tk.setVPP(VPPCheckBox.isSelected()? 1: 0);
                 tk.setKhachHang(KHCheckBox.isSelected()? 1: 0);
-                int activeLuu = tk_conn.themTaiKhoan(tk);
+                
+                //themTaiKhoan bang cau lệnh SQL 
+                int activeLuu = tk_conn.themTaiKhoan(tk);// activeLuu tra ve 1/0 
                 if(activeLuu>0){
                     JOptionPane.showMessageDialog(null, "Thêm mới thành công!");
                     hienThiToanBoTaiKhoan();
@@ -103,7 +103,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             } 
         } 
     }
-    
+ // ham check kiem tra da nhap chua    
     private boolean checkInputs(){
         if(MaTKInput.getText().isEmpty() || MaNVInput.getText().isEmpty() || UsernameInput.getText().isEmpty() || PasswordInput.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Thiếu dữ liệu!");
@@ -167,9 +167,26 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Tài khoản");
+        jLabel1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jLabel1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tài khoản", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
+        TaiKhoanTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         TaiKhoanTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TaiKhoanTableMouseClicked(evt);
@@ -308,6 +325,11 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             }
         });
 
+        TKMaNVInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TKMaNVInputActionPerformed(evt);
+            }
+        });
         TKMaNVInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TKMaNVInputKeyPressed(evt);
@@ -413,6 +435,14 @@ private ArrayList<TaiKhoan> dstk_tim=null;
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nhân viên", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
+        NhanVienTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         jScrollPane2.setViewportView(NhanVienTable);
 
         TimKiemNhanVienPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -433,7 +463,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             }
         });
 
-        TKNhanVienLabel.setText("Nhập tên nhân viên ");
+        TKNhanVienLabel.setText("Nhập tên nhân viên/Mã nhân viên");
 
         ALLNhanVienBtn.setBackground(new java.awt.Color(0, 102, 255));
         ALLNhanVienBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -456,7 +486,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
                 .addComponent(TenNVInput, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TKNhanVienBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ALLNhanVienBtn)
                 .addContainerGap())
         );
@@ -496,10 +526,29 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Phân quyền", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel3.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jPanel3AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         TaiKhoanCheckBox.setText("Tài khoản");
+        TaiKhoanCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TaiKhoanCheckBoxActionPerformed(evt);
+            }
+        });
 
         BaoCaoCheckBox.setText("Báo cáo");
+        BaoCaoCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BaoCaoCheckBoxActionPerformed(evt);
+            }
+        });
 
         NhanVienCheckBox.setText("Nhân viên");
 
@@ -607,14 +656,19 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // event click TKtable set lai cac quyen thong tin 
     private void TaiKhoanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TaiKhoanTableMouseClicked
-        int select = TaiKhoanTable.getSelectedRow();
-        MaTKInput.setText(TaiKhoanTable.getValueAt(select, 0)+"");
+        int select = TaiKhoanTable.getSelectedRow(); // xac dinh vi tri dong 
+        // gan du lieu tu dong dang chon vao textfield 
+        //setText hien thi tren o textfield
+        MaTKInput.setText(TaiKhoanTable.getValueAt(select, 0)+""); //ep kieu ve chuoi 
         MaNVInput.setText(TaiKhoanTable.getValueAt(select, 1)+"");
         UsernameInput.setText(TaiKhoanTable.getValueAt(select, 2)+"");
         PasswordInput.setText(TaiKhoanTable.getValueAt(select, 3)+"");
+        //truy van lai doi tuong tu CSDL bang MaTK
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
         TaiKhoan tk = tk_conn.TimTaiKhoanBangMaTK(MaTKInput.getText());
+        // lay get de hien thi phan quyen bang if else roi setselected lại 
         if(tk.getBaoCao()==1) BaoCaoCheckBox.setSelected(true);
         else BaoCaoCheckBox.setSelected(false);
         if(tk.getTaiKhoan()==1) TaiKhoanCheckBox.setSelected(true);
@@ -637,18 +691,21 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         else KHCheckBox.setSelected(false);
     }//GEN-LAST:event_TaiKhoanTableMouseClicked
 
+    // event them tai khoan 
     private void ThemTKBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThemTKBtnMouseClicked
-        if(!checkInputs()) return;
-        String maTK = MaTKInput.getText();
+        if(!checkInputs()) return; 
+        String maTK = MaTKInput.getText(); // lay du lieu tu textField 
         String username = UsernameInput.getText();
         String manv = MaNVInput.getText();
+        //
         try {
-            xuLyThemMoi(maTK, username, manv);
+            xuLyThemMoi(maTK, username, manv); // gọi hàm truyền dữ liệu vào 
         } catch (ParseException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_ThemTKBtnMouseClicked
 
+    // sửa lại thông tin và phân quyền tài khoản 
     private void SuaTKBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SuaTKBtnMouseClicked
         if(!checkInputs()) return;
         int ret=JOptionPane.showConfirmDialog(null, "Bạn muốn chỉnh sửa tài khoản?", "Xác nhận chỉnh sửa", JOptionPane.OK_CANCEL_OPTION);
@@ -659,6 +716,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             tk.setMaNV(MaNVInput.getText());
             tk.setUserName(UsernameInput.getText());
             tk.setPassWord(PasswordInput.getText());
+            //thực hiện tích checkBox lại 
             tk.setBaoCao(BaoCaoCheckBox.isSelected()? 1: 0);
             tk.setTaiKhoan(TaiKhoanCheckBox.isSelected()? 1: 0);
             tk.setDanhMuc(DanhMucCheckBox.isSelected()? 1: 0);
@@ -669,7 +727,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
             tk.setNCCVPP(NCCVPPCheckBox.isSelected()? 1: 0);
             tk.setVPP(VPPCheckBox.isSelected()? 1: 0);
             tk.setKhachHang(KHCheckBox.isSelected()? 1: 0);
-            int activeUpdate = tk_conn.updateTaiKhoan(tk);
+            int activeUpdate = tk_conn.updateTaiKhoan(tk);  //tai đây sửa tài khoản có sẵn theo SQL
              if(activeUpdate>0){
                 JOptionPane.showMessageDialog(null, "Chỉnh sửa thành công!");
                 hienThiToanBoTaiKhoan();
@@ -678,12 +736,13 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         }
     }//GEN-LAST:event_SuaTKBtnMouseClicked
 
+    // xóa tài khoản 
     private void XoaTKBTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XoaTKBTNMouseClicked
-        String matk = MaTKInput.getText();
+        String matk = MaTKInput.getText();// lay dữ liệu textField ở MaTk
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
         int ret = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn muốn xóa?", "Xác nhận xóa", JOptionPane.OK_CANCEL_OPTION);
         if(ret==JOptionPane.OK_OPTION){
-            int active = tk_conn.xoaTaiKhoan(matk);
+            int active = tk_conn.xoaTaiKhoan(matk);  // thực hiện delete với matk truyền vào SQL và kiểm tra pre.executUpdate
             if(active>0){
                     JOptionPane.showMessageDialog(null, "Xóa thành công!");
                     hienThiToanBoTaiKhoan();
@@ -694,29 +753,29 @@ private ArrayList<TaiKhoan> dstk_tim=null;
 
     private void TKTaiKhoanBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKTaiKhoanBtnMouseClicked
         //nếu ô mã nhân viên rỗng thì trả về tất cả nhân viên
-        if(TKMaNVInput.getText()==null ) {
+        if(TKMaNVInput.getText().trim().isEmpty() ) {
             hienThiToanBoTaiKhoan();
             return ;
         }
         //nếu không thì tìm theo mã nhân viên đó
-        String key = TKMaNVInput.getText();
+        String key = TKMaNVInput.getText(); // lay du lieu MaNV tu o tim kiem 
         TaiKhoan_Connect tk_conn = new TaiKhoan_Connect();
-        dstk_tim = tk_conn.timTaiKhoan(key);
-        dtmTaiKhoan.setRowCount(0);
+        dstk_tim = tk_conn.timTaiKhoan(key); // thuc hien tim tai khoan tra ve 1 thi gan vao mang dstk
+        dtmTaiKhoan.setRowCount(0);// xoa het du lieu cu tu table 
         for(TaiKhoan tk : dstk_tim){
             Vector<Object> vec = new Vector<Object>();
             vec.add(tk.getMaTK());
             vec.add(tk.getMaNV());
             vec.add(tk.getUserName());
             vec.add(tk.getPassWord());
-            dtmTaiKhoan.addRow(vec);
+            dtmTaiKhoan.addRow(vec);// them du lieu vec vao table 
         }
-        TaiKhoanTable.setModel(dtmTaiKhoan);
+        TaiKhoanTable.setModel(dtmTaiKhoan); // gan du lieu moi cho bang 
     }//GEN-LAST:event_TKTaiKhoanBtnMouseClicked
-
+// tìm khiếm nhân viên băngf tên/ mã nhân viên 
     private void TKNhanVienBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKNhanVienBtnMouseClicked
         //nếu ô tên nhân viên rỗng thì trả về tất cả nhân viên
-        if(TenNVInput.getText()==null ) {
+        if(TenNVInput.getText().trim().isEmpty() ) {
             hienThiToanBoNhanVien();
             return ;
         }
@@ -739,7 +798,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         }
 	NhanVienTable.setModel(dtmNhanVien);	
     }//GEN-LAST:event_TKNhanVienBtnMouseClicked
-
+// reset tài khoản 
     private void ResetTKBTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetTKBTNMouseClicked
         MaTKInput.setText("");
         MaNVInput.setText("");
@@ -760,7 +819,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
     private void ALLNhanVienBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ALLNhanVienBtnMouseClicked
         hienThiToanBoNhanVien();
     }//GEN-LAST:event_ALLNhanVienBtnMouseClicked
-
+// thực hiện phím enter thay vì bấm tìm kiếm 
     private void TKMaNVInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKMaNVInputKeyPressed
         if(evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
             TKTaiKhoanBtnMouseClicked(null);
@@ -777,13 +836,36 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         }
     }//GEN-LAST:event_TenNVInputKeyPressed
 
+
+
+    private void TaiKhoanCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TaiKhoanCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TaiKhoanCheckBoxActionPerformed
+
+    private void BaoCaoCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaoCaoCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BaoCaoCheckBoxActionPerformed
+
+
     private void DanhMucCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DanhMucCheckBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DanhMucCheckBoxActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
+    private void jLabel1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jLabel1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1AncestorAdded
+
+    private void jPanel3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jPanel3AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3AncestorAdded
+
+    private void TKMaNVInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TKMaNVInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TKMaNVInputActionPerformed
+
+
+    // sử dụng invokeLater chạy tron GUI để tránh xung đột 
     public void showWindow() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -811,7 +893,7 @@ private ArrayList<TaiKhoan> dstk_tim=null;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyTaiKhoan("Tài khoản").setVisible(true);
+                new QuanLyTaiKhoan("Tài khoản").setVisible(true); // tạo 1 cửa số mới để hiển thị 
             }
         });
     }

@@ -6,9 +6,12 @@ public class CTHD {
 	private double donGia ;
 	private int soLuong ;
 	private double thanhTien;
+        // constructor
 	public CTHD() {
-		super();
+		super();// super() gọi hàm tạo của lớp cha (Object, lớp cha mặc định của mọi lớp trong Java) . Bỏ cũng được 
 	}
+        
+        // methods
 	public String getMaHD() {
 		return maHD;
 	}

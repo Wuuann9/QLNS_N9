@@ -1,6 +1,7 @@
-package Model;
+package Model; //B:\BTL_OOP\QLNS_N9\QLNS\QLNS\QLNS\src\main\java\Model
 
 public class Sach {
+
 
     private String maSach;
     private String tenSach;
@@ -62,7 +63,6 @@ public class Sach {
     public void setTenDM(String tenDM) {
         this.tenDM = tenDM;
     }
-
 
     public int getSoLuong() {
         return soLuong;
