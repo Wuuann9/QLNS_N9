@@ -18,7 +18,7 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
             while(result.next()) // duyet tung dong trong bang 
             {
                 TaiKhoan tk = new TaiKhoan();
-                tk.setMaTK(result.getString(1)); // truy xuat csdl cot 1-4 gan vao tk 
+                tk.setMaTK(result.getString(1)); // truy xuat csdl cot 1-4 gan vao tk .
                 tk.setUserName(result.getString(2));//set la gan gia tri 
                 tk.setPassWord(result.getString(3));
                 tk.setMaNV(result.getString(4));
@@ -151,34 +151,34 @@ public class TaiKhoan_Connect extends Connect_sqlServer{  //truy xuat toan bo ta
         return false ;
     }
     
-    public int themTaiKhoan( TaiKhoan tk){ // dung kieu int de tra ve so luong dong  TAIKHOAN la kieu du lieu tu taikhoan.java
-        try{
-            String sql ="INSERT INTO TAIKHOAN (MaTk, MaNV, username, password, BaoCao, TaiKhoan, MaVach, Sach, NXB, NhanVien, HoaDon, NCCVPP, VPP, KhachHang) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-            PreparedStatement pre  =  conn.prepareStatement(sql);
-            
-            //thực hiện kiểm tra phân quyền 
-            pre.setString(1, tk.getMaTK());// duoi nay them tai khoan se truy xuat tung cot voi viec lay get de tra ve thuoc tinh cua matk
+    public int themTaiKhoan(TaiKhoan tk) { // dung kieu int de tra ve so luong dong  TAIKHOAN la kieu du lieu tu taikhoan.java
+        try {
+            String sql = "INSERT INTO TAIKHOAN (MaTk, MaNV, username, password, BaoCao, TaiKhoan, MaVach, Sach, NXB, NhanVien, HoaDon, NCCVPP, VPP, KhachHang) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
+            PreparedStatement pre = conn.prepareStatement(sql);
+
+            pre.setString(1, tk.getMaTK());
             pre.setString(2, tk.getMaNV());
-            pre.setString(3,  tk.getUserName());
-            pre.setString(4,  tk.getPassWord());
+            pre.setString(3, tk.getUserName());
+            pre.setString(4, tk.getPassWord());
+            //thực hiện kiểm tra phân quyền 
             // sau khi set xong gọi hàm này để get vào csdl
-            pre.setInt(5,  tk.getBaoCao()); // tra ve 1/0
-            pre.setInt(6,  tk.getTaiKhoan());
-            pre.setInt(7,  tk.getDanhMuc());
-            pre.setInt(8,  tk.getSach());
-            pre.setInt(9,  tk.getNXB());
-            pre.setInt(10,  tk.getNhanVien());
-            pre.setInt(11,  tk.getHoaDon());
-            pre.setInt(12,  tk.getNCCVPP());
-            pre.setInt(13,  tk.getVPP());
-            pre.setInt(14,  tk.getKhachHang());
-            return pre.executeUpdate();// danh cho insert tra ve kieu int 
-        }catch (Exception e) {
+            pre.setInt(5, tk.getBaoCao()); // tra ve 1/0
+            pre.setInt(6, tk.getTaiKhoan());// duoi nay them tai khoan se truy xuat tung cot voi viec lay get de tra ve thuoc tinh cua matk
+            pre.setInt(7, tk.getDanhMuc());
+            pre.setInt(8, tk.getSach());
+            pre.setInt(9, tk.getNXB());
+            pre.setInt(10, tk.getNhanVien());
+            pre.setInt(11, tk.getHoaDon());
+            pre.setInt(12, tk.getNCCVPP());
+            pre.setInt(13, tk.getVPP());
+            pre.setInt(14, tk.getKhachHang());
+            return pre.executeUpdate();// danh cho insert tra ve kieu int 1/0 để activeLuu kiem tra 
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
     }
-    
+
     public int updateTaiKhoan(TaiKhoan tk){
         try {
             String sql ="update TAIKHOAN set MaNV=?, username=?, password=? , BaoCao=?, TaiKhoan=?, MaVach=?, Sach=?, NXB=?, NhanVien=?, HoaDon=?, NCCVPP=?, VPP=?, KhachHang=? where MaTk=?" ;

@@ -161,9 +161,9 @@ public class HoaDon_Connect extends Connect_sqlServer{
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         try{
             String sql = "{call DoanhThuCacThang()}";
-             CallableStatement  stmt  = conn.prepareCall(sql);		
+             CallableStatement  stmt  = conn.prepareCall(sql);	  //stored provedure thu tu luu tru 	
             ResultSet result = stmt.executeQuery();
-            while(result.next()){
+            while(result.next()){ // lap qua tung dong 
                 dataset.addValue( Double.parseDouble(result.getString(2)),"Doanh thu bán hàng",result.getString(1));
             }
         }

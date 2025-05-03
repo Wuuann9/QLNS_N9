@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-package UI;
 
+package UI;
+// import DAO  sa
 import Connect.HoaDon_Connect;
 import Connect.Sach_Connect;
 import Connect.VanPhongPham_Connect;
@@ -12,15 +9,16 @@ import Model.Sach;
 import Model.TonKho;
 import Model.VPP;
 import java.awt.BorderLayout;
-import java.awt.Desktop;
+import java.awt.Desktop;// ho tro open excel
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+//tao ghi du lieu ra tep
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Calendar;//ngay thang 
 import java.util.Vector;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -29,6 +27,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.NumberFormatter;
+//thu vien xuat excel
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.hssf.usermodel.*;
 import org.jfree.chart.ChartFactory;
@@ -41,22 +40,23 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
-
+// hien thi giao dien 
 public class ThongKe extends javax.swing.JFrame {
-private DefaultTableModel dtmSach =null, dtmHoaDon =null, dtmBanChay = null, dtmTonKho = null, dtmNhapXuat=null;
-private DefaultTableModel dtmSP =null, dtmHoaDonSP =null, dtmBanChaySP = null, dtmTonKhoSP = null, dtmNhapXuatSP=null;
-private ArrayList<HoaDon> dshd_thongke =null;
+    //mo hinh du lieu su dung jtable sach/sp
 
-private ArrayList<Sach> dss ;
-private ArrayList<VPP> dssp;
-private ArrayList<TonKho> dstk, dstksp, dsnx, dsnxsp ;
-private double tongTien =0;
-private DecimalFormat df = new DecimalFormat("###,###,###");
-//sửa lại đường dẫn này cho phù hợp với đường dẫn trong máy
-String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
-    /**
-     * Creates new form ThongKe
-     */
+    private DefaultTableModel dtmSach = null, dtmHoaDon = null, dtmBanChay = null, dtmTonKho = null, dtmNhapXuat = null;
+    private DefaultTableModel dtmSP = null, dtmHoaDonSP = null, dtmBanChaySP = null, dtmTonKhoSP = null, dtmNhapXuatSP = null;
+    private ArrayList<HoaDon> dshd_thongke = null;
+
+    private ArrayList<Sach> dss;
+    private ArrayList<VPP> dssp;
+    private ArrayList<TonKho> dstk, dstksp, dsnx, dsnxsp;
+    private double tongTien = 0; // dung tong doanh thu khi thong ke 
+    private DecimalFormat df = new DecimalFormat("###,###,###");//dinh dang tien 
+
+String filePath = "D:\\";
+
+    // khoi tao giao dien va mo cac ham du lieu ngay sau do 
     public ThongKe(String title) {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
@@ -71,12 +71,12 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         hienThiNhapXuat();
     }
     
-    //chart cho doanh thu
-    private JFreeChart chart;
-    private DefaultCategoryDataset dataset;
-    private CategoryPlot categoryPlot;
-    private ChartPanel chartPanel;
-    //pipe chart cho sách
+    //chart cot cho doanh thu
+    private JFreeChart chart; // dung du lieu tao bieu do
+    private DefaultCategoryDataset dataset; // tap du lieu 
+    private CategoryPlot categoryPlot;// thay doi giao dien, mau sac
+    private ChartPanel chartPanel;//nhung vao giao dien swing 
+    //pipe chart tron cho sách
     private JFreeChart pipeChartSach;
     private DefaultPieDataset pieDatasetSach;
     private PiePlot piePlotSach;
@@ -92,12 +92,13 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         HoaDon_Connect hd_conn = new HoaDon_Connect();
         dataset = hd_conn.DoanhThuCacThang();
         
-        //tạo bảng thống kê
+        //tạo bảng thống kê (tieu de,nhan truc x,nhan truc y ,dl,cot dung,chu thich,thong tin khi click, khong co urls)
         chart = ChartFactory.createBarChart("Doanh thu năm nay","Tháng","VNĐ",dataset, PlotOrientation.VERTICAL, true, true, false);
         
         categoryPlot = chart.getCategoryPlot();
         //thay đổi màu nền
         //categoryPlot.setBackgroundPaint(new Color(255,255,255));
+        //hien thi bieu do 
         chartPanel = new ChartPanel(chart);
         
         //tạo biểu đồ tròn thể hiện số lượng các thể loại sách 
@@ -106,8 +107,9 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         pieDatasetSach = s_conn.laySachTheoTheLoai();
         //tạo bảng pipe chart
         pipeChartSach = ChartFactory.createPieChart3D("Các loại sách", pieDatasetSach, true, true, false);
-        piePlotSach =(PiePlot) pipeChartSach.getPlot();
-        piePlotSach.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({1})"));
+        // dung de truy cap vao bieu do tron 
+        piePlotSach =(PiePlot) pipeChartSach.getPlot(); //getplot tra ve plot nen phai ep sang pieplot
+        piePlotSach.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({1})"));//hien thi ten the loai(soluong)
         pieChartPanelSach = new ChartPanel(pipeChartSach);
         
         //tạo biểu đồ tròn thể hiện số lượng các danh mục sản phẩm
@@ -121,6 +123,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         piePlotSP.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({1})"));
         pieChartPanelSP = new ChartPanel(pipeChartSP);
         
+        // xoa-them-cap nhat-hien thi lai giao dien moi 
         DoanhThuPanel.removeAll();
         DoanhThuPanel.add(chartPanel,BorderLayout.CENTER);
         DoanhThuPanel.setPreferredSize(new Dimension(300, 300)); // Đặt kích thước tùy chỉnh cho DoanhThuPanel
@@ -134,16 +137,18 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         DanhMucPanel.add(pieChartPanelSP,BorderLayout.CENTER);
         DanhMucPanel.validate();
     }
-    
+    //hien thi sach can nhap 
     private void hienThiCanNhap() {
         Sach_Connect sach_conn = new Sach_Connect();
-        dss = sach_conn.laySachConDuoiTon((int)SLBaoDongInput.getValue());
+        // getValue tra ve object, SLBaoDongInput la 1 jSpinner
+        dss = sach_conn.laySachConDuoiTon((int)SLBaoDongInput.getValue()); 
         dtmSach = new DefaultTableModel();
         dtmSach.addColumn("Mã sách");
         dtmSach.addColumn("Tên sách");
-        dtmSach.addColumn("Tên nhà xuất bản");
+        dtmSach.addColumn("Tên NXB");
         dtmSach.addColumn("Số lượng tồn");
         dtmSach.setRowCount(0);
+        //duyet qua tung sach day vao vector as
         for(Sach s : dss){
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
@@ -151,11 +156,11 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
             vec.add(s.getMaNXB());
             vec.add(s.getSoLuong());
 
-            dtmSach.addRow(vec);
+            dtmSach.addRow(vec); //them mo hinh vec vao dtmSach
         }
-        NeedBookTable.setModel(dtmSach);
+        NeedBookTable.setModel(dtmSach); // hien thi ra jtable 
     }
-    
+    // hien thi san phan can nhap 
     private void hienThiSPCanNhap() {
         VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect();
         dssp = vpp_conn.laySPConDuoiTon((int)SLSPBaoDongInput.getValue());
@@ -176,12 +181,13 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         }
         NeedSPTable.setModel(dtmSP);
     }
-    
+    //hien thi sach ban chay
     private void hienThiSachBanChay() {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(); // goi ham 
         BanChayMonthInput.setSelectedIndex(cal.get(Calendar.MONTH) + 1); // Tháng bắt đầu từ 0 nên cần +1 để lấy tháng thực tế
         BanChayYearInput.setText(Integer.toString(cal.get(Calendar.YEAR)) );
         Sach_Connect sach_conn = new Sach_Connect();
+        // lay ds chuoi all ve dang chuoi 
         dss = sach_conn.laySachBanChay(TopBanChayInput.getValue().toString(), Integer.toString(BanChayMonthInput.getSelectedIndex()), BanChayYearInput.getText());
         dtmBanChay = new DefaultTableModel();
         dtmBanChay.addColumn("Mã sách");
@@ -198,7 +204,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         }
         BanChayTable.setModel(dtmBanChay);
     }
-    
+    // hien thi san pham ban chay 
     private void hienThiSPBanChay() {
         Calendar cal = Calendar.getInstance();
         SPBanChayMonthInput.setSelectedIndex(cal.get(Calendar.MONTH) + 1); // Tháng bắt đầu từ 0 nên cần +1 để lấy tháng thực tế
@@ -220,10 +226,11 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         }
         SPBanChayTable.setModel(dtmBanChaySP);
     }
-    
+    //hien thi ton kho 
     private void hienThiTonKho(){
         Calendar cal = Calendar.getInstance();
         Sach_Connect sach_conn = new Sach_Connect();
+        
         dstk = sach_conn.laySachTonKho(cal.get(Calendar.MONTH) + 1,cal.get(Calendar.YEAR));
         dtmTonKho = new DefaultTableModel();
         dtmTonKho.addColumn("Mã sản phẩm");
@@ -246,10 +253,10 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         }
         TonKhoTable.setModel(dtmTonKho);
     }
-     
+    //hien thi nhap xuat  
     private void hienThiNhapXuat(){
         Calendar cal = Calendar.getInstance();
-        NhapXuatMonthInput.setSelectedIndex(cal.get(Calendar.MONTH)-1);
+        NhapXuatMonthInput.setSelectedIndex(cal.get(Calendar.MONTH)+1);
         NhapXuatYearInput.setText(Integer.toString(cal.get(Calendar.YEAR)) );
         Sach_Connect sach_conn = new Sach_Connect();
         dsnx = sach_conn.layThongTinNhapXuat(cal.get(Calendar.MONTH),cal.get(Calendar.YEAR));
@@ -274,30 +281,37 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         }
         NhapXuatTable.setModel(dtmNhapXuat);
     }
-    
+    // tao file excel tu dtm sau do mo tu dong file excel 
     private void XuatFileExcel(DefaultTableModel dtm, String sheetName, String excelFilePath){
         try{
+            // dung tablemodel cua default luu du lieu dtm 
             TableModel model = dtm;
+            //tao 1 woorkbook excel
             Workbook workbook = new HSSFWorkbook();
+            //tao 1 sheet moi trong excel 
             Sheet sheet = workbook.createSheet(sheetName);
 
             // Ghi tiêu đề cột
             Row headerRow = sheet.createRow(0);
-            for (int col = 0; col < model.getColumnCount(); col++) {
-                Cell cell = headerRow.createCell(col);
-                cell.setCellValue(model.getColumnName(col));
+            for (int col = 0; col < model.getColumnCount(); col++) { // duyet qua tat ca cot trong dtm(default)
+                Cell cell = headerRow.createCell(col);// tao o dau tien 
+                cell.setCellValue(model.getColumnName(col));//gan gia tri 
             }
 
             // Ghi dữ liệu từ JTable vào Sheet
-            for (int row = 0; row < model.getRowCount(); row++) {
-                Row sheetRow = sheet.createRow(row + 1);
-                for (int col = 0; col < model.getColumnCount(); col++) {
-                    Object value = model.getValueAt(row, col);
-                    Cell cell = sheetRow.createCell(col);
+            for (int row = 0; row < model.getRowCount(); row++) { //duyet qua tung dong
+                Row sheetRow = sheet.createRow(row + 1); //bat dau tu dong 1 
+                for (int col = 0; col < model.getColumnCount(); col++) { //duyet qua tung o 
+                    Object value = model.getValueAt(row, col); // lay gi tri tai o do 
+                    Cell cell = sheetRow.createCell(col);// tao ra 1 o moi roi gan gia tri 
 
                     // Xác định kiểu dữ liệu của ô dữ liệu
-                    if (value instanceof Number) cell.setCellValue(((Number) value).doubleValue());
-                    else cell.setCellValue(value.toString());
+                    if (value instanceof Number) //kiem tra phai kieu so khong thi ep kieu
+                    {
+                        cell.setCellValue(((Number) value).doubleValue());
+                    } else {
+                        cell.setCellValue(value.toString());// khong thi chuyen value thanh chuoi 
+                    }
                 }
             }
 
@@ -306,16 +320,16 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
                 sheet.autoSizeColumn(col);
             }
 
-            //tạo file .xls
-            FileOutputStream outputStream = new FileOutputStream(excelFilePath);
-            workbook.write(outputStream);
+            //tạo file .xls tu workbook 
+            FileOutputStream outputStream = new FileOutputStream(excelFilePath);//luong dau ra 
+            workbook.write(outputStream);// ghi noi dung file ex
             workbook.close();
             outputStream.close();
-            //mở file pdf đó ra
-            File pdfFile = new File(excelFilePath);
-            if (pdfFile.exists()) {
-                if (Desktop.isDesktopSupported()) {
-                    Desktop.getDesktop().open(pdfFile);
+            //mở file ex đó ra
+            File pdfFile = new File(excelFilePath); // tao 1 doi tuong voi duong dan 
+            if (pdfFile.exists()) { //kiem tra fike ton tai khong 
+                if (Desktop.isDesktopSupported()) { // kiem tra desktop co ho tro mo ex 
+                    Desktop.getDesktop().open(pdfFile);// open file ex 
                 } else {
                     JOptionPane.showMessageDialog(null, "Máy tính không hỗ trợ!");
                 }
@@ -327,11 +341,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
                 e2.printStackTrace();
         }
     }
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -693,7 +703,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
 
         jTabbedPane1.addTab("Sản phẩm cần nhập", NeedSPPanel);
 
-        BanChayMonthInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        BanChayMonthInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         BanChayYearInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -781,7 +791,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
 
         jTabbedPane1.addTab("Sách bán chạy", SachBanChayPane);
 
-        SPBanChayMonthInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        SPBanChayMonthInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
         SPBanChayYearInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -913,11 +923,11 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+// event thong ke sach can nhap (event dua vao hienthicannhap() de lay du lieu cot cua dtm) 
     private void TKNeedBookBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TKNeedBookBtnMouseClicked
         Sach_Connect sach_conn = new Sach_Connect();
         dss = sach_conn.laySachConDuoiTon((int)SLBaoDongInput.getValue());
-        dtmSach.setRowCount(0);
+        dtmSach.setRowCount(0);// no chi xoa du lieu nen cac cot van giu nguyen 
         for(Sach s : dss){
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
@@ -929,17 +939,18 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
         }
         NeedBookTable.setModel(dtmSach);
     }//GEN-LAST:event_TKNeedBookBtnMouseClicked
-
+//xuat file excel 
     private void PrintNeedBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintNeedBookBtnActionPerformed
+        // null tuc khong co lop cha va hien thi giua man hinh 
         int dialogResult = JOptionPane.showConfirmDialog (null, "Xuất file excel?","Warning",JOptionPane.YES_NO_OPTION);
         if(dialogResult == JOptionPane.YES_OPTION)
             XuatFileExcel(dtmSach, "Sách cần nhập", filePath+"SachCanNhap.xls" );
     }//GEN-LAST:event_PrintNeedBookBtnActionPerformed
-
+// event sach ban chay 
     private void BanChayBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BanChayBtnMouseClicked
         Sach_Connect sach_conn = new Sach_Connect();
         dss = sach_conn.laySachBanChay(TopBanChayInput.getValue().toString(), Integer.toString(BanChayMonthInput.getSelectedIndex()), BanChayYearInput.getText());
-        dtmBanChay.setRowCount(0);
+        dtmBanChay.setRowCount(0);//xoa cac o du lieu 
         for(Sach s : dss){
             Vector<Object> vec = new Vector<Object>();
             vec.add(s.getMaSach());
@@ -991,7 +1002,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
     private void SaveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveBtnMouseClicked
         int dialogResult = JOptionPane.showConfirmDialog (null, "Bạn có chắc chắn muốn lưu vào Cơ sở dữ liệu?","Warning",JOptionPane.YES_NO_OPTION);
         if(dialogResult == JOptionPane.YES_OPTION){
-            if(TonKhoTable.getModel().getRowCount() != 0){
+            if(TonKhoTable.getModel().getRowCount() != 0){ // kiem tra xem bang co chua du lieu hay khong
                 Sach_Connect sach_conn = new Sach_Connect();
                 Calendar cal = Calendar.getInstance();
                 int result = sach_conn.luuDuLieuVaoTonKho(TonKhoTable, cal.get(Calendar.MONTH)+1, cal.get(Calendar.YEAR));
@@ -1049,7 +1060,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
     }//GEN-LAST:event_SPPrintBanChayBtnActionPerformed
 
     private void NhapXuatYearInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NhapXuatYearInputKeyTyped
-       char c = evt.getKeyChar();
+       char c = evt.getKeyChar(); // lay ky tu nhap 
         if (!Character.isDigit(c) || NhapXuatYearInput.getText().length() >= 4) {
             evt.consume(); // Ngăn chặn ký tự không hợp lệ và ngăn chặn nhập quá 4 ký tự
         }
@@ -1113,9 +1124,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
     private javax.swing.JTextField BanChayYearInput;
     private javax.swing.JLabel BanChayYearLabel;
     private javax.swing.JPanel DanhMucPanel;
-    private javax.swing.JPanel DanhMucPanel1;
     private javax.swing.JPanel DoanhThuPanel;
-    private javax.swing.JPanel DoanhThuPanel1;
     private javax.swing.JPanel NeedBookPane;
     private javax.swing.JTable NeedBookTable;
     private javax.swing.JPanel NeedSPPanel;
@@ -1151,9 +1160,7 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
     private javax.swing.JButton TKNeedBookBtn;
     private javax.swing.JButton TKNeedSPBtn;
     private javax.swing.JPanel TheLoaiPanel;
-    private javax.swing.JPanel TheLoaiPanel1;
     private javax.swing.JPanel ThongKePane;
-    private javax.swing.JPanel ThongKePane1;
     private javax.swing.JLabel TonKhoLabel;
     private javax.swing.JPanel TonKhoSachPane;
     private javax.swing.JTable TonKhoTable;
@@ -1168,7 +1175,5 @@ String filePath = "D:\\BTL_OOP\\QLNS\\QLNS\\Excel\\";
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTabbedPane jTabbedPane3;
-    private javax.swing.JTabbedPane jTabbedPane4;
     // End of variables declaration//GEN-END:variables
 }
