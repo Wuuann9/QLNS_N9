@@ -88,7 +88,7 @@ public class BanHang extends javax.swing.JFrame {
 //        }
 //    }
 
-// 
+// Hàm xử ký hiển thị toàn bộ sách
     private void hienThiToanBoSach() {
         Sach_Connect sachConn = new Sach_Connect();
         dss = sachConn.layToanBoSach();
@@ -112,11 +112,12 @@ public class BanHang extends javax.swing.JFrame {
             vec.add(s.getGiaBan());
             vec.add(s.getDiscount());
             vec.add(s.getGiaBan() * (100 - s.getDiscount()) / 100);
-            dtmSach.addRow(vec);
+            dtmSach.addRow(vec);// thêm thông tin sách vào dss
         }
         TableSach.setModel(dtmSach);
     }
 
+// hàm xử lý hiển thị tất cả VPP
     private void hienThiTatCaVPP() {
         VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect();
         dsvpp = vpp_conn.layToanBoVPP();
@@ -143,10 +144,11 @@ public class BanHang extends javax.swing.JFrame {
         SPTable.setModel(dtmVPP);
     }
 
+// hàm xử lý hiện thị tất cả danh mục 
     private void hienThiTatCaDanhMuc() {
         VanPhongPham_Connect vpp_conn = new VanPhongPham_Connect();
         dsdm = vpp_conn.layTatCaDanhMuc();
-        DanhMucInput.addItem("Tất cả");
+        DanhMucInput.addItem("Tất cả"); // thêm lựa chọn "tất cả" cho giao diện danh mục 
         for (String dm : dsdm) {
             DanhMucInput.addItem(dm);
         }
@@ -203,6 +205,7 @@ public class BanHang extends javax.swing.JFrame {
     }
 
 
+    // hàm xử lý thêm CTHD
     private void ThemCTHD(boolean sach) {
         Vector<Object> vec = new Vector<Object>();
         CTHD vec1 = new CTHD();
