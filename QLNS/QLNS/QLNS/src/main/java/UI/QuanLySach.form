@@ -237,7 +237,9 @@
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Component id="NXBInput" min="-2" pref="258" max="-2" attributes="0"/>
-                                                  <EmptySpace pref="87" max="32767" attributes="0"/>
+
+                                                  <EmptySpace pref="89" max="32767" attributes="0"/>
+
                                                   <Component id="jLabel_TheLoai" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -249,7 +251,9 @@
                                       <Component id="TKInput_SoLuong" pref="258" max="32767" attributes="0"/>
                                       <Component id="DanhM" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="86" max="32767" attributes="0"/>
+
+                                  <EmptySpace pref="89" max="32767" attributes="0"/>
+
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jLabel_GiaBan" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel_Discount" min="-2" max="-2" attributes="0"/>
@@ -299,9 +303,14 @@
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel_TenSach" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TKInput_TenSach" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel_TenSach" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="TKInput_TenSach" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                                  </Group>
+
                               </Group>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="TKInput_SoLuong" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>

@@ -1,6 +1,7 @@
 
 package Connect; // Xác định file này thuộc package Connect, dùng để chứa các class kết nối database
 
+
 import Model.CTHD; //  Class lưu trữ thông tin chi tiết hóa đơn.
 import java.sql.PreparedStatement; // Chuẩn bị câu lệnh SQL để thực thi.
 import java.sql.ResultSet; //  Nhận dữ liệu trả về từ truy vấn SQL.
@@ -9,10 +10,9 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel; 
 
 
-
+// thao tác với bảng CTHD trong CSDL
 public class CTHD_Connect extends Connect_sqlServer{
-    
-    // thêm một sách/vpp chi tiết hóa đơn vào bảng CTHD.
+    // thêm một dòng chi tiết hóa đơn vào bảng CTHD.
     public int ThemCT(CTHD cthd) {
         try {	
             String sql = "insert into CTHD values(?,?,?,?,?) " ; // Tạo câu lệnh SQL với 5 dấu ? (tương ứng 5 cột cần điền trong bảng CTHD)

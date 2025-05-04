@@ -127,12 +127,15 @@ public class QuanLySach extends javax.swing.JFrame {
             NXBInput.addItem(s);
             NXBInput_TangGia.addItem(s);
         }
+
     }
+
  
     
 // Hiển thị toàn bộ danh mục 
     private void hienThiToanBoDanhMuc() {
         // 1. tạo đối tượng xử lý kết nối + truy vấn CSDL "DANHMUC"
+
         DM_Connect nxbconn = new DM_Connect();
         // 2. lấy toàn bộ danh mục  = dsdm
         dsdm = nxbconn.layToanBoDanhMuc();
@@ -146,10 +149,13 @@ public class QuanLySach extends javax.swing.JFrame {
         for (DM s : dsdm) {
             DanhM.addItem(s.getTenDM());
         }
+
     }
+
 
     
 // kiểm tra xem một chuỗi (String) có thể được chuyển đổi thành một số nguyên (Integer) hay không
+
     public static boolean isNumeric(String string) {
         int intValue; // có thể bỏ 
          // 1. Kiểm tra đầu vào có hợp lệ hay không : phải khác rỗng hoặc null
@@ -166,7 +172,9 @@ public class QuanLySach extends javax.swing.JFrame {
         return false;
     }
 
+
 // kiểm tra xem một chuỗi (String) có thể được chuyển đổi thành một số thực (double) hay không.
+
     public static boolean isNumeric_Double(String string) {
         double intValue; // có thể bỏ 
 
@@ -424,14 +432,18 @@ public class QuanLySach extends javax.swing.JFrame {
                                         .addComponent(jLabel_TacGia))
                                     .addGroup(jPanel_DataLayout.createSequentialGroup()
                                         .addComponent(NXBInput, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+
                                         .addComponent(jLabel_TheLoai)))
                                 .addGap(40, 40, 40)))
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TKInput_TacGia, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                             .addComponent(TKInput_SoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                             .addComponent(DanhM, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+
                         .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel_GiaBan)
                             .addComponent(jLabel_Discount)))
@@ -469,9 +481,13 @@ public class QuanLySach extends javax.swing.JFrame {
                     .addComponent(DanhM, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel_TenSach, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(TKInput_TenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+
+                    .addGroup(jPanel_DataLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel_TenSach)
+                            .addComponent(TKInput_TenSach, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+
                     .addGroup(jPanel_DataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(TKInput_SoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel_SoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -677,6 +693,7 @@ public class QuanLySach extends javax.swing.JFrame {
     
 // Hàm xử lý khi nhấn " cập nhật " lại các thuộc tính của sách
     private void jButton_ChinhSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ChinhSuaActionPerformed
+
         // 1. Kiểm tra dữ liệu nhập vào => đảm bảo k được nhập thiếu trường nào trong 8 thuộc tính 
         if (TKInput_MaSach.getText().length() == 0
                 || TKInput_TenSach.getText().length() == 0 || TKInput_TacGia.getText().length() == 0
@@ -711,7 +728,9 @@ public class QuanLySach extends javax.swing.JFrame {
         s.setMaSach(TKInput_MaSach.getText().trim()); // Gán mã sách (loại bỏ khoảng trắng  đầu + cuối bằng trim()).
         s.setTenSach(TKInput_TenSach.getText().trim());
         s.setMaNXB(manxb.getMaNXB());
-        s.setTacGia(TKInput_TacGia.getText());
+
+        s.setTacGia(TKInput_TacGia.getText().trim());
+
         s.setTenDM(tendm.toString());
 
         // 5. Kiểm tra định dạng số : giá bán phải số thực , số lượng và giảm giá phải là số nguyên 
@@ -726,11 +745,13 @@ public class QuanLySach extends javax.swing.JFrame {
         s.setGiaBan(Double.parseDouble(TKInput_GiaBan.getText().trim()));
         s.setSoLuong(Integer.parseInt(TKInput_SoLuong.getText().trim()));
         s.setDiscount(Integer.parseInt(TKInput_Discount.getText().trim()));
+
         
         // 7. Hiển thị thông báo kết quả
         Sach_Connect sachconnect = new Sach_Connect();
         int active = sachconnect.update(s); // update sẽ trả về 1 = thành công , 0 nếu k có cập nhật , -1 nếu lỗi (Exception)
          if (active > 0) {
+
             JOptionPane.showMessageDialog(null, "Chỉnh sửa thông tin sách thành công");
         } else if (active == 0) { // sai mã sách , ..
             JOptionPane.showMessageDialog(this, "Không tìm thấy sách để chỉnh sửa!", "Error", JOptionPane.WARNING_MESSAGE);
@@ -938,6 +959,7 @@ public class QuanLySach extends javax.swing.JFrame {
         //TH3: tìm kiếm theo tên tác giả (TKInput1)
         else if (TKInput.getText().length() == 0 && TKInput1.getText().length() != 0) {
             dtmSach.setRowCount(0);
+
 
             for (Sach s : dssTacGia) {
                 Vector<Object> vec = new Vector<Object>();
@@ -1185,7 +1207,7 @@ public class QuanLySach extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new QuanLySach("Qu\u1ea3n l\u00fd s\u00e1ch", MaNV).setVisible(true);
+                new QuanLySach("Quản lý sách", MaNV).setVisible(true);
             }
         });
     }

@@ -493,9 +493,10 @@ public int luuDuLieuVaoTonKho(JTable jTable1, int thang, int nam){
     {
         ArrayList<Sach> dssTon = new ArrayList<Sach>();
         try {
+            //ket hop 2 bang sach va nxb voi dk = nxb loc sach <=
             String sql ="select SACH.MaSach , SACH.TenSach , SACH.SoLuong , NXB.TenNXB from SACH,NXB where SACH.MaNXB = NXB.MaNXB and SACH.SoLuong<=?" ;
             PreparedStatement pre = conn.prepareStatement(sql);
-            pre.setInt(1, SL);
+            pre.setInt(1, SL);// gan gia tri SL vao ?
             ResultSet result = pre.executeQuery();
             while (result.next()){	
                 Sach s = new Sach();				
@@ -525,6 +526,7 @@ public int luuDuLieuVaoTonKho(JTable jTable1, int thang, int nam){
     //2. Truy vấn CSDL SACH 
      // => Lấy ra theo cặp (thể loại,số lượng)
        try{
+           //truy van ra the loai sach va so luong 
             String sql = "SELECT TheLoai, COUNT(MaSach) AS SoLuongSach FROM SACH GROUP BY TheLoai";
             // GROUP BY TheLoai: Nhóm kết quả theo cột TheLoai =>  mỗi nhóm sẽ có một giá trị TheLoai và số lượng sách tương ứng.
             PreparedStatement pre = conn.prepareStatement(sql);		

@@ -137,9 +137,8 @@ public class HoaDon_Connect extends Connect_sqlServer{
         return dshd ;
     }
 	
-    
-    
- // lấy ra "MaHD" mới nhất từ CSDL "HOADON"
+
+    // lấy ra "MaHD" mới nhất từ CSDL "HOADON"
     public String LastMaHD(){
         try{
             //String sql = "select * from hoadon ORDER BY mahd DESC LIMIT 1" ;
@@ -162,9 +161,9 @@ public class HoaDon_Connect extends Connect_sqlServer{
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         try{
             String sql = "{call DoanhThuCacThang()}";
-             CallableStatement  stmt  = conn.prepareCall(sql);		
+             CallableStatement  stmt  = conn.prepareCall(sql);	  //stored provedure thu tu luu tru 	
             ResultSet result = stmt.executeQuery();
-            while(result.next()){
+            while(result.next()){ // lap qua tung dong 
                 dataset.addValue( Double.parseDouble(result.getString(2)),"Doanh thu bán hàng",result.getString(1));
             }
         }
@@ -173,9 +172,7 @@ public class HoaDon_Connect extends Connect_sqlServer{
         }
         return dataset;
     }
-    
-    
-    
+
 // HÀM Đẩy hóa đơn vào CSDL
     public int TaoHD(HoaDon hd) {
         try {

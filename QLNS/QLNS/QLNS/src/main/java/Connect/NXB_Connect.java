@@ -76,6 +76,8 @@ public class NXB_Connect extends Connect_sqlServer
             }
             return -1 ;
 	}
+        
+        
         public boolean kiemTraTonTai(String manv)
         {
         NXB nxb = new NXB();
@@ -91,7 +93,7 @@ public class NXB_Connect extends Connect_sqlServer
 
         return false ;
         }
-	//hàm xóa 1 NXB
+	//Xóa 1 NXB
 	public int XoaNXB(String manxb)
 	{
             try {

@@ -18,9 +18,6 @@ public class QuanLyNXB extends javax.swing.JFrame {
     private ArrayList<NXB> dsnxbs = null;
     private ArrayList<NXB> dsnxb_tim = null;
 
-    /**
-     * Creates new form QuanLyNXB
-     */
     public QuanLyNXB(String title) {
         initComponents();
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("images/books_30px.png"));
@@ -534,9 +531,7 @@ public class QuanLyNXB extends javax.swing.JFrame {
             TKNXBBtnActionPerformed(null);
     }//GEN-LAST:event_TimKiemInputKeyPressed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public void showWindow() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
